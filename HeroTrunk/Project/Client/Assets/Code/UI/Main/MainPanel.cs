@@ -5,14 +5,14 @@ namespace MS
 {
 	public class MainPanel : MonoBehaviour
 	{
-		public Button SingleBtn;
+		public Button NormalBtn;
 
 		private void Awake()
 		{
-			//SingleBtn.onClick.AddListener(OnClickSingle);
+			NormalBtn.onClick.AddListener(OnClickNormal);
 		}
 
-		private void OnClickSingle()
+		private void OnClickNormal()
 		{
 			//SceneLoaderMain.GetInst().LoadBattleScene();
 		}
