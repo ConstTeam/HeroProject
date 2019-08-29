@@ -23,6 +23,11 @@ namespace MS
 			return _inst;
 		}
 
+		private void OnDestroy()
+		{
+			_inst = null;
+		}
+
 		private void Awake()
 		{
 			BattleCam.rect = ApplicationConst.sceneCamRect;
@@ -32,9 +37,9 @@ namespace MS
 			_battleScene	= new BattleSceneNormal();
 		}
 
-		private void OnDestroy()
+		private void Start()
 		{
-			_inst = null;
+			Load();
 		}
 
 		private void Load()

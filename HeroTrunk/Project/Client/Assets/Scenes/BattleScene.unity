@@ -226,6 +226,7 @@ MonoBehaviour:
   BattleCam: {fileID: 534669904}
   BattleRootTrans: {fileID: 1125660363}
   BattlePoolGo: {fileID: 1320551037}
+  m_BattlePoor: {fileID: 0}
   m_CharInScene: {fileID: 0}
 --- !u!1 &1125660362
 GameObject:

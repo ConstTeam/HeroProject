@@ -14,13 +14,18 @@ namespace MS
 			_transform = transform;
 		}
 
+		private void Start()
+		{
+			LoadHero();
+		}
+
 		private void LoadHero()
 		{
-			List<int> charIds = GroupData.m_lstNormalGroup;
+			List<string> charIds = GroupData.m_lstNormalGroup;
 
 			GameObject charGo;
 			GameObject handlerGo;
-			int charId;
+			string charId;
 			for(int i = 0; i < charIds.Count; ++i)
 			{
 				charId = charIds[i];

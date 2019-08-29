@@ -101,9 +101,9 @@ public class LoginPanel : MonoBehaviour
 		ApplicationConst.bGM = true;
 		PlayerData.PlayerId = 101;
 		PlayerData.Nickname = "abc";
-		GroupData.m_lstNormalGroup.Add(1001);
-		GroupData.m_lstNormalGroup.Add(1002);
-		GroupData.m_lstNormalGroup.Add(1006);
+		GroupData.m_lstNormalGroup.Add("006");
+		GroupData.m_lstNormalGroup.Add("007");
+		GroupData.m_lstNormalGroup.Add("008");
 		SceneLoader.LoadScene("MainScene");
 	}
 

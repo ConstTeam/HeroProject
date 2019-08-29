@@ -12,7 +12,7 @@ namespace MS
 			m_Transform = transform.parent;
 		}
 
-		public void Init(int charId, BattleEnum.Enum_CharSide side, int index = -1)
+		public void Init(string charId, BattleEnum.Enum_CharSide side, int index = -1)
 		{
 			m_iIndex = index;
 		}

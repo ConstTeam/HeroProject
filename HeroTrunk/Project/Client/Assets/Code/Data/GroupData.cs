@@ -4,6 +4,6 @@ namespace MS
 {
 	public class GroupData
 	{
-		public static List<int> m_lstNormalGroup = new List<int>();
+		public static List<string> m_lstNormalGroup = new List<string>();
 	}
 }

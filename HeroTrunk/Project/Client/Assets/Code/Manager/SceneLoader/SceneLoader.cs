@@ -89,7 +89,8 @@ namespace MS
 
 		public static void LoadBattleScene()
 		{
-			if(_sCurSceneName == "BattleScene") return;
+			if(_sCurSceneName == "BattleScene")
+				return;
 			_sCurSceneName = "BattleScene";
 
 			SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);
