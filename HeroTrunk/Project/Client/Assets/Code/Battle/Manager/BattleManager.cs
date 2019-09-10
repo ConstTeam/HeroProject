@@ -47,6 +47,11 @@ namespace MS
 			BattlePoolGo.AddComponent<BattleScenePool>();
 		}
 
+		private void Start()
+		{
+			ResourceLoader.LoadAssetAndInstantiate(m_sSpawnName);
+		}
+
 		public void BattleInit()
 		{
 
@@ -119,7 +124,7 @@ namespace MS
 		public static void EnterBattle()
 		{
 			m_sAddSceneName = "BattleNormal";//SectionData.GetSceneName(m_iSectionID, m_eBattleType);
-			m_sSpawnName = "Spawn001";//SectionData.GetSceneSpawn(m_iSectionID, m_eBattleType);
+			m_sSpawnName = "Spawn/Spawn001";//SectionData.GetSceneSpawn(m_iSectionID, m_eBattleType);
 			SceneLoaderMain.GetInst().LoadBattleScene();
 		}
 		#endregion
