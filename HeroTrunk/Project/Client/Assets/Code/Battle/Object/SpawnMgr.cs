@@ -1,16 +1,22 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnMgr : MonoBehaviour {
+namespace MS
+{
+	public class SpawnMgr : MonoBehaviour
+	{
+		public enum SpawnType
+		{
+			Normal,
+			PVP
+		}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		public SpawnType m_eSpawnType;
+		public SpawnHeroBase m_SpawnHerosMine;
+		public SpawnHeroBase m_SpawnHerosEnemy;
+		public SpawnMonster[] m_SpawnMonsters;
+
+		private int _iCurSpawnMonsterIndex;
 	}
 }

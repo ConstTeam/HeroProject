@@ -77,8 +77,8 @@ public class LoginPanel : MonoBehaviour
 			return;
 		}
 
-		PlayerData.Account = account;
-		PlayerData.Token = passwordInput.text;
+		PlayerInfo.Account = account;
+		PlayerInfo.Token = passwordInput.text;
 
 		OnPlatformLogin();
 	}
@@ -92,18 +92,18 @@ public class LoginPanel : MonoBehaviour
 			DeviceInfo.GetDeviceInfo(),
 			System.Guid.NewGuid().ToString(),
 			SystemInfo.deviceUniqueIdentifier,
-			PlayerData.Account,
-			PlayerData.Token
+			PlayerInfo.Account,
+			PlayerInfo.Token
 		};
 		//CommonCommand.ExecuteShort(Client2ServerList.GetInst().C2S_LOGIN_SHORT, _loginParam, true);
 
 		SaveAccount();
 		ApplicationConst.bGM = true;
-		PlayerData.PlayerId = 101;
-		PlayerData.Nickname = "abc";
-		GroupData.m_lstNormalGroup.Add("006");
-		GroupData.m_lstNormalGroup.Add("007");
-		GroupData.m_lstNormalGroup.Add("008");
+		PlayerInfo.PlayerId = 101;
+		PlayerInfo.Nickname = "abc";
+		GroupInfo.m_lstNormalGroup.Add("006");
+		GroupInfo.m_lstNormalGroup.Add("007");
+		GroupInfo.m_lstNormalGroup.Add("008");
 		SceneLoader.LoadScene("MainScene");
 	}
 

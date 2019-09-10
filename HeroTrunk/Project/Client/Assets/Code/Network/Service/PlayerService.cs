@@ -12,8 +12,8 @@ namespace MS
 				case PLAYER_INFO:
 					LoginPanel.GetInst().SaveAccount();
 					ApplicationConst.bGM = data.readBoolean();
-					PlayerData.PlayerId = data.readInt();
-					PlayerData.Nickname = data.readUTF();
+					PlayerInfo.PlayerId = data.readInt();
+					PlayerInfo.Nickname = data.readUTF();
 					SceneLoader.LoadScene("MainScene");
 					break;
 			}

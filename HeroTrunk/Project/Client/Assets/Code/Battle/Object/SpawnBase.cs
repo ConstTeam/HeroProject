@@ -64,7 +64,7 @@ namespace MS
 		public void ReleaseChar()
 		{
 			CreateCharacters();
-			if(BattleManager.GetInst().m_BattleSceneTimer.m_iSec >= 0)
+			if(BattleManager.GetInst().m_SceneTimer.m_iSec >= 0)
 				EnableCharacters();
 		}
 

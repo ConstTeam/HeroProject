@@ -29,8 +29,8 @@ namespace MS
 
 		public enum Enum_AttackType
 		{
-			Close,      //��ս
-			Distant     //Զ��
+			Close,
+			Distant
 		}
 	}
 }

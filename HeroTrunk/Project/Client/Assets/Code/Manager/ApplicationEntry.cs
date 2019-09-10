@@ -35,6 +35,7 @@ public class ApplicationEntry : MonoBehaviour
 		_gameObject.AddComponent<InputManager>();
 		_gameObject.AddComponent<SocketHandler>();
 		_gameObject.AddComponent<ServiceManager>();
+		_gameObject.AddComponent<FormulaManager>();
 
 		PlatformSet();
 	}

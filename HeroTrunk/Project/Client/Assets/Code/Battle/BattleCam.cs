@@ -4,9 +4,11 @@ namespace MS
 {
 	public class BattleCam : MonoBehaviour
 	{
-		private Transform _transform;
-		private Transform _target;
-		private Vector3 _offset;
+		public CharHandler	m_CharHandler;
+
+		private Transform	_transform;
+		private Transform	_target;
+		private Vector3		_offset;
 
 		private static BattleCam _inst;
 		public static BattleCam GetInst()
@@ -32,9 +34,10 @@ namespace MS
 			_transform.position = Vector3.Lerp(_transform.position, _target.position + _offset, Time.deltaTime * 5);
 		}
 
-		public void SetTarget(Transform target)
+		public void SetTarget(CharHandler charHandler)
 		{
-			_target = target;
+			m_CharHandler = charHandler;
+			_target = charHandler.m_Transform;
 			enabled = true;
 		}
 

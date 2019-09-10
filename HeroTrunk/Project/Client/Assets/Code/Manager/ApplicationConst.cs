@@ -20,7 +20,9 @@ namespace MS
 		public static Rect			sceneCamRect;
 		public static float			matchWidthOrHeight;
 
-		public static int			iPlatTypeCount		= 6;
+		public static float			fFightSlideMin;
+		public static float			fFightSlideMax;
+		public static float			fBackwardCD;
 
 		public static string BundleVersion
 		{
@@ -55,7 +57,13 @@ namespace MS
 
 		public void OnConfigLoadEnd()
 		{
+			new SkillHandler();
 
+			ConfigTable tbl		= ConfigData.GetValue("InitValues_Common");
+			string[] slideDis	= tbl.GetValue("FIGHT_SLIDE", "Value").Split(',');
+			fFightSlideMin		= int.Parse(slideDis[0]);
+			fFightSlideMax		= int.Parse(slideDis[1]);
+			fBackwardCD			= float.Parse(tbl.GetValue("BACKWARD_CD", "Value"));
 		}
 
 		private void SetSceneCamRect()
