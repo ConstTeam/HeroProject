@@ -53,14 +53,13 @@ namespace MS
 
 		private void LoadHero()
 		{
-			List<int> charIds = GroupInfo.m_lstNormalGroup;
-
 			GameObject charGo;
 			GameObject handlerGo;
+			List<int> charIds = BattleManager.GetInst().GetHeroIdsMine();
 			int charId;
-			for(int i = 0; i < charIds.Count; ++i)
+			for(int i = 0; i < m_lstCharMineID.Count; ++i)
 			{
-				charId = charIds[i];
+				charId = m_lstCharMineID[i];
 				charGo = ResourceLoader.LoadAssetAndInstantiate(string.Format("Character/Hero{0}_Stand", charId.ToString()), _transform, PositionMgr.vecHidePos);
 				handlerGo = new GameObject("Handler");  //把其他代码和CharAnimCallback分开放
 				handlerGo.transform.SetParent(charGo.transform);

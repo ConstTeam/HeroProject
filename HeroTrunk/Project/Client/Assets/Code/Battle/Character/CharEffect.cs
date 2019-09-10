@@ -40,9 +40,9 @@ namespace MS
 			_charHandler = handler;
 			_transform = handler.m_Transform;
 
-			LoadHormalHitEffect();
-			LoadSkillEffect();
-			LoadCommonEffect();
+			//LoadHormalHitEffect();
+			//LoadSkillEffect();
+			//LoadCommonEffect();
 		}
 
 		private void LoadSkillEffect()

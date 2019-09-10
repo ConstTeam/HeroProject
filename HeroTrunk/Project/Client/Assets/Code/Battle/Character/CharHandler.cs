@@ -23,13 +23,17 @@ namespace MS
 		public GameObject	UIObj;		//血条容器
 		public GameObject	UIFollowGo; //血条跟随
 
+		private CharAnimCb	_animCb;
+
 		public void Init(int charId, BattleEnum.Enum_CharSide side, int index = -1)
 		{
 			m_Go			= gameObject;
 			m_Transform		= transform.parent;
 			m_iIndex		= index;
+			_animCb			= m_Transform.GetComponent<CharAnimCb>();
 			m_CharBody		= m_Go.GetComponent<CharBody>();
 			m_CharData		= m_Go.AddComponent<CharData>();
+			m_CharState		= m_Go.AddComponent<CharState>();
 			m_CharMove		= m_Go.AddComponent<CharMove>();
 			m_CharAnim		= m_Go.AddComponent<CharAnim>();
 			m_CharTick		= m_Go.AddComponent<CharTick>();
@@ -37,6 +41,19 @@ namespace MS
 			m_CharSlide		= m_Go.AddComponent<CharSlide>();
 			m_CharSkill		= m_Go.AddComponent<CharSkill>();
 			m_CharDefence	= new CharDefence(this);
+
+			m_CharData.m_iCharID = charId;
+			m_CharData.m_eSide = side;
+			_animCb.SetCharHandler(this);
+			m_CharData.Init(index);
+			m_CharState.SetCharHandler(this);
+			m_CharMove.SetCharHandler(this);
+			m_CharAnim.SetCharHandler(this);
+			m_CharTick.SetCharHandler(this);
+			m_CharEffect.SetCharHandler(this);
+			m_CharSlide.SetCharHandler(this);
+			m_CharSkill.SetCharHandler(this);
+			m_CharState.enabled = false;
 		}
 
 		public void ToBorn()

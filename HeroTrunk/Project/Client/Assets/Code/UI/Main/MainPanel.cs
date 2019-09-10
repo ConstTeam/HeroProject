@@ -14,7 +14,7 @@ namespace MS
 
 		private void OnClickNormal()
 		{
-			SceneLoaderMain.GetInst().LoadBattleScene();
+			BattleManager.EnterBattle();
 		}
 	}
 }

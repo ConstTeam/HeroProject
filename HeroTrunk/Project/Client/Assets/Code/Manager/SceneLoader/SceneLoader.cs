@@ -102,6 +102,11 @@ namespace MS
 			SceneManager.UnloadSceneAsync("BattleScene");
 		}
 
+		public static void LoadAddScene(string sceneName)
+		{
+			SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+		}
+
 		private void ShowBG()
 		{
 			BG.SetActive(true);

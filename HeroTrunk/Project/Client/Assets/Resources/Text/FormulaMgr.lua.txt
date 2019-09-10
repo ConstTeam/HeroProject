@@ -1,0 +1,43 @@
+function SkillUpExpress(sExpress,A,B,C,D,E,F,G,X)
+	sExpress = string.gsub(sExpress,"A",tostring(A));
+	sExpress = string.gsub(sExpress,"B",tostring(B));
+	sExpress = string.gsub(sExpress,"Control",tostring(C));
+	sExpress = string.gsub(sExpress,"Charm",tostring(D));
+	sExpress = string.gsub(sExpress,"C",tostring(E));
+	sExpress = string.gsub(sExpress,"Force",tostring(F));
+	sExpress = string.gsub(sExpress,"Polity",tostring(G));
+	sExpress = string.gsub(sExpress,"X",tostring(X));
+	return loadstring("return " .. sExpress)();
+end
+
+function ReplaceExpress(sExpress, A, B, C)
+	sExpress = string.gsub(sExpress,"Hurt",tostring(A));
+	sExpress = string.gsub(sExpress,"TimeLong",tostring(B));
+	sExpress = string.gsub(sExpress,"cure",tostring(C));
+	return loadstring("return " .. sExpress)();
+end
+
+function HeroChoiceExpress(sExpress, A, B)
+	sExpress = string.gsub(sExpress,"A",tostring(A));
+	sExpress = string.gsub(sExpress,"B",tostring(B));
+	return loadstring("return " .. sExpress)();
+end
+
+function HeroAtkExpress(sExpress, A, B,C,D,E,F,G,H,I,X)
+	sExpress = string.gsub(sExpress,"A",tostring(A));
+	sExpress = string.gsub(sExpress,"B",tostring(B));
+	sExpress = string.gsub(sExpress,"C",tostring(C));
+	sExpress = string.gsub(sExpress,"D",tostring(D));
+	sExpress = string.gsub(sExpress,"E",tostring(E));
+	sExpress = string.gsub(sExpress,"F",tostring(F));
+	sExpress = string.gsub(sExpress,"G",tostring(G));
+	sExpress = string.gsub(sExpress,"H",tostring(H));
+	sExpress = string.gsub(sExpress,"I",tostring(I));
+	sExpress = string.gsub(sExpress,"X",tostring(X));
+	return loadstring("return " .. sExpress)();
+end
+
+function FetterUpNeed(sExpress,A)
+	sExpress = string.gsub(sExpress,"A",tostring(A));
+	return loadstring("return " .. sExpress)();
+end

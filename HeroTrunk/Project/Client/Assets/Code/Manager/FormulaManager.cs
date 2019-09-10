@@ -12,7 +12,7 @@ namespace MS
 
 		private void Awake()
 		{
-			TextAsset scriptFile = Resources.Load<TextAsset>("FormulaMgr.lua");
+			TextAsset scriptFile = Resources.Load<TextAsset>("Text/FormulaMgr.lua");
 			luaState = new LuaState();
 			luaState.DoString(scriptFile.text);
 		}

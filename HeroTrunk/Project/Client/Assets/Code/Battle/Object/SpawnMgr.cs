@@ -63,13 +63,13 @@ namespace MS
 				m_SpawnHerosEnemy.EnableCharacters();
 		}
 
-		//���������佫��������
+		//创建单个武将（己方）
 		public bool CreateHeroSingleM(int index)
 		{
 			return m_SpawnHerosMine.CreateCharacterSingle(index);
 		}
 
-		//���������佫���з���
+		//创建单个武将（敌方）
 		public bool CreateHeroSingleE(int index)
 		{
 			return m_SpawnHerosEnemy.CreateCharacterSingle(index);

@@ -10,7 +10,6 @@ namespace MS
 		public GameObject			BattlePoolGo;
 		public Transform			HeadUIParentTran;
 
-		public BattleScenePool		m_ScenePoor;
 		public BattleCharInScene	m_CharInScene;
 		public BattleTriggerManager m_TriggerManager;
 		public BattleSceneTimer		m_SceneTimer;
@@ -19,10 +18,6 @@ namespace MS
 		public int					m_iEnemyPlayerLevel;
 
 		private BattleSceneBase		_battleScene;
-
-
-		public static int			m_iSectionID;
-		public static BattleEnum.Enum_BattleType m_eBattleType;
 
 		private static BattleManager _inst;
 		public static BattleManager GetInst()
@@ -40,22 +35,16 @@ namespace MS
 			BattleCam.rect = ApplicationConst.sceneCamRect;
 			_inst = this;
 
+			SceneLoader.LoadAddScene(m_sAddSceneName);
+
 			m_SceneTimer		= gameObject.AddComponent<BattleSceneTimer>();
 			m_CharInScene		= new BattleCharInScene();
 			m_TriggerManager	= new BattleTriggerManager(m_SceneTimer);
 			_battleScene		= new BattleSceneNormal();
 
 			m_MPData			= new MPData("Power1");
-		}
 
-		private void Start()
-		{
-			Load();
-		}
-
-		private void Load()
-		{
-			m_ScenePoor = BattlePoolGo.AddComponent<BattleScenePool>();
+			BattlePoolGo.AddComponent<BattleScenePool>();
 		}
 
 		public void BattleInit()
@@ -94,7 +83,7 @@ namespace MS
 			return BattleEnum.Enum_CharSide.Mine == side ? GetMainHero() : GetMainEnemy();
 		}
 
-		#region --�����������-------------------------------------------------------------
+		#region --被动技能相关-------------------------------------------------------------
 		public void AddBattleSecTrigger(int sec, CharHandler charHandler)
 		{
 			m_TriggerManager.AddBattleSecTrigger(sec, charHandler);
@@ -118,6 +107,20 @@ namespace MS
 		public void FinalEnemyBorned(List<CharHandler> lstFinalEnemy)
 		{
 			m_TriggerManager.FinalEnemyBorned();
+		}
+		#endregion
+
+		#region--静态------
+		public static int m_iSectionID;
+		public static string m_sAddSceneName;
+		public static string m_sSpawnName;
+		public static BattleEnum.Enum_BattleType m_eBattleType;
+
+		public static void EnterBattle()
+		{
+			m_sAddSceneName = "BattleNormal";//SectionData.GetSceneName(m_iSectionID, m_eBattleType);
+			m_sSpawnName = "Spawn001";//SectionData.GetSceneSpawn(m_iSectionID, m_eBattleType);
+			SceneLoaderMain.GetInst().LoadBattleScene();
 		}
 		#endregion
 	}

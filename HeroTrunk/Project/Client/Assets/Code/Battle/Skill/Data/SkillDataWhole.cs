@@ -37,7 +37,7 @@ namespace MS
 
 		private void SetLanData(int skillId, ConfigRow row)
 		{
-			ConfigRow LanguageRow = ConfigData.GetValue("Lan_Skill_Common", skillId.ToString());
+			ConfigRow LanguageRow = ConfigData.GetValue("Lan_Skill_Client", skillId.ToString());
 			string sDisplayName = LanguageRow.GetValue("DisplayName");
 			m_sDisplayName = sDisplayName;
 			m_sExplain = LanguageRow.GetValue("Explain");
