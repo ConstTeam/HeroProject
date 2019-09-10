@@ -4,6 +4,6 @@ namespace MS
 {
 	public class GroupInfo
 	{
-		public static List<string> m_lstNormalGroup = new List<string>();
+		public static List<int> m_lstNormalGroup = new List<int>();
 	}
 }

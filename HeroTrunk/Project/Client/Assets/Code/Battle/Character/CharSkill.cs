@@ -75,23 +75,23 @@ namespace MS
 				{
 					case SkillEnum.TriggerType.BattleStart:
 						_lstSecTrigger.Add(skillIDs[i]);
-						FightSceneMgr.GetInst().AddBattleSecTrigger(skillDataWhole.m_iTriggerParam, _charHandler);
+						BattleManager.GetInst().AddBattleSecTrigger(skillDataWhole.m_iTriggerParam, _charHandler);
 						break;
 					case SkillEnum.TriggerType.AimHeroBorn:
 						_lstFinalTrigger.Add(skillIDs[i]);
-						FightSceneMgr.GetInst().AddFinalEnemyTrigger(skillDataWhole.m_iTriggerParam, _charHandler);
+						BattleManager.GetInst().AddFinalEnemyTrigger(skillDataWhole.m_iTriggerParam, _charHandler);
 						break;
 					case SkillEnum.TriggerType.SelfCurHP:
 						_lstHpTriggerSelf.Add(skillIDs[i]);
-						FightSceneMgr.GetInst().AddHPTrigger(skillDataWhole.m_iTriggerParam, _charHandler, SkillEnum.TriggerType.SelfCurHP);
+						BattleManager.GetInst().AddHPTrigger(skillDataWhole.m_iTriggerParam, _charHandler, SkillEnum.TriggerType.SelfCurHP);
 						break;
 					case SkillEnum.TriggerType.AimCurHP:
 						_lstHpTriggerOppo.Add(skillIDs[i]);
-						FightSceneMgr.GetInst().AddHPTrigger(skillDataWhole.m_iTriggerParam, _charHandler, SkillEnum.TriggerType.AimCurHP);
+						BattleManager.GetInst().AddHPTrigger(skillDataWhole.m_iTriggerParam, _charHandler, SkillEnum.TriggerType.AimCurHP);
 						break;
 					case SkillEnum.TriggerType.SelfOtherDie:
 						_iDeadTriggerSelf = skillIDs[i];
-						FightSceneMgr.GetInst().AddDeadTrigger(_charHandler);
+						BattleManager.GetInst().AddDeadTrigger(_charHandler);
 						break;
 					case SkillEnum.TriggerType.SelfDie:
 						SelfDieSkillID = skillIDs[i];
@@ -202,13 +202,8 @@ namespace MS
 				}
 			}
 
-			if(_charHandler == FollowCam.GetInst().charHandler)    //司音被动复活刷新UI冷却显示
-			{
-				if(FightSceneMgr.m_eBattleType == FightSceneMgr.BattleType.Tower)
-					FightBarTower.GetInst().SetCDShow();
-				else
-					Fightbar.GetInst().SetCDShow();
-			}
+			//if(_charHandler == BattleCam.GetInst().m_CharHandler)    //被动复活刷新UI冷却显示
+			//	Fightbar.GetInst().SetCDShow();
 		}
 
 		private void EndInvoke(int index)
@@ -248,23 +243,16 @@ namespace MS
 				}
 			}
 
-			if(_charHandler == FollowCam.GetInst().charHandler)
-			{
-				if(FightSceneMgr.m_eBattleType == FightSceneMgr.BattleType.Tower)
-					FightBarTower.GetInst().SetCDTime(index + 1, _lstCDRemain[index]);
-				else
-					Fightbar.GetInst().SetCDTime(index + 1, _lstCDRemain[index]);
-			}
+			//if(_charHandler == BattleCam.GetInst().m_CharHandler)
+			//	Fightbar.GetInst().SetCDTime(index + 1, _lstCDRemain[index]);
 		}
 
 		public bool DequeueHoldSkill()
 		{
-			bool isAutoFight = Enum_CharSide.Enemy == _charHandler.m_CharData.m_eSide || FightSceneMgr.GetInst().IsAutoFight();
-
 			//检查辅助武将的魂技
-			if(isAutoFight && _charHandler.IsMainHero())
+			if(_charHandler.IsMainHero())
 			{
-				List<CharHandler> lst = FightSceneMgr.GetInst().m_CharInScene.GetOfficial(_charHandler.m_CharData.m_eSide);
+				List<CharHandler> lst = BattleManager.GetInst().m_CharInScene.GetOfficial(_charHandler.m_CharData.m_eSide);
 				for(int i = 0; i < lst.Count; ++i)
 				{
 					if(lst[i].m_CharData.CurMP >= lst[i].m_CharData.MaxMP)
@@ -272,9 +260,9 @@ namespace MS
 				}
 			}
 
-			if(_charHandler.m_CharData.CurMP >= _charHandler.m_CharData.MaxMP && isAutoFight)
+			if(_charHandler.m_CharData.CurMP >= _charHandler.m_CharData.MaxMP)
 				return _charHandler.ToSkill(_charHandler.m_CharData.SkillIDs[0]);
-			else if(_lstWaitSkill.Count > 0 && (isAutoFight || !_charHandler.IsMainHero()))
+			else if(_lstWaitSkill.Count > 0)
 				return _DoWaitSkill(0, false);
 			else if(_queMagicSkill.Count > 0)
 				return _charHandler.ToSkill(_queMagicSkill.Dequeue());

@@ -145,7 +145,7 @@ namespace MS
 
 		private static void _AddValue(CharHandler charHandler, CharHandler aimCharHandler, float fValue, TickData tickData, AddValueFunc func, string beginText, string endText)
 		{
-			HUDTextMgr.GetInst().NewText(string.Format(beginText, fValue, fValue > 0 ? "+" : string.Empty), aimCharHandler, HUDTextType.BUFF);
+			HUDTextMgr.GetInst().NewText(string.Format(beginText, fValue, fValue > 0 ? "+" : string.Empty), aimCharHandler, HUDTextMgr.HUDTextType.BUFF);
 			func(aimCharHandler, fValue);
 			if(null != tickData)
 			{
@@ -157,14 +157,14 @@ namespace MS
 				tickData.funcEnd += (bool bCancel) =>
 				{
 					func(aimCharHandler, -fValue);
-					HUDTextMgr.GetInst().NewText(string.Format(endText, fValue, fValue > 0 ? "-" : string.Empty), aimCharHandler, HUDTextType.BUFF);
+					HUDTextMgr.GetInst().NewText(string.Format(endText, fValue, fValue > 0 ? "-" : string.Empty), aimCharHandler, HUDTextMgr.HUDTextType.BUFF);
 				};
 			}
 		}
 
 		private static void _ChangeBool(CharHandler charHandler, CharHandler aimCharHandler, bool bFlag, TickData tickData, ChangeBoolFunc func, string beginText, string endText)
 		{
-			HUDTextMgr.GetInst().NewText(beginText, aimCharHandler, HUDTextType.BUFF);
+			HUDTextMgr.GetInst().NewText(beginText, aimCharHandler, HUDTextMgr.HUDTextType.BUFF);
 
 			func(aimCharHandler, bFlag);
 			if(null != tickData)
@@ -173,7 +173,7 @@ namespace MS
 				tickData.funcEnd += (bool bCancel) =>
 				{
 					func(aimCharHandler, !bFlag);
-					HUDTextMgr.GetInst().NewText(endText, aimCharHandler, HUDTextType.BUFF);
+					HUDTextMgr.GetInst().NewText(endText, aimCharHandler, HUDTextMgr.HUDTextType.BUFF);
 				};
 			}
 		}
@@ -211,7 +211,7 @@ namespace MS
 			else
 			{
 				fValue = Mathf.Max(1f, fValue * (1 + aimCharHandler.m_CharData.CureUpRatio - aimCharHandler.m_CharData.CureDownRatio));
-				HUDTextMgr.GetInst().NewText(string.Format("{0:N0}", fValue), aimCharHandler, HUDTextType.AbsorbHP);
+				HUDTextMgr.GetInst().NewText(string.Format("{0:N0}", fValue), aimCharHandler, HUDTextMgr.HUDTextType.AbsorbHP);
 				aimCharHandler.m_CharData.CurHP += fValue;
 			}
 		}
@@ -400,7 +400,7 @@ namespace MS
 
 		private static void Concentrate(CharHandler aimCharHandler, TickData tickData)
 		{
-			HUDTextMgr.GetInst().NewText(ConfigData.GetHUDText("19"), aimCharHandler, HUDTextType.BUFF);   //"集火目标"
+			HUDTextMgr.GetInst().NewText(ConfigData.GetHUDText("19"), aimCharHandler, HUDTextMgr.HUDTextType.BUFF);   //"集火目标"
 
 			aimCharHandler.m_CharData.Concentrate.AddNew(tickData.m_iInstanceID, true);
 			if(null != tickData)
@@ -410,7 +410,7 @@ namespace MS
 				{
 					aimCharHandler.m_CharData.Concentrate.Value = false;
 					if(!aimCharHandler.m_CharData.Concentrate.Value)
-						HUDTextMgr.GetInst().NewText(ConfigData.GetHUDText("20"), aimCharHandler, HUDTextType.BUFF);   //"集火结束"
+						HUDTextMgr.GetInst().NewText(ConfigData.GetHUDText("20"), aimCharHandler, HUDTextMgr.HUDTextType.BUFF);   //"集火结束"
 
 				};
 			}
@@ -418,13 +418,13 @@ namespace MS
 
 		private static void Connect(float fValue, CharHandler aimCharHandler, TickData tickData, int skillInstId)
 		{
-			FightSceneMgr.GetInst().m_TriggerManager.AddConnectChar(skillInstId, aimCharHandler, fValue);
+			BattleManager.GetInst().m_TriggerManager.AddConnectChar(skillInstId, aimCharHandler, fValue);
 			if(null != tickData)
 			{
 				tickData.funcTick = null;
 				tickData.funcEnd += (bool bCancel) =>
 				{
-					FightSceneMgr.GetInst().m_TriggerManager.RemoveConnectChar(skillInstId, aimCharHandler);
+					BattleManager.GetInst().m_TriggerManager.RemoveConnectChar(skillInstId, aimCharHandler);
 				};
 			}
 		}
@@ -456,12 +456,12 @@ namespace MS
 					if(rand < criticalRatio)
 					{
 						fValue *= 2;    //暴击
-						HUDTextMgr.GetInst().NewText(string.Format(ConfigData.GetHUDText("21"), fValue), aimCharHandler, HUDTextType.NormalHit);   //"暴击{0:N0}"
+						HUDTextMgr.GetInst().NewText(string.Format(ConfigData.GetHUDText("21"), fValue), aimCharHandler, HUDTextMgr.HUDTextType.NormalHit);   //"暴击{0:N0}"
 					}
 					else if(rand - criticalRatio < blockRatio)
 					{
 						fValue = 0;     //格挡
-						HUDTextMgr.GetInst().NewText(ConfigData.GetHUDText("22"), aimCharHandler, HUDTextType.BUFF);   //"格挡"
+						HUDTextMgr.GetInst().NewText(ConfigData.GetHUDText("22"), aimCharHandler, HUDTextMgr.HUDTextType.BUFF);   //"格挡"
 					}
 					break;
 			}

@@ -70,10 +70,9 @@ namespace MS
 
 			HPLosted(hurt, srcHandler, srcSkillDataSon);
 			if(srcSkillDataSon == null)
-				HUDTextMgr.GetInst().NewText(Mathf.FloorToInt(0 - hurt).ToString(), _charHandler, HUDTextType.NormalHit);
+				HUDTextMgr.GetInst().NewText(Mathf.FloorToInt(0 - hurt).ToString(), _charHandler, HUDTextMgr.HUDTextType.NormalHit);
 			else
-				HUDTextMgr.GetInst().NewText(Mathf.FloorToInt(0 - hurt).ToString(), _charHandler, HUDTextType.SkillHit);
-			FightSceneMgr.GetInst().AddHurtData(srcHandler.m_CharData.m_eSide, srcHandler.m_CharData.m_iCharID, hurt);
+				HUDTextMgr.GetInst().NewText(Mathf.FloorToInt(0 - hurt).ToString(), _charHandler, HUDTextMgr.HUDTextType.SkillHit);
 		}
 
 		private bool CheckCanBeHit()
@@ -87,7 +86,7 @@ namespace MS
 			float rebound = _charHandler.m_CharData.Rebound.Value;
 			hurt *= rebound;
 			srcHandler.BeHit(hurt, _charHandler, null, false);
-			HUDTextMgr.GetInst().NewText(string.Format(ConfigData.GetHUDText("17"), hurt), _charHandler, HUDTextType.BUFF);    //"反弹伤害 {0:N0}"
+			HUDTextMgr.GetInst().NewText(string.Format(ConfigData.GetHUDText("17"), hurt), _charHandler, HUDTextMgr.HUDTextType.BUFF);    //"反弹伤害 {0:N0}"
 		}
 
 		//吸收伤害
@@ -97,19 +96,19 @@ namespace MS
 			if(absorb < hurt)
 			{
 				float tmp = hurt - absorb;
-				HUDTextMgr.GetInst().NewText(string.Format(ConfigData.GetHUDText("18"), absorb), _charHandler, HUDTextType.BUFF);  //"吸收伤害 {0:N0}"
-				HUDTextMgr.GetInst().NewText((0 - tmp).ToString(), _charHandler, HUDTextType.BUFF);
+				HUDTextMgr.GetInst().NewText(string.Format(ConfigData.GetHUDText("18"), absorb), _charHandler, HUDTextMgr.HUDTextType.BUFF);  //"吸收伤害 {0:N0}"
+				HUDTextMgr.GetInst().NewText((0 - tmp).ToString(), _charHandler, HUDTextMgr.HUDTextType.BUFF);
 
 				_charHandler.m_CharTick.CancelAbsorb();
 				_charHandler.BeHit(tmp, srcHandler);
 			}
 			else if(absorb == hurt)
 			{
-				HUDTextMgr.GetInst().NewText(string.Format(ConfigData.GetHUDText("18"), hurt), _charHandler, HUDTextType.BUFF);    //"吸收伤害 {0:N0}"
+				HUDTextMgr.GetInst().NewText(string.Format(ConfigData.GetHUDText("18"), hurt), _charHandler, HUDTextMgr.HUDTextType.BUFF);    //"吸收伤害 {0:N0}"
 				_charHandler.m_CharTick.CancelAbsorb();
 			}
 			else
-				HUDTextMgr.GetInst().NewText(string.Format(ConfigData.GetHUDText("18"), hurt), _charHandler, HUDTextType.BUFF);    //"吸收伤害 {0:N0}"
+				HUDTextMgr.GetInst().NewText(string.Format(ConfigData.GetHUDText("18"), hurt), _charHandler, HUDTextMgr.HUDTextType.BUFF);    //"吸收伤害 {0:N0}"
 
 			_charHandler.m_CharData.Absorb.Value -= hurt;
 		}
@@ -119,7 +118,7 @@ namespace MS
 		{
 			float addHp = Mathf.Max(1f, hurt * srcHandler.m_CharData.AbsorbHP.Value);
 			srcHandler.m_CharData.CurHP += addHp;
-			HUDTextMgr.GetInst().NewText(string.Format("{0:N0}", addHp), srcHandler, HUDTextType.AbsorbHP);
+			HUDTextMgr.GetInst().NewText(string.Format("{0:N0}", addHp), srcHandler, HUDTextMgr.HUDTextType.AbsorbHP);
 		}
 
 		private void HPLosted(float hurt, CharHandler srcHandler, SkillDataSon srcSkillDataSon = null)

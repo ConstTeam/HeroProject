@@ -6,7 +6,7 @@ namespace MS
 	{
 		public virtual void OnBattleInit()
 		{
-			BattleCam.GetInst().SetTarget(BattleManager.GetInst().GetMainHero().m_Transform);
+			BattleCam.GetInst().SetTarget(BattleManager.GetInst().GetMainHero());
 		}
 
 		public virtual void OnBattleStart() { }

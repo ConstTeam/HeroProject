@@ -31,7 +31,7 @@ namespace MS
 
 		protected virtual bool CheckDead(CharHandler charHandler)
 		{
-			if(Enum_CharState.Dead == charHandler.m_CharData.m_eState)
+			if(BattleEnum.Enum_CharState.Dead == charHandler.m_CharData.m_eState)
 				return false;
 
 			return true;
@@ -149,9 +149,9 @@ namespace MS
 		protected CharHandler GetConcentrate(CharHandler charHandler, SkillEnum.AimSide aimSide)
 		{
 			CharHandler ConcentrateChar = null;
-			Enum_CharSide oppSide = charHandler.m_CharData.GetOppositeSide();
+			BattleEnum.Enum_CharSide oppSide = charHandler.m_CharData.GetOppositeSide();
 			if(SkillEnum.AimSide.Aim == aimSide)
-				ConcentrateChar = FightSceneMgr.GetInst().m_CharInScene.GetConcentrate(oppSide);
+				ConcentrateChar = BattleManager.GetInst().m_CharInScene.GetConcentrate(oppSide);
 
 			return ConcentrateChar;
 		}

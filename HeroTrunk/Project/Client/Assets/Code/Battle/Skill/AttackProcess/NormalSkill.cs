@@ -24,25 +24,25 @@ namespace MS
 			switch(skillDataSon.m_eAimSideType)
 			{
 				case SkillEnum.AimSideType.All:
-					FightSceneMgr.GetInst().m_CharInScene.GetAllChar(side, _lstTargetLists);
+					BattleManager.GetInst().m_CharInScene.GetAllChar(side, _lstTargetLists);
 					break;
 				case SkillEnum.AimSideType.General:
-					FightSceneMgr.GetInst().m_CharInScene.GetGeneral(side, _lstTargetLists);
+					BattleManager.GetInst().m_CharInScene.GetGeneral(side, _lstTargetLists);
 					break;
 				case SkillEnum.AimSideType.Official:
-					FightSceneMgr.GetInst().m_CharInScene.GetOfficial(side, _lstTargetLists);
+					BattleManager.GetInst().m_CharInScene.GetOfficial(side, _lstTargetLists);
 					break;
 				case SkillEnum.AimSideType.Hero:
-					FightSceneMgr.GetInst().m_CharInScene.GetAllHero(side, _lstTargetLists);
+					BattleManager.GetInst().m_CharInScene.GetAllHero(side, _lstTargetLists);
 					break;
 				case SkillEnum.AimSideType.Dead:
-					FightSceneMgr.GetInst().m_CharInScene.GetDeadGeneral(side, _lstTargetLists);
+					BattleManager.GetInst().m_CharInScene.GetDeadGeneral(side, _lstTargetLists);
 					break;
 				case SkillEnum.AimSideType.Monster:
-					FightSceneMgr.GetInst().m_CharInScene.GetAllMonster(_lstTargetLists);
+					BattleManager.GetInst().m_CharInScene.GetAllMonster(_lstTargetLists);
 					break;
 				case SkillEnum.AimSideType.Presence:
-					FightSceneMgr.GetInst().m_CharInScene.GetPresence(side, _lstTargetLists);
+					BattleManager.GetInst().m_CharInScene.GetPresence(side, _lstTargetLists);
 					break;
 				case SkillEnum.AimSideType.Self:
 					_lstTargetLists.Add(new List<CharHandler>() { charHandler });
@@ -149,9 +149,9 @@ namespace MS
 			string recepEffectPath = skillDataSon.m_Parent.m_sBulletPath;
 			if(!recepEffectPath.Equals(string.Empty))
 			{
-				Transform effectTrans = FightScenePool.GetInst().PopEffect(recepEffectPath);
+				Transform effectTrans = BattleScenePool.GetInst().PopEffect(recepEffectPath);
 				effectTrans.position = pos;
-				FightScenePool.GetInst().PushEffect(recepEffectPath, effectTrans, 5);
+				BattleScenePool.GetInst().PushEffect(recepEffectPath, effectTrans, 5);
 			}
 		}
 
@@ -316,7 +316,7 @@ namespace MS
 				float rate = BattleCalculate.ExcuteFormula(skillDataWhole.m_sEffectRate, null, charHandler, targets[i]);
 				if(Random.Range(0f, 1f) > rate)
 				{
-					HUDTextMgr.GetInst().NewText(ConfigData.GetValue("Lan_Instance_Client", "15", "Text"), targets[i], HUDTextType.BUFF);   //"释放不成功"
+					HUDTextMgr.GetInst().NewText(ConfigData.GetValue("Lan_Instance_Client", "15", "Text"), targets[i], HUDTextMgr.HUDTextType.BUFF);   //"释放不成功"
 					targets.RemoveAt(i);
 				}
 			}

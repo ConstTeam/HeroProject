@@ -53,15 +53,15 @@ namespace MS
 
 		private void LoadHero()
 		{
-			List<string> charIds = GroupInfo.m_lstNormalGroup;
+			List<int> charIds = GroupInfo.m_lstNormalGroup;
 
 			GameObject charGo;
 			GameObject handlerGo;
-			string charId;
+			int charId;
 			for(int i = 0; i < charIds.Count; ++i)
 			{
 				charId = charIds[i];
-				charGo = ResourceLoader.LoadAssetAndInstantiate(string.Format("Character/Hero{0}_Stand", charId), _transform, PositionMgr.vecHidePos);
+				charGo = ResourceLoader.LoadAssetAndInstantiate(string.Format("Character/Hero{0}_Stand", charId.ToString()), _transform, PositionMgr.vecHidePos);
 				handlerGo = new GameObject("Handler");  //把其他代码和CharAnimCallback分开放
 				handlerGo.transform.SetParent(charGo.transform);
 				handlerGo.transform.localPosition = Vector3.zero;
@@ -138,5 +138,147 @@ namespace MS
 			effect.gameObject.SetActive(false);
 			_dicEffects[key].Push(effect);
 		}
+
+		public CharHandler GetCharHandler(BattleEnum.Enum_CharSide side, int charId)
+		{
+			return BattleEnum.Enum_CharSide.Mine == side ? _dicCharMinePool[charId] : _dicCharEnemyPool[charId];
+		}
+
+		#region --小怪相关------------------------------------------------------------------
+		private void SetMonsterIDs(BattleEnum.Enum_BattleType battleType)
+		{
+			string strIds = SectionData.GetMonsterSpawns(BattleManager.m_iSectionID, battleType);
+			if(string.Empty == strIds)
+				return;
+
+			string[] monsterInfos = strIds.Split('|');
+			string[] ids;
+			for(int i = 0; i < monsterInfos.Length; ++i)
+			{
+				ids = monsterInfos[i].Split(';');
+				int monsterId = int.Parse(ids[0]);
+				if(!m_lstMonsterID.Contains(monsterId))
+					m_lstMonsterID.Add(monsterId);
+			}
+		}
+
+		private void PreloadMonster(List<int> monsterIds)
+		{
+			int charId;
+			for(int i = 0; i < monsterIds.Count; ++i)
+			{
+				charId = monsterIds[i];
+				_dicMonsterPool.Add(charId, new Stack<CharHandler>());
+
+				Object obj = ResourceLoader.LoadAssets(_monsterConfig.GetValue(charId.ToString(), "PrefabPath"));
+				for(int j = 0; j < 6; ++j)
+				{
+					CharHandler ch = LoaderMonster(obj, charId);
+					_dicMonsterPool[charId].Push(ch);
+				}
+				PreloadBulletMonster(charId);
+			}
+		}
+
+		private CharHandler LoaderMonster(Object obj, int charId)
+		{
+			Transform tempTrans;
+
+			GameObject charGo = Instantiate(obj) as GameObject;
+			tempTrans = charGo.transform;
+			tempTrans.SetParent(_transform);
+			tempTrans.position = PositionMgr.vecHidePos;
+
+			GameObject handlerGo = new GameObject("Handler");   //把其他代码和CharAnimCallback分开放
+			tempTrans = handlerGo.transform;
+			tempTrans.SetParent(charGo.transform, false);
+			tempTrans.localPosition = Vector3.zero;
+
+			CharHandler ch = handlerGo.AddComponent<CharHandler>();
+			ch.Init(charId, BattleEnum.Enum_CharSide.Enemy);
+			return ch;
+		}
+
+		public void PushMonsterHandler(int monsterId, CharHandler charHandler)
+		{
+			_dicMonsterPool[monsterId].Push(charHandler);
+		}
+
+		public CharHandler PopMonsterHandler(int monsterId)
+		{
+			if(_dicMonsterPool[monsterId].Count > 0)
+				return _dicMonsterPool[monsterId].Pop();
+			else
+			{
+				Object obj = ResourceLoader.LoadAssets(_monsterConfig.GetValue(monsterId.ToString(), "PrefabPath"));
+				CharHandler ch = LoaderMonster(obj, monsterId);
+				return ch;
+			}
+		}
+		#endregion
+
+		#region --子弹相关------------------------------------------------------------------
+		private void PreloadBulletHero(CharHandler handler)
+		{
+			if(BattleEnum.Enum_AttackType.Distant == handler.m_CharData.m_eAtkType)
+			{
+				string bulletPath = string.Format("Effect/Prefabs_Character/Hero{0}/Hero{0}_Fly", handler.m_CharData.m_iCharID);
+				_PreloadBullet(handler.m_CharData.m_iCharID, bulletPath, _dicHeroBulletPool);
+			}
+		}
+
+		private void PreloadBulletMonster(int monsterId)
+		{
+			string bulletPath = _monsterConfig.GetValue(monsterId.ToString(), "BulletPath");
+
+			if(string.Empty != bulletPath)
+				_PreloadBullet(monsterId, bulletPath, _dicMonsterBulletPool);
+		}
+
+		private void _PreloadBullet(int charId, string bulletPath, Dictionary<int, Stack<BulletBase>> dicBullet)
+		{
+			GameObject go;
+			if(!dicBullet.ContainsKey(charId))
+			{
+				go = ResourceLoader.LoadAssetAndInstantiate(bulletPath, _transform, PositionMgr.vecHidePos);
+				go.SetActive(false);
+				BulletTrace bullet = go.AddComponent<BulletTraceEx>();
+				dicBullet.Add(charId, new Stack<BulletBase>());
+				dicBullet[charId].Push(bullet);
+			}
+
+			go = dicBullet[charId].Pop().gameObject;
+			GameObject clone;
+			for(int j = 0; j < 5; ++j)
+			{
+				clone = Instantiate(go, _transform) as GameObject;
+				dicBullet[charId].Push(clone.GetComponent<BulletTraceEx>());
+			}
+		}
+
+		public void PushBullet(CharHandler charHandler, BulletBase bullet)
+		{
+			CharData charData = charHandler.m_CharData;
+			if(BattleEnum.Enum_CharType.Monster == charData.m_eType)
+				_dicMonsterBulletPool[charData.m_iCharID].Push(bullet);
+			else
+				_dicHeroBulletPool[charData.m_iCharID].Push(bullet);
+		}
+
+		public BulletBase PopBullet(CharHandler charHandler)
+		{
+			CharData charData = charHandler.m_CharData;
+			Dictionary<int, Stack<BulletBase>> dicBullet = BattleEnum.Enum_CharType.Monster == charData.m_eType ? _dicMonsterBulletPool : _dicHeroBulletPool;
+			if(1 == dicBullet[charData.m_iCharID].Count)
+			{
+				BulletBase bullet = dicBullet[charData.m_iCharID].Peek();
+				GameObject clone = Instantiate(bullet.gameObject, _transform) as GameObject;
+				return clone.GetComponent<BulletBase>();
+			}
+			else
+				return dicBullet[charData.m_iCharID].Pop();
+
+		}
+		#endregion
 	}
 }

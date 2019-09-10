@@ -20,6 +20,7 @@ namespace MS
 		public static Rect			sceneCamRect;
 		public static float			matchWidthOrHeight;
 
+		public static bool			bFreeSkill			= false;
 		public static float			fFightSlideMin;
 		public static float			fFightSlideMax;
 		public static float			fBackwardCD;

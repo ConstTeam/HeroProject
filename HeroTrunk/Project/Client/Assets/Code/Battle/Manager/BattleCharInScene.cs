@@ -143,10 +143,10 @@ namespace MS
 
 		public void ShowAllCharacters(bool bShow)
 		{
-			if(bShow == FollowCam.GetInst().enabled)
+			if(bShow == BattleCam.GetInst().enabled)
 				return;
 
-			FollowCam.GetInst().enabled = bShow;
+			BattleCam.GetInst().enabled = bShow;
 			_ShowAllCharacters(m_listGeneralMine, bShow);
 			_ShowAllCharacters(m_listGeneralEnemy, bShow);
 			_ShowAllCharacters(m_listDeadMine, bShow);

@@ -101,21 +101,21 @@ namespace MS
 		private void _SetEffect(Transform parent)
 		{
 			string path = m_SkillDataSon.m_ReceptorEffect[0];
-			Transform effectTrans = FightScenePool.GetInst().PopEffect(path);
+			Transform effectTrans = BattleScenePool.GetInst().PopEffect(path);
 			effectTrans.SetParent(parent);
 			effectTrans.localPosition = Vector3.zero;
 			funcEnd += (bool bCancel) =>
 			{
-				FightScenePool.GetInst().PushEffect(path, effectTrans);
+				BattleScenePool.GetInst().PushEffect(path, effectTrans);
 
 				if(m_SkillDataSon.m_ReceptorEffect.Length > 1)
 				{
 					path = m_SkillDataSon.m_ReceptorEffect[1];
-					effectTrans = FightScenePool.GetInst().PopEffect(path);
+					effectTrans = BattleScenePool.GetInst().PopEffect(path);
 					effectTrans.SetParent(parent);
 					effectTrans.localPosition = Vector3.zero;
 
-					FightScenePool.GetInst().PushEffect(path, effectTrans, 5);
+					BattleScenePool.GetInst().PushEffect(path, effectTrans, 5);
 				}
 			};
 		}

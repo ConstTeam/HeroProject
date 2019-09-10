@@ -28,7 +28,7 @@ namespace MS
 
 		protected override CharHandler CreateChar(int spawnId, int charId)
 		{
-			CharHandler h = FightScenePool.GetInst().PopMonsterHandler(charId);
+			CharHandler h = BattleScenePool.GetInst().PopMonsterHandler(charId);
 			SetMonsterData(h);
 			ResetPosition(h, spawnId);
 			SetObstacleAvoidance(h);
@@ -58,7 +58,7 @@ namespace MS
 			charData.MaxHP = float.Parse(monsterInfo.GetValue("Hp"));
 			charData.CurHP = charData.MaxHP;
 			charData.m_fOriHP = charData.MaxHP;
-			charData.CurLevel = FightSceneMgr.GetInst().m_iEnemyRoleLevel;
+			charData.CurLevel = BattleManager.GetInst().m_iEnemyPlayerLevel;
 
 			charHandler.m_CharDefence.m_fBackwardClock = 0;
 		}

@@ -32,5 +32,11 @@ namespace MS
 			Close,
 			Distant
 		}
+
+		public enum Enum_BattleType
+		{
+			Normal,
+			Elite
+		}
 	}
 }

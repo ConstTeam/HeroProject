@@ -40,7 +40,7 @@ namespace MS
 		public void NewText(string text, CharHandler handler, HUDTextType type)
 		{
 			HUDTextItem item = GetText(type);
-			Vector3 createPos = handler.UIFollowPos.transform.position;
+			Vector3 createPos = handler.UIFollowGo.transform.position;
 			item.Show(text, handler, type, createPos);
 		}
 
@@ -109,3 +109,4 @@ namespace MS
 			poolSkill.Enqueue(item);
 		}
 	}
+}

@@ -8,7 +8,7 @@ namespace MS
 	{
 		public override void CreateCharacters()
 		{
-			List<int> lst = BattleEnum.Enum_CharSide.Mine == m_CharSide ? FightScenePool.GetInst().m_lstCharMineID : FightScenePool.GetInst().m_lstCharEnemyID;
+			List<int> lst = BattleEnum.Enum_CharSide.Mine == m_CharSide ? BattleScenePool.GetInst().m_lstCharMineID : BattleScenePool.GetInst().m_lstCharEnemyID;
 			for(int i = 0; i < lst.Count; ++i)
 			{
 				if(i < 3)
@@ -22,7 +22,7 @@ namespace MS
 
 		public bool CreateCharacterSingle(int index)
 		{
-			List<int> lst = BattleEnum.Enum_CharSide.Mine == m_CharSide ? FightScenePool.GetInst().m_lstCharMineID : FightScenePool.GetInst().m_lstCharEnemyID;
+			List<int> lst = BattleEnum.Enum_CharSide.Mine == m_CharSide ? BattleScenePool.GetInst().m_lstCharMineID : BattleScenePool.GetInst().m_lstCharEnemyID;
 			if(lst.Count > index)
 			{
 				CreateChar(0, lst[index]);
@@ -34,7 +34,7 @@ namespace MS
 
 		protected override CharHandler CreateChar(int spawnId, int charId)
 		{
-			CharHandler h = FightScenePool.GetInst().GetCharHandler(m_CharSide, charId);
+			CharHandler h = BattleScenePool.GetInst().GetCharHandler(m_CharSide, charId);
 			Rigidbody rb = h.m_Go.AddComponent<Rigidbody>();
 			BoxCollider cl = h.m_Go.AddComponent<BoxCollider>();
 			rb.useGravity = false;
@@ -53,18 +53,18 @@ namespace MS
 
 		private void CreateCharOfficial(int charId)
 		{
-			CharHandler h = FightScenePool.GetInst().GetCharHandler(m_CharSide, charId);
+			CharHandler h = BattleScenePool.GetInst().GetCharHandler(m_CharSide, charId);
 			h.m_CharData.SetCharData(BattleEnum.Enum_CharType.Official);
 			SetObstacleAvoidance(h);
 			h.m_CharSkill.InitTriggerSkill();
 			SetRingLight(h);
-			FightSceneMgr.GetInst().m_CharInScene.AddChar(h);
+			BattleManager.GetInst().m_CharInScene.AddChar(h);
 		}
 
 		public override void EnableCharacters()
 		{
 			bool bMine = BattleEnum.Enum_CharSide.Mine == m_CharSide;
-			List<CharHandler> lst = bMine ? FightSceneMgr.GetInst().m_CharInScene.m_listGeneralMine : FightSceneMgr.GetInst().m_CharInScene.m_listGeneralEnemy;
+			List<CharHandler> lst = bMine ? BattleManager.GetInst().m_CharInScene.m_listGeneralMine : BattleManager.GetInst().m_CharInScene.m_listGeneralEnemy;
 			if(lst.Count <= 0)
 				return;
 
@@ -76,16 +76,16 @@ namespace MS
 			}
 
 			if(!bMine)
-				FightSceneMgr.GetInst().FinalEnemyBorned(lst);
+				BattleManager.GetInst().FinalEnemyBorned(lst);
 		}
 
 		public override void ShowCharacters(bool bShow)
 		{
 			List<CharHandler> lst;
 			if(BattleEnum.Enum_CharSide.Mine == m_CharSide)
-				lst = FightSceneMgr.GetInst().m_CharInScene.m_listGeneralMine;
+				lst = BattleManager.GetInst().m_CharInScene.m_listGeneralMine;
 			else
-				lst = FightSceneMgr.GetInst().m_CharInScene.m_listGeneralEnemy;
+				lst = BattleManager.GetInst().m_CharInScene.m_listGeneralEnemy;
 
 			for(int i = 0; i < lst.Count; ++i)
 			{

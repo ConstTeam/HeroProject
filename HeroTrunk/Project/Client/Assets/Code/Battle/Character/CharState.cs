@@ -67,58 +67,40 @@ namespace MS
 
 		private bool CheckSlide(float dis, float touchDis)
 		{
-			switch(FightSceneMgr.m_eBattleType)
-			{
-				case FightSceneMgr.BattleType.Normal:
-				case FightSceneMgr.BattleType.Elite:
-					if(FightSceneMgr.GetInst().GetMainHero() == _charHandler && Enum_AttackType.Close == _charHandler.m_CharData.m_eAtkType)
-						return dis > touchDis + ApplicationConst.fFightSlideMin && dis < touchDis + ApplicationConst.fFightSlideMax;
-					return false;
-				default:
-					return false;
-			}
+				if(BattleManager.GetInst().GetMainHero() == _charHandler && BattleEnum.Enum_AttackType.Close == _charHandler.m_CharData.m_eAtkType)
+					return dis > touchDis + ApplicationConst.fFightSlideMin && dis < touchDis + ApplicationConst.fFightSlideMax;
+				return false;
 		}
 
 		//--站立状态----------------------------------------------------------------------
 		private void IdleState()
 		{
-			if(_charHandler.IsAuto)
+			if(!CheckNearestCharAndExcute())
 			{
-				if(!CheckNearestCharAndExcute())
+				if(BattleEnum.Enum_CharType.General == _charHandler.m_CharData.m_eType)
 				{
-					if(Enum_CharType.General == _charHandler.m_CharData.m_eType)
+					if(_charHandler == BattleManager.GetInst().GetMainHero())
 					{
-						if(_charHandler == FightSceneMgr.GetInst().GetMainHero())
+						SpawnBase spawn = SpawnMgr.GetInst().GetNextSpawn();
+						if(null != spawn)
+							_charHandler.ToRun(spawn.spawnPoints[0].transform, 1);
+					}
+					else
+					{
+						CharHandler charHandler = BattleManager.GetInst().GetMainHeroBySide(_charHandler.m_CharData.m_eSide);
+						if(1 == _charHandler.m_iIndex || 2 == _charHandler.m_iIndex)
 						{
-							Spawn spawn = SpawnMgr.GetInst().GetNextSpawn();
-							if(null != spawn)
-								_charHandler.ToRun(spawn.spawnPoints[0].transform, 1);
-						}
-						else
-						{
-							CharHandler charHandler = FightSceneMgr.GetInst().GetMainHeroBySide(_charHandler.m_CharData.m_eSide);
-							if(1 == _charHandler.m_iIndex || 2 == _charHandler.m_iIndex)
+							int sign = _charHandler.m_iIndex * 2 - 3;//取正负
+							Vector3 toPos = charHandler.m_Transform.position + charHandler.m_Transform.right * 2 * sign + charHandler.m_Transform.forward * 2.5f;
+							if(Vector3.Distance(toPos, charHandler.m_Transform.position) > 1f)
 							{
-								int sign = _charHandler.m_iIndex * 2 - 3;//取正负
-								Vector3 toPos = charHandler.m_Transform.position + charHandler.m_Transform.right * 2 * sign + charHandler.m_Transform.forward * 2.5f;
-								if(Vector3.Distance(toPos, charHandler.m_Transform.position) > 1f)
-								{
-									if(IsInNavMash(toPos))
-										_charHandler.ToRun(toPos, 1f);
-									else
-										_charHandler.ToRun(charHandler.m_Transform.position, 2f);
-								}
+								if(IsInNavMash(toPos))
+									_charHandler.ToRun(toPos, 1f);
+								else
+									_charHandler.ToRun(charHandler.m_Transform.position, 2f);
 							}
 						}
 					}
-				}
-			}
-			else
-			{
-				if(_charHandler.m_CharAnim.ManualIndex > 0)
-				{
-					if(!CheckNearestCharAndExcute())    //无目标空打
-						_charHandler.ToAttack();
 				}
 			}
 		}
@@ -141,8 +123,7 @@ namespace MS
 		//--跑动状态----------------------------------------------------------------------
 		public void RunState()
 		{
-			if(_charHandler.IsAuto)
-				CheckNearestCharAndExcute();
+			CheckNearestCharAndExcute();
 		}
 	}
 }
