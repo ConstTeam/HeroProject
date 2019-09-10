@@ -19,5 +19,18 @@ namespace MS
 			Born,
 			Slide
 		}
+
+		public enum Enum_CharType
+		{
+			General,
+			Official,
+			Monster
+		}
+
+		public enum Enum_AttackType
+		{
+			Close,      //��ս
+			Distant     //Զ��
+		}
 	}
 }

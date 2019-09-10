@@ -8,5 +8,7 @@ namespace MS
 		{
 			BattleCam.GetInst().SetTarget(BattleManager.GetInst().GetMainHero().m_Transform);
 		}
+
+		public virtual void OnBattleStart() { }
 	}
 }

@@ -4,18 +4,15 @@ namespace MS
 {
 	public class BattleManager : MonoBehaviour
 	{
-		public Camera BattleCam;
-		public Transform BattleRootTrans;
-		public GameObject BattlePoolGo;
+		public Camera				BattleCam;
+		public Transform			BattleRootTrans;
+		public GameObject			BattlePoolGo;
 
+		public BattleScenePool		m_BattlePoor;
+		public BattleCharInScene	m_CharInScene;
+		public BattleSceneTimer		m_BattleSceneTimer;
 
-		[HideInInspector]
-		public BattleScenePool m_BattlePoor;
-
-		[HideInInspector]
-		public BattleCharInScene m_CharInScene;
-
-		private BattleSceneBase _battleScene;
+		private BattleSceneBase		_battleScene;
 
 		private static BattleManager _inst;
 		public static BattleManager GetInst()
@@ -33,8 +30,9 @@ namespace MS
 			BattleCam.rect = ApplicationConst.sceneCamRect;
 			_inst = this;
 
-			m_CharInScene	= new BattleCharInScene();
-			_battleScene	= new BattleSceneNormal();
+			m_BattleSceneTimer	= gameObject.AddComponent<BattleSceneTimer>();
+			m_CharInScene		= new BattleCharInScene();
+			_battleScene		= new BattleSceneNormal();
 		}
 
 		private void Start()

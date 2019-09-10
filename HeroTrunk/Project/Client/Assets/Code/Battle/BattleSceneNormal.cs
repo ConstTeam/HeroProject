@@ -6,9 +6,15 @@ namespace MS
 {
 	public class BattleSceneNormal : BattleSceneBase
 	{
-		private void Awake()
+		public override void OnBattleInit()
 		{
-			
+			//SpawnMgr.GetInst().CreateHerosM();
+			base.OnBattleInit();
+		}
+
+		public override void OnBattleStart()
+		{
+			base.OnBattleStart();
 		}
 	}
 }

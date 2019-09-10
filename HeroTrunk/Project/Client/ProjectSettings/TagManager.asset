@@ -12,6 +12,8 @@ TagManager:
   - 1
   - 2
   - Plat
+  - Bone
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -21,10 +23,10 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
-  - Plat
   - 
-  - SkillBtn
+  - Ground
+  - 
+  - 
   - 
   - 
   - 
