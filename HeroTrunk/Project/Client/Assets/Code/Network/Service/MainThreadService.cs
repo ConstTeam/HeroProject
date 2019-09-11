@@ -21,7 +21,7 @@ namespace MS
 						SocketHandler.GetInst().ShortSend(co.m_Data, co.m_bFlag, co.m_bNeedEncrypt);
 						SocketHandler.ShortSendBackFun();
 					};
-					MsgBoxPanel.ShowMsgBox(string.Empty, (string)ApplicationConst.dictStaticText["22"], 1, Reconnect);
+					MsgBoxPanel.ShowMsgBox(errCode.ToString(), (string)ApplicationConst.dictStaticText["22"], 1, Reconnect);
 					break;
 				default:
 					break;

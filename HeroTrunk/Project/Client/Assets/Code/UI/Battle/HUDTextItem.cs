@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +6,10 @@ namespace MS
 {
 	public class HUDTextItem : MonoBehaviour
 	{
-		private Camera MCamera;
+		private Camera BattleCam;
 		private Camera UICamera;
+		private	Transform	_transform;
+		private Transform	_textTrans;
 
 		private Text m_text;
 		private Gradient gradient;
@@ -32,12 +32,13 @@ namespace MS
 
 		private void Awake()
 		{
-
-			MCamera = GameObject.FindGameObjectWithTag("FightCamera").GetComponent<Camera>();
-			UICamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
+			_transform	= transform;
+			BattleCam	= BattleManager.GetInst().BattleCam;
+			UICamera	= BattleManager.GetInst().UICam;
 
 			m_text = GetComponent<Text>();
 			gradient = GetComponent<Gradient>();
+			_textTrans = m_text.transform;
 
 			enemyNorHitColTop = new Color(134 / 255.0f, 197 / 255.0f, 255 / 255.0f, 1);
 			enemyNorHitColBtm = new Color(191 / 255.0f, 230 / 255.0f, 255 / 255.0f, 1);
@@ -57,18 +58,15 @@ namespace MS
 
 		private void LateUpdate()
 		{
-			if(this.gameObject.activeSelf)
-			{
-				Vector3 pos = MCamera.WorldToViewportPoint(m_createPos);
-				Vector2 screenToWorldPoint = UICamera.ViewportToWorldPoint(pos);
-				transform.parent.position = screenToWorldPoint;
-			}
+			Vector3 pos = BattleCam.WorldToViewportPoint(m_createPos);
+			Vector2 screenToWorldPoint = UICamera.ViewportToWorldPoint(pos);
+			_transform.parent.position = screenToWorldPoint;
 		}
 
 		private void Init(string text, Vector3 createPos)
 		{
 			m_createPos = createPos + Vector3.up;    //与血条分开,比血条高一点
-			transform.localPosition = Vector3.zero;  //重置位置
+			_transform.localPosition = Vector3.zero;  //重置位置
 
 			Color c = m_text.color;     //重置alpha为1,开始显示
 			c.a = 1;
@@ -118,7 +116,7 @@ namespace MS
 			gradient.topColor = enemySkiHitColTop;
 			gradient.bottomColor = enemySkiHitColBtm;
 
-			TextAnimetor(m_text);
+			TextAnimetor();
 		}
 
 		private void NormalHitShow(string text, CharHandler handler)
@@ -135,7 +133,7 @@ namespace MS
 				gradient.bottomColor = enemyNorHitColBtm;
 			}
 
-			TextAnimetor(m_text);
+			TextAnimetor();
 		}
 
 		private void SkillHitShow(string text, CharHandler handler)
@@ -152,7 +150,7 @@ namespace MS
 				gradient.bottomColor = enemySkiHitColBtm;
 			}
 
-			TextAnimetor(m_text);
+			TextAnimetor();
 		}
 
 		private void MainSkillNameShow(string text, CharHandler handler)
@@ -196,7 +194,7 @@ namespace MS
 			gradient.topColor = hpColTop;
 			gradient.bottomColor = hpColBtm;
 
-			TextAnimetor(m_text);
+			TextAnimetor();
 		}
 
 		private void BuffShow(string text, CharHandler handler)
@@ -206,21 +204,21 @@ namespace MS
 			gradient.topColor = buffColTop;
 			gradient.bottomColor = buffColBtm;
 
-			TextAnimetor(m_text);
+			TextAnimetor();
 		}
 
 
-		private void TextAnimetor(Text text)
+		private void TextAnimetor()
 		{
 			Sequence mySequence = DOTween.Sequence();
 
-			mySequence.Append(text.transform.DOScale(Vector3.one * 2f, 0.1f));
-			mySequence.Append(text.transform.DOScale(Vector3.one, 0.1f));
+			mySequence.Append(_textTrans.DOScale(Vector3.one * 2f, 0.1f));
+			mySequence.Append(_textTrans.DOScale(Vector3.one, 0.1f));
 			mySequence.AppendInterval(0.1f);
-			mySequence.Append(text.transform.DOLocalMoveY(text.transform.localPosition.y + 30, 0.2f).SetEase(Ease.Linear));
-			mySequence.Join(text.DOFade(0.7f, 0.2f));
-			mySequence.Append(text.transform.DOLocalMoveY(text.transform.localPosition.y + 50, 0.2f).SetEase(Ease.Linear));
-			mySequence.Join(text.DOFade(0, 0.2f));
+			mySequence.Append(_textTrans.DOLocalMoveY(_textTrans.localPosition.y + 30, 0.2f).SetEase(Ease.Linear));
+			mySequence.Join(m_text.DOFade(0.7f, 0.2f));
+			mySequence.Append(_textTrans.DOLocalMoveY(_textTrans.localPosition.y + 50, 0.2f).SetEase(Ease.Linear));
+			mySequence.Join(m_text.DOFade(0, 0.2f));
 			mySequence.OnComplete(() => HUDTextMgr.GetInst().GetBackText(this));
 		}
 

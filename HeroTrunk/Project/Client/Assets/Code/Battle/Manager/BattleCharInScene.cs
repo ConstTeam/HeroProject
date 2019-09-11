@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MS
 {
-	public class BattleCharInScene : MonoBehaviour
+	public class BattleCharInScene
 	{
 		public List<CharHandler> m_listGeneralMine				= new List<CharHandler>();
 		public List<CharHandler> m_listGeneralEnemy				= new List<CharHandler>();
@@ -84,7 +84,7 @@ namespace MS
 			if(BattleEnum.Enum_CharSide.Mine == handler.m_CharData.m_eSide)
 			{
 				m_listDeadMine.Remove(handler);
-				if(BattleCam.GetInst().m_CharHandler == handler)     //˾������Ҳ������佫ʱ��,���������˳������
+				if(BattleCamera.GetInst().m_CharHandler == handler)	//被动复活集合顺序不能乱
 					m_listGeneralMine.Insert(0, handler);
 				else
 					m_listGeneralMine.Add(handler);
@@ -143,10 +143,10 @@ namespace MS
 
 		public void ShowAllCharacters(bool bShow)
 		{
-			if(bShow == BattleCam.GetInst().enabled)
+			if(bShow == BattleCamera.GetInst().enabled)
 				return;
 
-			BattleCam.GetInst().enabled = bShow;
+			BattleCamera.GetInst().enabled = bShow;
 			_ShowAllCharacters(m_listGeneralMine, bShow);
 			_ShowAllCharacters(m_listGeneralEnemy, bShow);
 			_ShowAllCharacters(m_listDeadMine, bShow);
@@ -158,7 +158,7 @@ namespace MS
 		{
 			for(int i = 0; i < lst.Count; ++i)
 			{
-				lst[i].m_Transform.position += Vector3.down * 1000 * (bShow ? -1 : 1);
+				lst[i].m_ParentTrans.position += Vector3.down * 1000 * (bShow ? -1 : 1);
 			}
 		}
 
@@ -254,7 +254,7 @@ namespace MS
 		public CharHandler GetNearestChar(CharHandler charHandler, BattleEnum.Enum_CharSide side, ref float dis)
 		{
 			List<CharHandler> lst = BattleEnum.Enum_CharSide.Mine == side ? m_listGeneralMine : m_listGeneralEnemy;
-			Vector3 pos = charHandler.m_Transform.position;
+			Vector3 pos = charHandler.m_ParentTrans.position;
 			CharHandler ret = null;
 			for(int i = 0; i < lst.Count; ++i)
 			{
@@ -262,7 +262,7 @@ namespace MS
 				if(tmpChar == charHandler || tmpChar.IsInexistence())
 					continue;
 
-				float temp = Vector3.Distance(tmpChar.m_Transform.position, pos);
+				float temp = Vector3.Distance(tmpChar.m_ParentTrans.position, pos);
 				if(temp < dis)
 				{
 					dis = temp;
@@ -284,7 +284,7 @@ namespace MS
 		public CharHandler GetNearestMonster(CharHandler handler, ref float dis)
 		{
 			List<CharHandler> lst = m_listMonster;
-			Vector3 pos = handler.m_Transform.position;
+			Vector3 pos = handler.m_ParentTrans.position;
 			CharHandler ret = null;
 			for(int i = 0; i < lst.Count; ++i)
 			{
@@ -292,7 +292,7 @@ namespace MS
 				if(tmpChar == handler || tmpChar.IsInexistence())
 					continue;
 
-				float temp = (tmpChar.m_Transform.position - pos).magnitude;
+				float temp = (tmpChar.m_ParentTrans.position - pos).magnitude;
 				if(temp < dis)
 				{
 					dis = temp;

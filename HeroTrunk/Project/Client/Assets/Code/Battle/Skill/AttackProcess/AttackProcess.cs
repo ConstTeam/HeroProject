@@ -56,8 +56,8 @@ namespace MS
 				if(null == charHandler || tmpChar.IsInexistence())
 					continue;
 
-				float tmpAngle = Vector3.Angle(charHandler.m_Transform.localRotation * Vector3.forward, tmpChar.m_Transform.position - charHandler.m_Transform.position);
-				float tmpDis = Vector3.Distance(charHandler.m_Transform.position, tmpChar.m_Transform.position);
+				float tmpAngle = Vector3.Angle(charHandler.m_ParentTrans.localRotation * Vector3.forward, tmpChar.m_ParentTrans.position - charHandler.m_ParentTrans.position);
+				float tmpDis = Vector3.Distance(charHandler.m_ParentTrans.position, tmpChar.m_ParentTrans.position);
 				if(tmpAngle <= angle / 2f && tmpDis < raidus)
 				{
 					retLst.Add(tmpChar);
@@ -73,8 +73,8 @@ namespace MS
 				if(null == charHandler || tmpChar.IsInexistence())
 					continue;
 
-				float tmpAngle = Vector3.Angle(charHandler.m_Transform.localRotation * Vector3.forward, tmpChar.m_Transform.position - centerPos);
-				float tmpDis = Vector3.Distance(centerPos, tmpChar.m_Transform.position);
+				float tmpAngle = Vector3.Angle(charHandler.m_ParentTrans.localRotation * Vector3.forward, tmpChar.m_ParentTrans.position - centerPos);
+				float tmpDis = Vector3.Distance(centerPos, tmpChar.m_ParentTrans.position);
 				if(tmpAngle <= angle / 2f && tmpDis < raidus)
 				{
 					retLst.Add(tmpChar);
@@ -92,8 +92,8 @@ namespace MS
 				if(null == charHandler || tmpChar.IsInexistence())
 					continue;
 
-				float tmpAngle = Vector3.Angle(charHandler.m_Transform.localRotation * Vector3.forward, tmpChar.m_Transform.position - charHandler.m_Transform.position);
-				float tmpDis = Vector3.Distance(charHandler.m_Transform.position, tmpChar.m_Transform.position);
+				float tmpAngle = Vector3.Angle(charHandler.m_ParentTrans.localRotation * Vector3.forward, tmpChar.m_ParentTrans.position - charHandler.m_ParentTrans.position);
+				float tmpDis = Vector3.Distance(charHandler.m_ParentTrans.position, tmpChar.m_ParentTrans.position);
 
 				if(tmpAngle <= angle / 2f && tmpDis < raidus && tmpDis < retDis)
 				{
@@ -115,12 +115,12 @@ namespace MS
 					continue;
 
 				Vector3[] polygon = new Vector3[4];
-				polygon[0] = charHandler.m_Transform.position - charHandler.m_Transform.right * sizeX / 2;
-				polygon[1] = charHandler.m_Transform.position + charHandler.m_Transform.right * sizeX / 2;
-				polygon[2] = polygon[1] + charHandler.m_Transform.forward * sizeY;
-				polygon[3] = polygon[0] + charHandler.m_Transform.forward * sizeY;
+				polygon[0] = charHandler.m_ParentTrans.position - charHandler.m_ParentTrans.right * sizeX / 2;
+				polygon[1] = charHandler.m_ParentTrans.position + charHandler.m_ParentTrans.right * sizeX / 2;
+				polygon[2] = polygon[1] + charHandler.m_ParentTrans.forward * sizeY;
+				polygon[3] = polygon[0] + charHandler.m_ParentTrans.forward * sizeY;
 
-				if(IsPointInPolygon(tmpChar.m_Transform.position, polygon))
+				if(IsPointInPolygon(tmpChar.m_ParentTrans.position, polygon))
 					retLst.Add(tmpChar);
 			}
 		}

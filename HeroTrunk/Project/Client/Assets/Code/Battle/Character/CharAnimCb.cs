@@ -10,5 +10,18 @@ namespace MS
 		{
 			_charHandler = handler;
 		}
+
+		public void BornEnd()
+		{
+			if(_charHandler != null)
+				_charHandler.BornEnd();
+		}
+
+		#region--��Ч------
+		private void BirthSound()
+		{
+
+		}
+		#endregion
 	}
 }

@@ -149,7 +149,7 @@ namespace MS
 				formula = formula.Replace("Soul", (charData.Soul * charData.SoulRatio).ToString());
 				formula = formula.Replace("MP", Mathf.Max(0, charData.CurMP).ToString());
 				formula = formula.Replace("X", string.Format("{0:F1}", GetLevelCoefficient(charData.m_eSide)));
-				formula = formula.Replace("SkillLv", charData.GetSkillLv(charData.m_iCurSkillID).ToString());
+				formula = formula.Replace("SkillLv", charData.GetSkillLevel(charData.m_iCurSkillID).ToString());
 			}
 
 			return formula;

@@ -10,6 +10,7 @@ GameObject:
   - component: {fileID: 458152}
   - component: {fileID: 9558294}
   - component: {fileID: 114888025468153240}
+  - component: {fileID: 114254818655123298}
   m_Layer: 0
   m_Name: Hero1008_Stand
   m_TagString: Untagged
@@ -777,7 +778,7 @@ Transform:
   m_GameObject: {fileID: 158152}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
+  m_LocalScale: {x: 1.41, y: 1.41, z: 1.41}
   m_Children:
   - {fileID: 458154}
   - {fileID: 458156}
@@ -1654,6 +1655,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 158152}
   m_IsPrefabAsset: 1
+--- !u!114 &114254818655123298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46505135e5ee209409460b230dc81ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Head: {fileID: 458206}
+  LeftHand: {fileID: 458226}
+  RightHand: {fileID: 458248}
+  Chest: {fileID: 458184}
 --- !u!114 &114888025468153240
 MonoBehaviour:
   m_ObjectHideFlags: 1

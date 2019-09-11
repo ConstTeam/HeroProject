@@ -277,12 +277,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f5d78048ea63c4289045ce110eb9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UICam: {fileID: 1845359175}
   BattleCam: {fileID: 534669904}
   BattleRootTrans: {fileID: 1125660363}
   BattlePoolGo: {fileID: 1320551037}
   HeadUIParentTran: {fileID: 612030237}
-  m_CharInScene: {fileID: 0}
-  m_SceneTimer: {fileID: 0}
+  HUDTextRes: {fileID: 0}
   m_iEnemyPlayerLevel: 0
 --- !u!1 &1125660362
 GameObject:

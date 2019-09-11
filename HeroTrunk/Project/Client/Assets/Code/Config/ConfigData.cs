@@ -148,7 +148,7 @@ namespace MS
 
         public static string GetHUDText(string sKey)
         {
-            return GetValue("Lan_Instance_Client", sKey, "Text");
+            return GetValue("Lan_Battle_Client", sKey, "Text");
         }
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MS
 {
-	public class SkillHandler : MonoBehaviour
+	public class SkillHandler
 	{
 		private NormalHit _normalHit;
 		private NormalShoot _normalShoot;

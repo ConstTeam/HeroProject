@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,7 +14,7 @@ namespace MS
 		private bool _bSlide;
 		private Vector3 _tarPos;
 		private Vector3 _dir;
-		private UnityEngine.AI.NavMeshAgent _agent;
+		private NavMeshAgent _agent;
 
 		void Awake()
 		{
@@ -28,7 +26,7 @@ namespace MS
 		{
 			_charHandler = handler;
 			_charData = handler.m_CharData;
-			_transform = handler.m_Transform;
+			_transform = handler.m_ParentTrans;
 			_agent = _transform.gameObject.AddComponent<NavMeshAgent>();
 			_agent.autoBraking = false;
 			_agent.acceleration = 100f;
@@ -63,7 +61,7 @@ namespace MS
 			{
 				if(BeArrived())
 				{
-					_agent.Stop();
+					_agent.isStopped = true;
 					_charHandler.ToIdle();
 				}
 			}
@@ -98,7 +96,7 @@ namespace MS
 			_bMove = true;
 			_bSlide = false;
 			_agent.SetDestination(_tarPos);
-			_agent.Resume();
+			_agent.isStopped = false;
 		}
 
 		public void StartSlide(Transform tarTrans, float offset)
@@ -107,7 +105,7 @@ namespace MS
 			_fReachedOffset = offset;
 			_bSlide = true;
 			_bMove = false;
-			_agent.Stop();
+			_agent.isStopped = true;
 		}
 
 		public void StopAutoMove(bool bAIStop = false)
@@ -116,7 +114,7 @@ namespace MS
 			{
 				_bMove = false;
 				_bSlide = false;
-				_agent.Stop();
+				_agent.isStopped = true;
 			}
 		}
 

@@ -23,9 +23,9 @@ namespace MS
 			int i = 0;
 			for(; i < m_lstCharHandler.Count; ++i)
 			{
-				LineRenderer.SetPosition(i, m_lstCharHandler[i].m_Transform.position + Vector3.up);
+				LineRenderer.SetPosition(i, m_lstCharHandler[i].m_ParentTrans.position + Vector3.up);
 			}
-			LineRenderer.SetPosition(i, m_lstCharHandler[0].m_Transform.position + Vector3.up);
+			LineRenderer.SetPosition(i, m_lstCharHandler[0].m_ParentTrans.position + Vector3.up);
 		}
 
 		public void AddChar(CharHandler charHandler, float value)

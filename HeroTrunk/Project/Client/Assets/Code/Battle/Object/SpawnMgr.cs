@@ -120,7 +120,7 @@ namespace MS
 				{
 					if(i > monsterInfos.Length - 1)
 					{
-						Debug.LogError("���ñ���С��������ˢ�ֵ��������������޸ģ�");
+						Debug.LogError("配置表中小怪数量和刷怪点数量不符，请修改！");
 						break;
 					}
 					ids = monsterInfos[i].Split(';');

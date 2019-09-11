@@ -38,7 +38,7 @@ namespace MS
 		public void SetCharHandler(CharHandler handler)
 		{
 			_charHandler = handler;
-			_transform = handler.m_Transform;
+			_transform = handler.m_ParentTrans;
 
 			//LoadHormalHitEffect();
 			//LoadSkillEffect();
@@ -62,8 +62,8 @@ namespace MS
 				{
 					GameObject go = ResourceLoader.LoadAssetAndInstantiate(path, _transform);
 					trans = go.transform;
-					trans.localScale = go.transform.localScale / _charHandler.m_Transform.localScale.z;
-					trans.rotation = _charHandler.m_Transform.rotation;
+					trans.localScale = go.transform.localScale / _charHandler.m_ParentTrans.localScale.z;
+					trans.rotation = _charHandler.m_ParentTrans.rotation;
 					go.SetActive(false);
 					_dicSkillEffect.Add(skillId, new SkillEffectStruct(go));
 				}
@@ -74,7 +74,7 @@ namespace MS
 		private void LoadCommonEffect()
 		{
 			_dizzyEffect = ResourceLoader.LoadAssetAndInstantiate(_skillEffectGeneralConfig.GetValue("1", "Path"), _transform, dizzyPos);
-			_dizzyEffect.transform.localScale = _dizzyEffect.transform.localScale / _charHandler.m_Transform.localScale.z;
+			_dizzyEffect.transform.localScale = _dizzyEffect.transform.localScale / _charHandler.m_ParentTrans.localScale.z;
 			_dizzyEffect.SetActive(false);
 		}
 
@@ -87,7 +87,7 @@ namespace MS
 			{
 				string path = string.Format("Effect/Prefabs_Character/Hero{0}/Hero{0}_Attack{1:00}", charId, i + 1);
 				_attackEffects[i] = ResourceLoader.LoadAssetAndInstantiate(path, _transform);
-				_attackEffects[i].transform.localScale = _attackEffects[i].transform.localScale / _charHandler.m_Transform.localScale.z;
+				_attackEffects[i].transform.localScale = _attackEffects[i].transform.localScale / _charHandler.m_ParentTrans.localScale.z;
 				_attackEffects[i].SetActive(false);
 			}
 		}
@@ -136,17 +136,17 @@ namespace MS
 
 		public void SetRingLight(string path)
 		{
-			_RingLightEffect = ResourceLoader.LoadAssetAndInstantiate(path, _charHandler.m_Transform);
-			_RingLightEffect.transform.localScale = _RingLightEffect.transform.localScale / _charHandler.m_Transform.localScale.z;
+			_RingLightEffect = ResourceLoader.LoadAssetAndInstantiate(path, _charHandler.m_ParentTrans);
+			_RingLightEffect.transform.localScale = _RingLightEffect.transform.localScale / _charHandler.m_ParentTrans.localScale.z;
 		}
 
 		public void ChangeRingLight(GameObject RingLightEffect)
 		{
 			_RingLightEffect = RingLightEffect;
-			_RingLightEffect.transform.SetParent(_charHandler.m_Transform);
+			_RingLightEffect.transform.SetParent(_charHandler.m_ParentTrans);
 			_RingLightEffect.transform.localPosition = Vector3.zero;
 			_RingLightEffect.transform.localScale = Vector3.one;
-			_RingLightEffect.transform.localScale = _RingLightEffect.transform.localScale / _charHandler.m_Transform.localScale.z;
+			_RingLightEffect.transform.localScale = _RingLightEffect.transform.localScale / _charHandler.m_ParentTrans.localScale.z;
 		}
 	}
 }

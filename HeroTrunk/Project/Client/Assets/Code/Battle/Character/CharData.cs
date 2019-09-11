@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,29 +32,18 @@ namespace MS
 		public float	m_fOriDef			= 0f;		//初始防御
 
 		//-----------------------------------------------------------------------------------------
-		public int		m_iCurSkillID		= 0;		//正在释放的技能
-		//-----------------------------------------------------------------------------------------
+		public int		m_iCurSkillID		= 0;        //正在释放的技能
+		//----------------------------------------------------------------------------------------
 
 		private ConfigRow _heroRow;
+		public int		CurLevel { get; set; }
+		public int[]	SkillIDs { get; set; }
+		
 
-		//技能ID
-		[SerializeField] private int[] _skillIDs = new int[5];
-		public int[] SkillIDs
+		private Dictionary<int, int> _dicSkillLevels = new Dictionary<int, int>();
+		public int GetSkillLevel(int skillId)
 		{
-			get { return _skillIDs; }
-		}
-
-		private Dictionary<int, int> _skillLevels = new Dictionary<int, int>();
-		public int GetSkillLv(int skillId)
-		{
-			return _skillLevels[skillId];
-		}
-
-		[SerializeField] private int _iCurLevel = 0;
-		public int CurLevel
-		{
-			get { return _iCurLevel; }
-			set { _iCurLevel = value; }
+			return _dicSkillLevels[skillId];
 		}
 
 		#region --攻防血魔治疗------------------------------------------------------------------------
@@ -277,39 +265,6 @@ namespace MS
 		public void Init(int iIndex)
 		{
 			m_eState = BattleEnum.Enum_CharState.Idle;
-			if(-1 != iIndex) //非小怪
-			{
-				SetConfigInfo();
-				SetSkillInfo();
-			}
-		}
-
-		private void SetConfigInfo()
-		{
-			_heroRow		= ConfigData.GetValue("Hero_Common", m_iCharID.ToString());
-			m_fAtkRange		= float.Parse(_heroRow.GetValue("AttackRange"));
-			m_fBodyRange	= float.Parse(_heroRow.GetValue("BodyRange"));
-			m_fMoveSpeed	= float.Parse(_heroRow.GetValue("RunSpeed"));
-			m_fAtkRadian	= float.Parse(_heroRow.GetValue("AttackRad"));
-			m_iAtkCount		= int.Parse(_heroRow.GetValue("AttackCount"));
-			m_fAtkX			= float.Parse(_heroRow.GetValue("AttackX"));
-			m_sHeroName		= _heroRow.GetValue("HeroName");
-			m_eAtkType		= "0" == _heroRow.GetValue("AttackType") ? BattleEnum.Enum_AttackType.Close : BattleEnum.Enum_AttackType.Distant;
-		}
-
-		private void SetSkillInfo()
-		{
-			//HeroInfo heroInfo = m_eSide == BattleEnum.Enum_CharSide.Mine ? FightSceneMgr.GetInst().GetMineHeroInfo(m_iCharID) : FightSceneMgr.GetInst().GetEnemyHeroInfo(m_iCharID);
-			//int skillId = heroInfo.MainSkillID;
-			//_skillIDs[0] = skillId;
-			//_skillLevels.Add(skillId, heroInfo.Skills[1]);
-
-			//List<int> triggerIDs = heroInfo.GetActiveSkills();
-			//for(int i = 0; i < triggerIDs.Count; ++i)
-			//{
-			//	_skillIDs[i + 1] = triggerIDs[i];
-			//	_skillLevels.Add(triggerIDs[i], heroInfo.Skills[i + 2]);
-			//}
 		}
 
 		public BattleEnum.Enum_CharSide GetOppositeSide()
@@ -327,18 +282,19 @@ namespace MS
 
 		private void SetCharDataMine(BattleEnum.Enum_CharType type)
 		{
-			//HeroInfo heroInfo = FightSceneMgr.GetInst().GetMineHeroInfo(m_iCharID);
-			//_SetCharData(heroInfo, type);
+			HeroInfo heroInfo = BattleManager.GetInst().GetHeroInfoMine(m_iCharID);
+			_SetCharData(heroInfo, type);
 		}
 
 		private void SetCharDataEnemy(BattleEnum.Enum_CharType type)
 		{
-			//HeroInfo heroInfo = FightSceneMgr.GetInst().GetEnemyHeroInfo(m_iCharID);
-			//_SetCharData(heroInfo, type);
+			HeroInfo heroInfo = BattleManager.GetInst().GetHeroInfoEnemy(m_iCharID);
+			_SetCharData(heroInfo, type);
 		}
 
 		private void _SetCharData(HeroInfo heroInfo, BattleEnum.Enum_CharType type)
 		{
+			SetConfigInfo();
 			m_eType			= type;
 			CurLevel		= heroInfo.Level;
 			CurAttack		= heroInfo.Attack + heroInfo.AddAttack;
@@ -355,6 +311,26 @@ namespace MS
 			m_fOriHP		= MaxHP;
 			m_fOriDef		= CurDefence;
 			m_fOriAtk		= CurAttack;
+
+			SkillIDs = new int[5];
+			for(int i = 0; i < 5; ++i)
+			{
+				SkillIDs[i] = heroInfo.SkillIDs[i];
+				_dicSkillLevels.Add(SkillIDs[i], heroInfo.SkillLevels[i]);
+			}
+		}
+
+		private void SetConfigInfo()
+		{
+			_heroRow		= ConfigData.GetValue("Hero_Common", m_iCharID.ToString());
+			m_fAtkRange		= float.Parse(_heroRow.GetValue("AttackRange"));
+			m_fBodyRange	= float.Parse(_heroRow.GetValue("BodyRange"));
+			m_fMoveSpeed	= float.Parse(_heroRow.GetValue("RunSpeed"));
+			m_fAtkRadian	= float.Parse(_heroRow.GetValue("AttackRad"));
+			m_iAtkCount		= int.Parse(_heroRow.GetValue("AttackCount"));
+			m_fAtkX			= float.Parse(_heroRow.GetValue("AttackX"));
+			m_sHeroName		= _heroRow.GetValue("HeroName");
+			m_eAtkType		= "0" == _heroRow.GetValue("AttackType") ? BattleEnum.Enum_AttackType.Close : BattleEnum.Enum_AttackType.Distant;
 		}
 	}
 }

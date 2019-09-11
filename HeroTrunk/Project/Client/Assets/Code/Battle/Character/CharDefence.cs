@@ -124,7 +124,7 @@ namespace MS
 		private void HPLosted(float hurt, CharHandler srcHandler, SkillDataSon srcSkillDataSon = null)
 		{
 			//受击特效
-			SetEffect(srcSkillDataSon, _charHandler.m_Transform.position);
+			SetEffect(srcSkillDataSon, _charHandler.m_ParentTrans.position);
 
 			if(_charHandler.m_CharData.CurHP <= 0)
 			{
@@ -143,8 +143,8 @@ namespace MS
 					float t = Time.time;
 					if(t - m_fBackwardClock > ApplicationConst.fBackwardCD)
 					{
-						Vector3 dir = (_charHandler.m_Transform.position - srcHandler.m_Transform.position).normalized * 1f;
-						_charHandler.m_Transform.Translate(dir, Space.World);
+						Vector3 dir = (_charHandler.m_ParentTrans.position - srcHandler.m_ParentTrans.position).normalized * 1f;
+						_charHandler.m_ParentTrans.Translate(dir, Space.World);
 						m_fBackwardClock = t;
 					}
 				}

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace MS
 {
-	public class BuffFloat : MonoBehaviour
+	public class BuffFloat
 	{
 		private List<int> _lstInstID = new List<int>();
 		private List<float> _lstValue = new List<float>();

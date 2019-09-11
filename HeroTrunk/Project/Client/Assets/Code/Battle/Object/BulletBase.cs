@@ -38,8 +38,8 @@ namespace MS
 			m_AimCharHandler = aimCharHandler;
 			_funcShootCb = cb;
 
-			_transform.rotation = charHandler.m_Transform.rotation;
-			_transform.position = m_CharHandler.m_Transform.position + Vector3.up;
+			_transform.rotation = charHandler.m_ParentTrans.rotation;
+			_transform.position = m_CharHandler.m_ParentTrans.position + Vector3.up;
 			_gameObject.SetActive(true);
 		}
 	}

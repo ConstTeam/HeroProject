@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -89,7 +88,7 @@ namespace MS
 
 			for(int i = 0; i < lst.Count; ++i)
 			{
-				lst[i].m_Transform.gameObject.SetActive(bShow);
+				lst[i].m_ParentTrans.gameObject.SetActive(bShow);
 			}
 		}
 	}

@@ -11,7 +11,7 @@ namespace MS
 
 			if(null != m_AimCharHandler)
 			{
-				Vector3 aimPos = m_AimCharHandler.m_Transform.position + Vector3.up;
+				Vector3 aimPos = m_AimCharHandler.m_ParentTrans.position + Vector3.up;
 				_fCurDistance = Vector3.Distance(bulletPos, aimPos);
 				if(_fCurDistance < 0.2f)
 				{

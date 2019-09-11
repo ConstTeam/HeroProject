@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MS
 {
-	public class SkillDataWhole : MonoBehaviour
+	public class SkillDataWhole
 	{
 		public int		m_iSkillID;
 		public int		m_iSkillIndex;

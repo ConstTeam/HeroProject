@@ -5,18 +5,20 @@ namespace MS
 {
 	public class BattleManager : MonoBehaviour
 	{
+		public Camera				UICam;
 		public Camera				BattleCam;
 		public Transform			BattleRootTrans;
 		public GameObject			BattlePoolGo;
 		public Transform			HeadUIParentTran;
+		public GameObject			HUDTextRes;
 
 		public BattleCharInScene	m_CharInScene;
 		public BattleTriggerManager m_TriggerManager;
-		public BattleSceneTimer		m_SceneTimer;
 
 		public MPData				m_MPData;
 		public int					m_iEnemyPlayerLevel;
 
+		private GameObject			_gameObject;
 		private BattleSceneBase		_battleScene;
 
 		private static BattleManager _inst;
@@ -32,34 +34,52 @@ namespace MS
 
 		private void Awake()
 		{
-			BattleCam.rect = ApplicationConst.sceneCamRect;
-			_inst = this;
+			_gameObject			= gameObject;
+			BattleCam.rect		= ApplicationConst.sceneCamRect;
+			_inst				= this;
 
 			SceneLoader.LoadAddScene(m_sAddSceneName);
 
-			m_SceneTimer		= gameObject.AddComponent<BattleSceneTimer>();
+			_gameObject.AddComponent<HUDTextMgr>();
+			_gameObject.AddComponent<BattleSceneTimer>();
+
 			m_CharInScene		= new BattleCharInScene();
-			m_TriggerManager	= new BattleTriggerManager(m_SceneTimer);
+			m_TriggerManager	= new BattleTriggerManager();
 			_battleScene		= new BattleSceneNormal();
 
 			m_MPData			= new MPData("Power1");
 
 			BattlePoolGo.AddComponent<BattleScenePool>();
+
+			BattleScenePool.GetInst().SetHeroIdMine();
+			//SetEnemyHeroIDs();
+			BattleScenePool.GetInst().SetMonsterId();
 		}
 
 		private void Start()
 		{
 			ResourceLoader.LoadAssetAndInstantiate(m_sSpawnName);
+			BattleScenePool.GetInst().LoadHero(BattleEnum.Enum_CharSide.Mine);
+			_battleScene.OnBattleInit();
+			Invoke("BattleStart", 3);
 		}
 
-		public void BattleInit()
+		public void BattleStart()
 		{
-
+			BattleCam.enabled = true;
+			BattleSceneTimer.GetInst().BeginTimer();
+			SpawnMgr.GetInst().Begin();
+			_battleScene.OnBattleStart();
 		}
 
 		public List<int> GetHeroIdsMine()
 		{
 			return new List<int>{ 1006, 1007, 1008 };
+		}
+
+		public List<int> GetHeroIdsEnemy()
+		{
+			return new List<int> { 1006, 1007, 1008 };
 		}
 
 		public MPData GetMPData()
@@ -86,6 +106,16 @@ namespace MS
 		public CharHandler GetMainHeroBySide(BattleEnum.Enum_CharSide side)
 		{
 			return BattleEnum.Enum_CharSide.Mine == side ? GetMainHero() : GetMainEnemy();
+		}
+
+		public HeroInfo GetHeroInfoMine(int charId)
+		{
+			return new HeroInfo(charId);
+		}
+
+		public HeroInfo GetHeroInfoEnemy(int charId)
+		{
+			return new HeroInfo(charId);
 		}
 
 		#region --被动技能相关-------------------------------------------------------------

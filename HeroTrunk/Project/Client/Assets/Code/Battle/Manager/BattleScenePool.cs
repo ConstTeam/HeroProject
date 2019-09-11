@@ -36,36 +36,33 @@ namespace MS
 			_inst = this;
 			_transform = transform;
 			_monsterConfig = ConfigData.GetValue("Monster_Client");
-			SetMyHeroIDs();
-			//SetEnemyHeroIDs();
-			//SetMonsterIDs(FightSceneMgr.m_eBattleType);
 		}
 
-		private void Start()
-		{
-			LoadHero();
-		}
-
-		private void SetMyHeroIDs()
+		public void SetHeroIdMine()
 		{
 			m_lstCharMineID = BattleManager.GetInst().GetHeroIdsMine();
 		}
 
-		private void LoadHero()
+		public void LoadHero(BattleEnum.Enum_CharSide side)
 		{
+			bool bMine = BattleEnum.Enum_CharSide.Mine == side;
+			List<int> charIds = bMine ? m_lstCharMineID : m_lstCharEnemyID;
+			Dictionary<int, CharHandler> dicCharPool = bMine ? _dicCharMinePool : _dicCharEnemyPool;
+
 			GameObject charGo;
 			GameObject handlerGo;
-			List<int> charIds = BattleManager.GetInst().GetHeroIdsMine();
 			int charId;
 			for(int i = 0; i < m_lstCharMineID.Count; ++i)
 			{
-				charId = m_lstCharMineID[i];
+				charId = charIds[i];
 				charGo = ResourceLoader.LoadAssetAndInstantiate(string.Format("Character/Hero{0}_Stand", charId.ToString()), _transform, PositionMgr.vecHidePos);
 				handlerGo = new GameObject("Handler");  //把其他代码和CharAnimCallback分开放
 				handlerGo.transform.SetParent(charGo.transform);
 				handlerGo.transform.localPosition = Vector3.zero;
 				CharHandler charHandler = handlerGo.AddComponent<CharHandler>();
 				charHandler.Init(charId, BattleEnum.Enum_CharSide.Mine, i);
+				dicCharPool.Add(charId, charHandler);
+				//PreloadBulletHero(charHandler);
 			}
 		}
 
@@ -144,9 +141,9 @@ namespace MS
 		}
 
 		#region --小怪相关------------------------------------------------------------------
-		private void SetMonsterIDs(BattleEnum.Enum_BattleType battleType)
+		public void SetMonsterId()
 		{
-			string strIds = SectionData.GetMonsterSpawns(BattleManager.m_iSectionID, battleType);
+			string strIds = SectionData.GetMonsterSpawns(BattleManager.m_iSectionID, BattleManager.m_eBattleType);
 			if(string.Empty == strIds)
 				return;
 
@@ -157,25 +154,11 @@ namespace MS
 				ids = monsterInfos[i].Split(';');
 				int monsterId = int.Parse(ids[0]);
 				if(!m_lstMonsterID.Contains(monsterId))
-					m_lstMonsterID.Add(monsterId);
-			}
-		}
-
-		private void PreloadMonster(List<int> monsterIds)
-		{
-			int charId;
-			for(int i = 0; i < monsterIds.Count; ++i)
-			{
-				charId = monsterIds[i];
-				_dicMonsterPool.Add(charId, new Stack<CharHandler>());
-
-				Object obj = ResourceLoader.LoadAssets(_monsterConfig.GetValue(charId.ToString(), "PrefabPath"));
-				for(int j = 0; j < 6; ++j)
 				{
-					CharHandler ch = LoaderMonster(obj, charId);
-					_dicMonsterPool[charId].Push(ch);
+					m_lstMonsterID.Add(monsterId);
+					_dicMonsterPool.Add(monsterId, new Stack<CharHandler>());
+					//PreloadBulletMonster(charId);
 				}
-				PreloadBulletMonster(charId);
 			}
 		}
 

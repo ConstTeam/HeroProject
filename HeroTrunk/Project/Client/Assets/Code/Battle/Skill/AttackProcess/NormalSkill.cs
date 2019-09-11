@@ -234,7 +234,7 @@ namespace MS
 		{
 			CharHandler con = GetConcentrate(charHandler, skillDataSon.m_eAimSide);
 			if(null != con)
-				charHandler.m_Transform.LookAt(con.m_Transform);
+				charHandler.m_ParentTrans.LookAt(con.m_ParentTrans);
 
 			for(int i = 0; i < lists.Count; ++i)
 			{
@@ -270,25 +270,25 @@ namespace MS
 				listRet.Add(con);
 
 			if(listRet.Count > 0)
-				charHandler.m_CharSkill.m_vecDistancePos = listRet[0].m_Transform.position;
+				charHandler.m_CharSkill.m_vecDistancePos = listRet[0].m_ParentTrans.position;
 			else
-				charHandler.m_CharSkill.m_vecDistancePos = charHandler.m_Transform.position;
+				charHandler.m_CharSkill.m_vecDistancePos = charHandler.m_ParentTrans.position;
 		}
 
 		private void TypeDistanceFixed(CharHandler charHandler, SkillDataSon skillDataSon, List<List<CharHandler>> lists, List<CharHandler> listRet)
 		{
 			CharHandler con = GetConcentrate(charHandler, skillDataSon.m_eAimSide);
 			if(null != con)
-				charHandler.m_Transform.LookAt(con.m_Transform);
+				charHandler.m_ParentTrans.LookAt(con.m_ParentTrans);
 
-			charHandler.m_CharSkill.m_vecDistancePos = charHandler.m_Transform.position + charHandler.m_Transform.forward * skillDataSon.m_iDistance;
+			charHandler.m_CharSkill.m_vecDistancePos = charHandler.m_ParentTrans.position + charHandler.m_ParentTrans.forward * skillDataSon.m_iDistance;
 		}
 
 		private void TypeDistance(CharHandler charHandler, Vector3 centerPos, SkillDataSon skillDataSon, List<List<CharHandler>> lists, List<CharHandler> listRet)
 		{
 			CharHandler con = GetConcentrate(charHandler, skillDataSon.m_eAimSide);
 			if(null != con)
-				charHandler.m_Transform.LookAt(con.m_Transform);
+				charHandler.m_ParentTrans.LookAt(con.m_ParentTrans);
 
 			for(int i = 0; i < lists.Count; ++i)
 			{
@@ -300,7 +300,7 @@ namespace MS
 		{
 			CharHandler con = GetConcentrate(charHandler, skillDataSon.m_eAimSide);
 			if(null != con)
-				charHandler.m_Transform.LookAt(con.m_Transform);
+				charHandler.m_ParentTrans.LookAt(con.m_ParentTrans);
 
 			for(int i = 0; i < lists.Count; ++i)
 			{
@@ -316,7 +316,7 @@ namespace MS
 				float rate = BattleCalculate.ExcuteFormula(skillDataWhole.m_sEffectRate, null, charHandler, targets[i]);
 				if(Random.Range(0f, 1f) > rate)
 				{
-					HUDTextMgr.GetInst().NewText(ConfigData.GetValue("Lan_Instance_Client", "15", "Text"), targets[i], HUDTextMgr.HUDTextType.BUFF);   //"释放不成功"
+					HUDTextMgr.GetInst().NewText(ConfigData.GetValue("Lan_Battle_Client", "15", "Text"), targets[i], HUDTextMgr.HUDTextType.BUFF);   //"释放不成功"
 					targets.RemoveAt(i);
 				}
 			}

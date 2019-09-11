@@ -7,17 +7,18 @@ namespace MS
 	{
 		public enum HUDTextType
 		{
-			NormalHit,      //普通攻击伤害数字
-			SkillHit,       //技能伤害数字
-			MainSkillName,      //魂技能技能名字显示信息
-			NormalSkillName,    //普通技能
-			AbsorbHP,       //回复HP数字
-			BUFF            //Buff类型信息
+			NormalHit,			//普通攻击伤害数字
+			SkillHit,			//技能伤害数字
+			MainSkillName,		//魂技能技能名字显示信息
+			NormalSkillName,	//普通技能
+			AbsorbHP,			//回复HP数字
+			BUFF				//Buff类型信息
 		}
 
 		public Transform HeadHUDParent;
 		public Transform HeadHUDSkillParent;
-		public GameObject TextPrefab;
+
+		private GameObject TextPrefab;
 		private Queue<HUDTextItem> pool = new Queue<HUDTextItem>();
 		private Queue<HUDTextItem> poolSkill = new Queue<HUDTextItem>();  //技能名字,显示在最上面
 
@@ -35,6 +36,7 @@ namespace MS
 		private void Awake()
 		{
 			_inst = this;
+			TextPrefab = ResourceLoader.LoadAsset<GameObject>("PrefabUI/Battle/HUDText");
 		}
 
 		public void NewText(string text, CharHandler handler, HUDTextType type)
@@ -70,6 +72,7 @@ namespace MS
 			}
 
 		}
+
 		//得到一个HUD对象
 		private HUDTextItem GetText(HUDTextType type)
 		{
@@ -89,6 +92,7 @@ namespace MS
 			item.gameObject.SetActive(true);
 			return item;
 		}
+
 		//回收一个HUD对象
 		public void GetBackText(HUDTextItem item)
 		{

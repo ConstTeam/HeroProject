@@ -6,15 +6,21 @@ namespace MS
 {
 	public class BattleSceneNormal : BattleSceneBase
 	{
+		public override BattleEnum.Enum_BattleType BattleType
+		{
+			get { return BattleEnum.Enum_BattleType.Normal; }
+		}
+
 		public override void OnBattleInit()
 		{
-			//SpawnMgr.GetInst().CreateHerosM();
+			SpawnMgr.GetInst().CreateHerosM();
 			base.OnBattleInit();
 		}
 
 		public override void OnBattleStart()
 		{
-			base.OnBattleStart();
+			SpawnMgr.GetInst().EnableHerosM();
+			//SpawnMgr.GetInst().EnableHerosE();
 		}
 	}
 }

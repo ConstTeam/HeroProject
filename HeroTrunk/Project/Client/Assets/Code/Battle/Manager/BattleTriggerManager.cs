@@ -69,9 +69,9 @@ namespace MS
 		}
 
 		//--时间Trigger-------------------------------------------------------------------------------------------
-		public BattleTriggerManager(BattleSceneTimer fightSceneTimer)
+		public BattleTriggerManager()
 		{
-			fightSceneTimer.AddTickFunc(Tick);
+			BattleSceneTimer.GetInst().AddTickFunc(Tick);
 		}
 
 		private void Tick(int sec)
@@ -117,7 +117,7 @@ namespace MS
 
 		public void FinalEnemyBorned()
 		{
-			_iFinalEnemyBornSec = BattleManager.GetInst().m_SceneTimer.m_iSec;
+			_iFinalEnemyBornSec = BattleSceneTimer.GetInst().m_iSec;
 		}
 
 		//--血量Trigger-------------------------------------------------------------------------------------------

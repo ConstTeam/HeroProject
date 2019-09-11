@@ -4,7 +4,6 @@ namespace MS
 {
 	public class CharSlide : MonoBehaviour
 	{
-		private CharHandler _charHandler;
 		private Transform _transform;
 		private float _speed = 0f;
 		private Vector3 _dir = Vector3.zero;
@@ -18,8 +17,7 @@ namespace MS
 
 		public void SetCharHandler(CharHandler handler)
 		{
-			_charHandler = handler;
-			_transform = handler.m_Transform;
+			_transform = handler.m_ParentTrans;
 		}
 
 		public void SetValues(Vector3 dir, float speed)

@@ -92,7 +92,7 @@ namespace MS
 						_SetEffect(_AimCharHandler.m_CharBody.RightHand);
 						break;
 					default:
-						_SetEffect(_AimCharHandler.m_Transform);
+						_SetEffect(_AimCharHandler.m_ParentTrans);
 						break;
 				}
 			}

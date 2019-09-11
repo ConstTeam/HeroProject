@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using MS;
 
-
-    /// <summary>
-    /// 物体血条跟随
-    /// </summary>
+/// <summary>
+/// 物体血条跟随
+/// </summary>
 public class bl_Follow3DObject : MonoBehaviour {
 
     public delegate void OnVisibilityChange(bool isVisible);
@@ -27,17 +27,21 @@ public class bl_Follow3DObject : MonoBehaviour {
 
     public Camera MCamera;
     public Camera UICamera;
-    
-    void Start()
-    {       
-        if (MCamera==null)
-        {
-            MCamera = GameObject.FindGameObjectWithTag("FightCamera").GetComponent<Camera>(); 
-        }
-        if (UICamera==null)
-        {
-            UICamera = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
-        }
+
+	private Transform _transform;
+
+	private void Awake()
+	{
+		_transform = transform;
+	}
+
+	void Start()
+    {
+        if(MCamera==null)
+            MCamera = BattleManager.GetInst().BattleCam;
+
+        if(UICamera==null)
+            UICamera = BattleManager.GetInst().UICam;
     }
 
     void LateUpdate()
@@ -52,13 +56,13 @@ public class bl_Follow3DObject : MonoBehaviour {
           
             Vector2 screenToWorldPoint = UICamera.ViewportToWorldPoint(pos);
 
-            transform.position = screenToWorldPoint;
+			_transform.position = screenToWorldPoint;
 
             if (mIsVisible != isVisible)
             {
                 mIsVisible = isVisible;
-                for (int i = 0, imax = transform.childCount; i < imax; ++i)
-                    transform.GetChild(i).gameObject.SetActive(vis);
+                for (int i = 0, imax = _transform.childCount; i < imax; ++i)
+					_transform.GetChild(i).gameObject.SetActive(vis);
                 // 发送一个显示改变事件
                 if (onChange != null) onChange(vis);
             }

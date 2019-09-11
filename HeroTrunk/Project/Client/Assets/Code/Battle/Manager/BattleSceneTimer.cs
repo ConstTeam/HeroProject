@@ -10,8 +10,20 @@ namespace MS
 
 		private float _fDeltaTime = 0.0f;
 
+		private static BattleSceneTimer _inst;
+		public static BattleSceneTimer GetInst()
+		{
+			return _inst;
+		}
+
+		private void OnDestroy()
+		{
+			_inst = null;
+		}
+
 		private void Awake()
 		{
+			_inst = this;
 			m_iSec = -1;
 			PauseTimer();
 		}

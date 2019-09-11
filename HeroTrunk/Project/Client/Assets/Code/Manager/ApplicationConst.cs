@@ -76,7 +76,11 @@ namespace MS
 				matchWidthOrHeight = 1f;
 			}
 			else
+			{
+				screenRatio = 1f / screenRatio;
 				matchWidthOrHeight = 0f;
+			}
+			sceneCamRect = new Rect(0f, (1f - screenRatio) / 2f, 1f, screenRatio);
 		}
 	}
 }

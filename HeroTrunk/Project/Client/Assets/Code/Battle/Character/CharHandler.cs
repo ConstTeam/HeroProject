@@ -6,7 +6,7 @@ namespace MS
 	public class CharHandler : MonoBehaviour
 	{
 		public GameObject	m_Go;
-		public Transform	m_Transform;
+		public Transform	m_ParentTrans;
 		public int			m_iIndex;
 
 		public CharData		m_CharData;
@@ -28,10 +28,10 @@ namespace MS
 		public void Init(int charId, BattleEnum.Enum_CharSide side, int index = -1)
 		{
 			m_Go			= gameObject;
-			m_Transform		= transform.parent;
+			m_ParentTrans	= transform.parent;
 			m_iIndex		= index;
-			_animCb			= m_Transform.GetComponent<CharAnimCb>();
-			m_CharBody		= m_Go.GetComponent<CharBody>();
+			_animCb			= m_ParentTrans.GetComponent<CharAnimCb>();
+			m_CharBody		= m_ParentTrans.GetComponent<CharBody>();
 			m_CharData		= m_Go.AddComponent<CharData>();
 			m_CharState		= m_Go.AddComponent<CharState>();
 			m_CharMove		= m_Go.AddComponent<CharMove>();
@@ -54,6 +54,8 @@ namespace MS
 			m_CharSlide.SetCharHandler(this);
 			m_CharSkill.SetCharHandler(this);
 			m_CharState.enabled = false;
+
+			SetHeadUI();
 		}
 
 		public void ToBorn()
@@ -84,7 +86,7 @@ namespace MS
 
 		public void ToRun(Vector3 pos, float offset = 0.5f)
 		{
-			if((pos - m_Transform.position).magnitude < offset)
+			if((pos - m_ParentTrans.position).magnitude < offset)
 				return;
 
 			m_CharData.m_eState = BattleEnum.Enum_CharState.Run;
@@ -128,7 +130,7 @@ namespace MS
 			{
 				if(null != charHandler)
 				{
-					m_Transform.LookAt(charHandler.m_Transform);
+					m_ParentTrans.LookAt(charHandler.m_ParentTrans);
 					if(charHandler.m_CharData.m_eType == BattleEnum.Enum_CharType.General && charHandler.m_CharData.m_eSide == BattleEnum.Enum_CharSide.Enemy)
 						m_CharMove.SetObstacleAvoidanceType(UnityEngine.AI.ObstacleAvoidanceType.LowQualityObstacleAvoidance);
 				}
@@ -148,12 +150,19 @@ namespace MS
 			m_CharMove.SetAgentEnable(false);
 			m_CharEffect.HideSkillEffect(m_CharData.m_iCurSkillID);
 
-			Vector3 dir = Quaternion.AngleAxis(180f, _rotY) * m_Transform.forward;
+			Vector3 dir = Quaternion.AngleAxis(180f, _rotY) * m_ParentTrans.forward;
 			m_CharSlide.SetValues(dir, 20);
 			m_CharSlide.Slide = true;
 			Invoke("StopSlide", 0.1f);
 
 			BattleManager.GetInst().m_CharInScene.RemoveChar(this);
+		}
+
+		public void BornEnd()
+		{
+			m_CharState.enabled = true;
+			m_CharMove.SetAgentEnable(true);
+			ToIdle();
 		}
 
 		public void ReleaseSkill(int skillId)
@@ -237,11 +246,11 @@ namespace MS
 			{
 				CharHandler handler = BattleManager.GetInst().GetMainHeroBySide(m_CharData.m_eSide);
 				if(3 == m_iIndex)
-					m_Transform.position = handler.m_Transform.position + handler.m_Transform.right * 2 - handler.m_Transform.forward * 2;
+					m_ParentTrans.position = handler.m_ParentTrans.position + handler.m_ParentTrans.right * 2 - handler.m_ParentTrans.forward * 2;
 				else if(4 == m_iIndex)
-					m_Transform.position = handler.m_Transform.position - handler.m_Transform.right * 2 - handler.m_Transform.forward * 2;
+					m_ParentTrans.position = handler.m_ParentTrans.position - handler.m_ParentTrans.right * 2 - handler.m_ParentTrans.forward * 2;
 
-				m_Transform.rotation = handler.m_Transform.rotation;
+				m_ParentTrans.rotation = handler.m_ParentTrans.rotation;
 
 				List<CharHandler> lst = m_CharData.m_eSide == BattleEnum.Enum_CharSide.Mine ? BattleManager.GetInst().m_CharInScene.m_listOfficialPresenceMine : BattleManager.GetInst().m_CharInScene.m_listOfficialPresenceEnemy;
 				lst.Add(this);
@@ -252,7 +261,7 @@ namespace MS
 		{
 			if(m_CharData.m_eType == BattleEnum.Enum_CharType.Official)
 			{
-				m_Transform.position = PositionMgr.vecHidePos;
+				m_ParentTrans.position = PositionMgr.vecHidePos;
 				List<CharHandler> lst = m_CharData.m_eSide == BattleEnum.Enum_CharSide.Mine ? BattleManager.GetInst().m_CharInScene.m_listOfficialPresenceMine : BattleManager.GetInst().m_CharInScene.m_listOfficialPresenceEnemy;
 				lst.Remove(this);
 				m_CharSkill.DequeueHoldSkill();
@@ -301,7 +310,7 @@ namespace MS
 		}
 
 		#region 添加头顶血条跟随位置----------------------------------------
-		private void SetHeadUI(CharHandler handler, int index)
+		private void SetHeadUI()
 		{
 			UIObj = new GameObject("HeadUI");
 			UIObj.transform.parent = BattleManager.GetInst().HeadUIParentTran;
@@ -311,11 +320,11 @@ namespace MS
 			bl_Follow3DObject UIFollow = UIObj.AddComponent<bl_Follow3DObject>();
 			UIFollow.target = SetUIFollowTarget();
 
-			if(index < 0)  //小怪生成头顶血条
+			if(m_iIndex < 0)  //小怪生成头顶血条
 			{
-				GameObject obj = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Instance/FightMonsterHPItem", UIObj.transform);
-				MonsterHpItem item = obj.GetComponent<MonsterHpItem>();
-				item.GetHandler(handler);
+				GameObject obj = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/HUDMonster", UIObj.transform);
+				HUDMonster item = obj.GetComponent<HUDMonster>();
+				item.GetHandler(this);
 			}
 		}
 
@@ -324,8 +333,8 @@ namespace MS
 			UIFollowGo = new GameObject("UIFollow");
 			Transform objTran = UIFollowGo.transform;
 			float y = m_CharBody.Head.position.y + 1f;
-			objTran.position = new Vector3(m_Transform.position.x, y, m_Transform.position.z);
-			objTran.parent = m_Transform;
+			objTran.position = new Vector3(m_ParentTrans.position.x, y, m_ParentTrans.position.z);
+			objTran.parent = m_ParentTrans;
 			objTran.localScale = Vector3.one;
 			objTran.localRotation = Quaternion.identity;
 			return objTran;

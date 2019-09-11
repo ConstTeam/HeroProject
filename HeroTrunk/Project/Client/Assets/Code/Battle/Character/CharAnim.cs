@@ -18,7 +18,7 @@ namespace MS
 		public void SetCharHandler(CharHandler handler)
 		{
 			_charHandler = handler;
-			_animator = _charHandler.m_Transform.GetComponent<Animator>();
+			_animator = _charHandler.m_ParentTrans.GetComponent<Animator>();
 		}
 
 		public void SetApplyRootMotion(bool bFlag)

@@ -2,13 +2,24 @@ using UnityEngine;
 
 namespace MS
 {
-	public class BattleSceneBase : MonoBehaviour
+	public class BattleSceneBase
 	{
-		public virtual void OnBattleInit()
+		public virtual void ToBattle()		{ }
+		public virtual void CreateMine()	{ }
+		public virtual void EnableMine()	{ }
+		public virtual void CreateEnemy()	{ }
+		public virtual void EnableEnemy()	{ }
+		public virtual void OnBattleStart()	{ }
+
+		public virtual BattleEnum.Enum_BattleType BattleType
 		{
-			BattleCam.GetInst().SetTarget(BattleManager.GetInst().GetMainHero());
+			get { return BattleEnum.Enum_BattleType.Normal; }
 		}
 
-		public virtual void OnBattleStart() { }
+		public virtual void OnBattleInit()
+		{
+			BattleCamera.GetInst().SetTarget(BattleManager.GetInst().GetMainHero());
+		}
+
 	}
 }

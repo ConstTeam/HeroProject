@@ -53,7 +53,7 @@ namespace MS
 
 		protected virtual void SetRadius(CharHandler handler)
 		{
-			handler.m_CharMove.SetRadius(handler.m_CharData.m_fBodyRange / handler.m_Transform.localScale.z);
+			handler.m_CharMove.SetRadius(handler.m_CharData.m_fBodyRange / handler.m_ParentTrans.localScale.z);
 		}
 
 		private void OnTriggerEnter(Collider other)
@@ -64,15 +64,15 @@ namespace MS
 		public void ReleaseChar()
 		{
 			CreateCharacters();
-			if(BattleManager.GetInst().m_SceneTimer.m_iSec >= 0)
+			if(BattleSceneTimer.GetInst().m_iSec >= 0)
 				EnableCharacters();
 		}
 
 		public void ResetPosition(CharHandler h, int spawnId)
 		{
 			Transform trans = spawnPoints[spawnId];
-			h.m_Transform.position = trans.position;
-			h.m_Transform.rotation = trans.rotation;
+			h.m_ParentTrans.position = trans.position;
+			h.m_ParentTrans.rotation = trans.rotation;
 		}
 
 		public bool ColliderEnable
