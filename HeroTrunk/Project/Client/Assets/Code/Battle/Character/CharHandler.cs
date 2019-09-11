@@ -154,6 +154,9 @@ namespace MS
 			Invoke("StopSlide", 0.1f);
 
 			BattleManager.GetInst().m_CharInScene.RemoveChar(this);
+
+			if(BattleEnum.Enum_CharSide.Enemy == m_CharData.m_eSide)
+				BattleManager.GetInst().IsWaveEnd();
 		}
 
 		public void BornEnd()

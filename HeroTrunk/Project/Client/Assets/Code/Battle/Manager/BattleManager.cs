@@ -150,6 +150,12 @@ namespace MS
 		}
 		#endregion
 
+		public void IsWaveEnd()
+		{
+			if(0 == m_CharInScene.m_listMonster.Count)
+				SpawnMgr.GetInst().SetSpawnState();
+		}
+
 		#region--静态------
 		public static int m_iSectionID;
 		public static string m_sAddSceneName;
