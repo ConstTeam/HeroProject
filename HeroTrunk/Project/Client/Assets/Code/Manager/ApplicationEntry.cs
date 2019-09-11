@@ -55,6 +55,7 @@ public class ApplicationEntry : MonoBehaviour
 	public void OnConfigLoadEnd()
 	{
 		_appConst.OnConfigLoadEnd();
+		BattleCalculate.Init();
 	}
 
 	public static void HandleExit()

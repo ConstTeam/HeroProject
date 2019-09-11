@@ -6,27 +6,18 @@ namespace MS
 	public class BattleCalculate
 	{
 		private static Dictionary<string, string> _dicMath = new Dictionary<string, string>();
-		private static List<int> levelCoefficient = new List<int>();
 
 		public static void Init()
 		{
 			_dicMath.Clear();
-			levelCoefficient.Clear();
-			ConfigTable mathCfg = ConfigData.GetValue("HeroMathSet_Common");
+			ConfigTable mathCfg = ConfigData.GetValue("Formula_Common");
 
 			foreach(KeyValuePair<string, ConfigRow> pair in mathCfg.m_Data)
 			{
-				_dicMath.Add(pair.Value.GetValue("MathName"), pair.Value.GetValue("Math"));
+				_dicMath.Add(pair.Key, pair.Value.GetValue("Math"));
 			}
 
-			string[] arr = _dicMath["NPCLevelParam"].Split(',');
-			for(int i = 0; i < arr.Length; i++)
-			{
-				if(arr[i].Length > 0)
-					levelCoefficient.Add(int.Parse(arr[i]));
-			}
-
-			ConfigData.DeleteConfig("HeroMathSet_Common");
+			ConfigData.DeleteConfig("Formula_Common");
 		}
 
 		public static float ExcuteFormula(string formula, string formulaMax, CharHandler charHandler, CharHandler aimCharHandler)
@@ -103,11 +94,6 @@ namespace MS
 			}
 
 			return ret;
-		}
-
-		public static int GetLevelCoefficient()
-		{
-			return levelCoefficient[PlayerInfo.Level - 1];
 		}
 
 		private static string ReplaceBaseProperty(string formula, bool bAim, CharData charData)

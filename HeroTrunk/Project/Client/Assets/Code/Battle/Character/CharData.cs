@@ -262,9 +262,18 @@ namespace MS
 		public BuffBool UnBeatable			= new BuffBool();	//无敌
 		public BuffBool Concentrate			= new BuffBool();	//集火
 
-		public void Init(int iIndex)
+		public void Init(int charId, BattleEnum.Enum_CharSide side, int iIndex)
 		{
-			m_eState = BattleEnum.Enum_CharState.Idle;
+			m_iCharID	= charId;
+			m_eSide		= side;
+			m_eState	= BattleEnum.Enum_CharState.Idle;
+			SkillIDs	= new int[5];
+
+			if(iIndex != -1)
+			{
+				HeroInfo heroInfo = BattleManager.GetInst().GetHeroInfo(side, charId);
+				SetCharData(heroInfo);
+			}
 		}
 
 		public BattleEnum.Enum_CharSide GetOppositeSide()
@@ -272,30 +281,15 @@ namespace MS
 			return m_eSide == BattleEnum.Enum_CharSide.Mine ? BattleEnum.Enum_CharSide.Enemy : BattleEnum.Enum_CharSide.Mine;
 		}
 
-		public void SetCharData(BattleEnum.Enum_CharType type)
+		public void SetCharType(BattleEnum.Enum_CharType type)
 		{
-			if(m_eSide == BattleEnum.Enum_CharSide.Mine)
-				SetCharDataMine(type);
-			else
-				SetCharDataEnemy(type);
+			m_eType = type;
 		}
 
-		private void SetCharDataMine(BattleEnum.Enum_CharType type)
-		{
-			HeroInfo heroInfo = BattleManager.GetInst().GetHeroInfoMine(m_iCharID);
-			_SetCharData(heroInfo, type);
-		}
-
-		private void SetCharDataEnemy(BattleEnum.Enum_CharType type)
-		{
-			HeroInfo heroInfo = BattleManager.GetInst().GetHeroInfoEnemy(m_iCharID);
-			_SetCharData(heroInfo, type);
-		}
-
-		private void _SetCharData(HeroInfo heroInfo, BattleEnum.Enum_CharType type)
+		private void SetCharData(HeroInfo heroInfo)
 		{
 			SetConfigInfo();
-			m_eType			= type;
+			
 			CurLevel		= heroInfo.Level;
 			CurAttack		= heroInfo.Attack + heroInfo.AddAttack;
 			CurDefence		= heroInfo.Defence + heroInfo.AddDefence;
@@ -312,7 +306,6 @@ namespace MS
 			m_fOriDef		= CurDefence;
 			m_fOriAtk		= CurAttack;
 
-			SkillIDs = new int[5];
 			for(int i = 0; i < 5; ++i)
 			{
 				SkillIDs[i] = heroInfo.SkillIDs[i];

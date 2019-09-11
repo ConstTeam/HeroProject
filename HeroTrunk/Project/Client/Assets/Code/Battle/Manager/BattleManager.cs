@@ -118,6 +118,11 @@ namespace MS
 			return new HeroInfo(charId);
 		}
 
+		public HeroInfo GetHeroInfo(BattleEnum.Enum_CharSide side, int charId)
+		{
+			return side == BattleEnum.Enum_CharSide.Mine ? GetHeroInfoMine(charId) : GetHeroInfoEnemy(charId);
+		}
+
 		#region --被动技能相关-------------------------------------------------------------
 		public void AddBattleSecTrigger(int sec, CharHandler charHandler)
 		{

@@ -65852,14 +65852,7 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: 1.1666666
-    functionName: DoSkillActionEffect
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1.1666666
-    functionName: CalcSkillEffect
+    functionName: SkillExcute
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

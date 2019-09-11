@@ -40,16 +40,15 @@ namespace MS
 			_charHandler = handler;
 			_transform = handler.m_ParentTrans;
 
-			//LoadHormalHitEffect();
-			//LoadSkillEffect();
-			//LoadCommonEffect();
+			LoadHormalHitEffect();
+			LoadCommonEffect();
+			LoadSkillEffect();
 		}
 
 		private void LoadSkillEffect()
 		{
 			int skillId;
 			string path;
-
 			Transform trans;
 			for(int i = 0; i < _charHandler.m_CharData.SkillIDs.Length; ++i)
 			{

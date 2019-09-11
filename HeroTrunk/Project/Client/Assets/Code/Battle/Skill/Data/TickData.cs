@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MS
 {
-	public class TickData : MonoBehaviour
+	public class TickData
 	{
 		public delegate void TickFunc();
 		public delegate void TickEndFunc(bool bCancel);

@@ -38,7 +38,7 @@ namespace MS
 			BoxCollider cl = h.m_Go.AddComponent<BoxCollider>();
 			rb.useGravity = false;
 			cl.isTrigger = true;
-			h.m_CharData.SetCharData(BattleEnum.Enum_CharType.General);
+			h.m_CharData.SetCharType(BattleEnum.Enum_CharType.General);
 			SetObstacleAvoidance(h);
 			SetRadius(h);
 			h.m_CharSkill.InitTriggerSkill();
@@ -53,7 +53,7 @@ namespace MS
 		private void CreateCharOfficial(int charId)
 		{
 			CharHandler h = BattleScenePool.GetInst().GetCharHandler(m_CharSide, charId);
-			h.m_CharData.SetCharData(BattleEnum.Enum_CharType.Official);
+			h.m_CharData.SetCharType(BattleEnum.Enum_CharType.Official);
 			SetObstacleAvoidance(h);
 			h.m_CharSkill.InitTriggerSkill();
 			SetRingLight(h);

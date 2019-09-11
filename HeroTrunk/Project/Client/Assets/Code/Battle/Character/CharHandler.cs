@@ -42,10 +42,8 @@ namespace MS
 			m_CharSkill		= m_Go.AddComponent<CharSkill>();
 			m_CharDefence	= new CharDefence(this);
 
-			m_CharData.m_iCharID = charId;
-			m_CharData.m_eSide = side;
 			_animCb.SetCharHandler(this);
-			m_CharData.Init(index);
+			m_CharData.Init(charId, side, index);
 			m_CharState.SetCharHandler(this);
 			m_CharMove.SetCharHandler(this);
 			m_CharAnim.SetCharHandler(this);
@@ -288,15 +286,10 @@ namespace MS
 			}
 		}
 
-		//-------------------------------------------------------
+		
 		public void BeHit(float hurt, CharHandler srcHandler, SkillDataSon srcSkillDataSon = null, bool bDirect = true) //bDirect是否是直接伤害（非反弹、连锁、传递之类）
 		{
 			m_CharDefence.BeHit(hurt, srcHandler, srcSkillDataSon, bDirect);
-		}
-
-		public void ExcuteSkill(int index)
-		{
-			m_CharSkill.DoSkill(index);
 		}
 
 		public bool IsMainHero()
@@ -309,7 +302,100 @@ namespace MS
 			return BattleEnum.Enum_CharState.Dead == m_CharData.m_eState || BattleEnum.Enum_CharState.Born == m_CharData.m_eState;
 		}
 
-		#region 添加头顶血条跟随位置----------------------------------------
+		#region --动作回调-------------------------------------------------------------------------------
+		public void NormalHitBegin()
+		{
+			if(BattleEnum.Enum_CharType.General == m_CharData.m_eType)
+			{
+				m_CharEffect.ShowNormalHitEffect(m_CharAnim.AttackIndex);
+			}
+		}
+
+		public void NormalHit()
+		{
+			m_CharSkill.NormalHit();
+		}
+
+		public void NormalHitMid()
+		{
+			if(m_CharData.m_eState == BattleEnum.Enum_CharState.Attack)
+			{
+				++m_CharAnim.AttackIndex;
+
+				if(m_CharData.m_eState == BattleEnum.Enum_CharState.Attack)
+					ToIdle();
+			}
+		}
+
+		public void NormalHitEnd()
+		{
+			if(m_CharData.m_eType != BattleEnum.Enum_CharType.Monster)
+				m_CharAnim.AttackIndex = 0;
+
+			if(m_CharData.m_eState == BattleEnum.Enum_CharState.Attack)
+				ToIdle();
+		}
+
+		public void SkillBegin()
+		{
+			m_CharEffect.ShowSkillEffect(m_CharData.m_iCurSkillID);
+
+			//if(m_CharData.m_eSide == BattleEnum.Enum_CharSide.Mine)
+			//{
+			//	SkillDataWhole skillDataWhole = SkillHandler.GetInst().GetSkillDataByID(m_CharData.m_iCurSkillID);
+
+			//	if(SkillEnum.SkillKind.Soul == skillDataWhole.m_eSkillKind)
+			//	{
+			//		SkillUITips.GetInst().ShowTips(m_CharData);
+			//	}
+			//}
+		}
+
+		public void ExcuteSkill(int index)
+		{
+			m_CharSkill.DoSkill(index);
+		}
+
+		public void SkillEnded()
+		{
+			if(m_CharData.m_eState == BattleEnum.Enum_CharState.DoSkill)
+				ToIdle();
+
+			OfficialHide();
+
+			//主动技触发类技能
+			if(1 == m_CharData.m_iCurSkillID % 100 && m_CharSkill.MainTriggerSkillID > 0)
+				ToSkill(m_CharSkill.MainTriggerSkillID);
+		}
+
+		public void DeadEnd()
+		{
+			if(BattleEnum.Enum_CharType.Monster == m_CharData.m_eType)
+				Invoke("_DeadEnd", 2);
+			else
+			{
+				if(m_CharSkill.SelfDieSkillID > 0)
+				{
+					ToSkillWithoutCheck(m_CharSkill.SelfDieSkillID);
+					m_CharSkill.SelfDieSkillID = 0;
+				}
+				else
+					BattleManager.GetInst().m_TriggerManager.CharDeadEnd(this);
+			}
+		}
+
+		private void _DeadEnd()
+		{
+			BattleScenePool.GetInst().PushMonsterHandler(m_CharData.m_iCharID, this);
+		}
+
+		public void ShootTrace()
+		{
+			m_CharSkill.NormalShoot();
+		}
+		#endregion
+
+		#region --添加头顶血条跟随位置----------------------------------------
 		private void SetHeadUI()
 		{
 			UIObj = new GameObject("HeadUI");

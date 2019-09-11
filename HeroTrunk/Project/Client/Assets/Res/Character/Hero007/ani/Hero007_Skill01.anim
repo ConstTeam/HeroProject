@@ -133856,7 +133856,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.2
-    functionName: CalcSkillEffect
+    functionName: SkillExcute
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
