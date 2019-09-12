@@ -53,7 +53,7 @@ namespace MS
 		public static string GetMonsterSpawns(int iSectionId, BattleEnum.Enum_BattleType battleType)
 		{
 			//string cfgName = GetConfigName(battleType);
-			return "2006;10";//ConfigData.GetValue(cfgName, iSectionId.ToString(), "MonsterSpawns");
+			return "2006;3|2016;1";//ConfigData.GetValue(cfgName, iSectionId.ToString(), "MonsterSpawns");
 		}
 
 		public static string GetBossSpawns(int iSectionId, BattleEnum.Enum_BattleType battleType)

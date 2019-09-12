@@ -47,7 +47,6 @@ namespace MS
 			f = f.Replace("Atk", charData.CurAttack.ToString());
 			f = f.Replace("Aim_Def", aimCharData.CurDefence.ToString());
 			f = f.Replace("Force", (charData.Force * charData.ForceRatio).ToString());
-			f = f.Replace("X", GetLevelCoefficient(charData.m_eSide).ToString());
 			float ret = FormulaManager.Arithmetic(f);
 			ret *= charData.m_fAtkX;
 			return ret;
@@ -123,18 +122,20 @@ namespace MS
 			if(bAim)
 			{
 				formula = formula.Replace("Aim_Force", (charData.Force * charData.ForceRatio).ToString());
-				formula = formula.Replace("Aim_Magic", (charData.Magic * charData.MagicRatio).ToString());
-				formula = formula.Replace("Aim_Soul", (charData.Soul * charData.SoulRatio).ToString());
+				formula = formula.Replace("Aim_Resourcefulness", (charData.Resourcefulness * charData.ResourcefulnessRatio).ToString());
+				formula = formula.Replace("Aim_RuleWorld", (charData.RuleWorld * charData.RuleRatio).ToString());
+				formula = formula.Replace("Aim_Polity", (charData.Polity * charData.PolityRatio).ToString());
+				formula = formula.Replace("Aim_Charm", (charData.Charm * charData.CharmRatio).ToString());
 				formula = formula.Replace("Aim_MP", Mathf.Max(0, charData.CurMP).ToString());
-				formula = formula.Replace("Aim_X", string.Format("{0:F1}", GetLevelCoefficient(charData.m_eSide)));
 			}
 			else
 			{
 				formula = formula.Replace("Force", (charData.Force * charData.ForceRatio).ToString());
-				formula = formula.Replace("Magic", (charData.Magic * charData.MagicRatio).ToString());
-				formula = formula.Replace("Soul", (charData.Soul * charData.SoulRatio).ToString());
+				formula = formula.Replace("Resourcefulness", (charData.Resourcefulness * charData.ResourcefulnessRatio).ToString());
+				formula = formula.Replace("RuleWorld", (charData.RuleWorld * charData.RuleRatio).ToString());
+				formula = formula.Replace("Polity", (charData.Polity * charData.PolityRatio).ToString());
+				formula = formula.Replace("Charm", (charData.Charm * charData.CharmRatio).ToString());
 				formula = formula.Replace("MP", Mathf.Max(0, charData.CurMP).ToString());
-				formula = formula.Replace("X", string.Format("{0:F1}", GetLevelCoefficient(charData.m_eSide)));
 				formula = formula.Replace("SkillLv", charData.GetSkillLevel(charData.m_iCurSkillID).ToString());
 			}
 
@@ -163,13 +164,6 @@ namespace MS
 		public static string GetExpress(string name)
 		{
 			return _dicMath[name];
-		}
-
-		public static int GetLevelCoefficient(BattleEnum.Enum_CharSide side)
-		{
-			//int lev = side == BattleEnum.Enum_CharSide.Mine ? FightSceneMgr.GetInst().MineRoleLevel : FightSceneMgr.GetInst().m_iEnemyRoleLevel;
-			//return levelCoefficient[lev - 1];
-			return 1;
 		}
 	}
 }

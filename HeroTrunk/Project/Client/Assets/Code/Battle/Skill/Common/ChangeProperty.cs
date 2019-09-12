@@ -223,12 +223,12 @@ namespace MS
 
 		private static void _AddSoul(CharHandler aimCharHandler, float fValue)
 		{
-			aimCharHandler.m_CharData.Soul += fValue;
+			aimCharHandler.m_CharData.RuleWorld += fValue;
 		}
 
 		private static void _AddMagic(CharHandler aimCharHandler, float fValue)
 		{
-			aimCharHandler.m_CharData.Magic += fValue;
+			aimCharHandler.m_CharData.Resourcefulness += fValue;
 		}
 
 		private static void _AddForceRatio(CharHandler aimCharHandler, float fValue)
@@ -238,12 +238,12 @@ namespace MS
 
 		private static void _AddSoulRatio(CharHandler aimCharHandler, float fValue)
 		{
-			aimCharHandler.m_CharData.SoulRatio += fValue;
+			aimCharHandler.m_CharData.RuleRatio += fValue;
 		}
 
 		private static void _AddMagicRatio(CharHandler aimCharHandler, float fValue)
 		{
-			aimCharHandler.m_CharData.MagicRatio += fValue;
+			aimCharHandler.m_CharData.ResourcefulnessRatio += fValue;
 		}
 		#endregion
 

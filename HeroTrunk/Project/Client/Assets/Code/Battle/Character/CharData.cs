@@ -124,50 +124,78 @@ namespace MS
 		}
 		#endregion
 
-		#region --三维属性----------------------------------------------------------------------------
-		[SerializeField] private float[] _properties = new float[3];    //三维属性
-		[SerializeField] private float[] _propertiesRatio = new float[3];   //三维附加率属性
+		#region --五维属性----------------------------------------------------------------------------
+		[SerializeField] private float[] _properties = new float[5];    //五维属性
+		[SerializeField] private float[] _propertiesRatio = new float[5];   //五维附加率属性
 
-		//武
+		//武力
 		public float Force
 		{
 			get { return _properties[0]; }
 			set { _properties[0] = Mathf.Max(0, value); }
 		}
 
-		//魂
-		public float Soul
-		{
-			get { return _properties[1]; }
-			set { _properties[1] = Mathf.Max(0, value); }
-		}
-
-		//法
-		public float Magic
+		//谋略
+		public float Resourcefulness
 		{
 			get { return _properties[2]; }
 			set { _properties[2] = Mathf.Max(0, value); }
 		}
 
-		//武附加率
+		//统御
+		public float RuleWorld
+		{
+			get { return _properties[1]; }
+			set { _properties[1] = Mathf.Max(0, value); }
+		}
+
+		//政治
+		public float Polity
+		{
+			get { return _properties[3]; }
+			set { _properties[3] = Mathf.Max(0, value); }
+		}
+
+		//魅力
+		public float Charm
+		{
+			get { return _properties[4]; }
+			set { _properties[4] = Mathf.Max(0, value); }
+		}
+
+		//武力附加率
 		public float ForceRatio
 		{
 			get { return 1f + _propertiesRatio[0]; }
 			set { _propertiesRatio[0] = Mathf.Max(0, value); }
 		}
 
-		//魂附加率
-		public float SoulRatio
+		//谋略附加率
+		public float ResourcefulnessRatio
 		{
 			get { return 1f + _propertiesRatio[1]; }
 			set { _propertiesRatio[1] = Mathf.Max(0, value); }
 		}
 
-		//法附加率
-		public float MagicRatio
+		//统御附加率
+		public float RuleRatio
 		{
 			get { return 1f + _propertiesRatio[2]; }
 			set { _propertiesRatio[2] = Mathf.Max(0, value); }
+		}
+
+		//政治附加率
+		public float PolityRatio
+		{
+			get { return 1f + _propertiesRatio[3]; }
+			set { _propertiesRatio[3] = Mathf.Max(0, value); }
+		}
+
+		//魅力附加率
+		public float CharmRatio
+		{
+			get { return 1f + _propertiesRatio[4]; }
+			set { _propertiesRatio[4] = Mathf.Max(0, value); }
 		}
 		#endregion
 
@@ -296,8 +324,10 @@ namespace MS
 			CriticalRatio	= heroInfo.CriticalRatio;
 			BlockRatio		= heroInfo.BlockRatio;
 			Force			= heroInfo.Force + heroInfo.AddForce;
-			Magic			= heroInfo.Magic + heroInfo.AddMagic;
-			Soul			= heroInfo.Soul + heroInfo.AddSoul;
+			Resourcefulness	= heroInfo.Resourcefulness + heroInfo.AddResourcefulness;
+			RuleWorld		= heroInfo.RuleWorld + heroInfo.AddRuleWorld;
+			Polity = heroInfo.Force + heroInfo.AddForce;
+			Charm			= heroInfo.Force + heroInfo.AddForce;
 			MaxHP			= heroInfo.HP + heroInfo.AddHP;
 			CurHP			= MaxHP;
 			MaxMP			= heroInfo.MaxPower;

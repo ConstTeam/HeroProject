@@ -1,9 +1,9 @@
-using UnityEngine;
-
 namespace MS
 {
 	public class BattleSceneBase
 	{
+		public int Level { get; set; }
+
 		public virtual void ToBattle()		{ }
 		public virtual void CreateMine()	{ }
 		public virtual void EnableMine()	{ }

@@ -196,8 +196,8 @@ namespace MS
 					{
 						skillDataWhole = SkillHandler.GetInst().GetSkillDataByID(skillId);
 						_lstCD.Add(skillDataWhole.m_iCDTime);
-						_lstCDRemain.Add(0);
-						_lstWaitSkill.Add(i);
+						_lstCDRemain.Add(skillDataWhole.m_iCDTime + 1); //加1的原因是cd首次就进行-1操作
+						BeginInvoke(i);
 					}
 				}
 			}
@@ -291,7 +291,7 @@ namespace MS
 			if(_charHandler.ToSkill(_charHandler.m_CharData.SkillIDs[cdIndex + 1], bManual))
 			{
 				_lstWaitSkill.RemoveAt(index);
-				_lstCDRemain[cdIndex] = _lstCD[cdIndex] + 1; //加1的原因是cd首次就进行-1操作
+				_lstCDRemain[cdIndex] = _lstCD[cdIndex] + 1;	//加1的原因是cd首次就进行-1操作
 				BeginInvoke(cdIndex);
 				return true;
 			}

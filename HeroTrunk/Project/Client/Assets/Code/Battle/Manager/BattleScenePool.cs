@@ -141,27 +141,6 @@ namespace MS
 		}
 
 		#region --小怪相关------------------------------------------------------------------
-		public void SetMonsterId()
-		{
-			string strIds = SectionData.GetMonsterSpawns(BattleManager.m_iSectionID, BattleManager.m_eBattleType);
-			if(string.Empty == strIds)
-				return;
-
-			string[] monsterInfos = strIds.Split('|');
-			string[] ids;
-			for(int i = 0; i < monsterInfos.Length; ++i)
-			{
-				ids = monsterInfos[i].Split(';');
-				int monsterId = int.Parse(ids[0]);
-				if(!m_lstMonsterID.Contains(monsterId))
-				{
-					m_lstMonsterID.Add(monsterId);
-					_dicMonsterPool.Add(monsterId, new Stack<CharHandler>());
-					//PreloadBulletMonster(charId);
-				}
-			}
-		}
-
 		private CharHandler LoaderMonster(Object obj, int charId)
 		{
 			Transform tempTrans;
@@ -188,6 +167,9 @@ namespace MS
 
 		public CharHandler PopMonsterHandler(int monsterId)
 		{
+			if(!_dicMonsterPool.ContainsKey(monsterId))
+				_dicMonsterPool.Add(monsterId, new Stack<CharHandler>());
+
 			if(_dicMonsterPool[monsterId].Count > 0)
 				return _dicMonsterPool[monsterId].Pop();
 			else

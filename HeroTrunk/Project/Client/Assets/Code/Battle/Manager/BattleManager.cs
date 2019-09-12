@@ -12,6 +12,7 @@ namespace MS
 		public Transform			HeadUIParentTran;
 		public GameObject			HUDTextRes;
 
+		public BattleSceneBase		m_BattleScene;
 		public BattleCharInScene	m_CharInScene;
 		public BattleTriggerManager m_TriggerManager;
 
@@ -19,7 +20,7 @@ namespace MS
 		public int					m_iEnemyPlayerLevel;
 
 		private GameObject			_gameObject;
-		private BattleSceneBase		_battleScene;
+		
 
 		private static BattleManager _inst;
 		public static BattleManager GetInst()
@@ -45,22 +46,20 @@ namespace MS
 
 			m_CharInScene		= new BattleCharInScene();
 			m_TriggerManager	= new BattleTriggerManager();
-			_battleScene		= new BattleSceneNormal();
+			m_BattleScene		= new BattleSceneNormal();
 
 			m_MPData			= new MPData("Power1");
 
 			BattlePoolGo.AddComponent<BattleScenePool>();
 
 			BattleScenePool.GetInst().SetHeroIdMine();
-			//SetEnemyHeroIDs();
-			BattleScenePool.GetInst().SetMonsterId();
 		}
 
 		private void Start()
 		{
 			ResourceLoader.LoadAssetAndInstantiate(m_sSpawnName);
 			BattleScenePool.GetInst().LoadHero(BattleEnum.Enum_CharSide.Mine);
-			_battleScene.OnBattleInit();
+			m_BattleScene.OnBattleInit();
 			Invoke("BattleStart", 3);
 		}
 
@@ -69,12 +68,12 @@ namespace MS
 			BattleCam.enabled = true;
 			BattleSceneTimer.GetInst().BeginTimer();
 			SpawnMgr.GetInst().Begin();
-			_battleScene.OnBattleStart();
+			m_BattleScene.OnBattleStart();
 		}
 
 		public List<int> GetHeroIdsMine()
 		{
-			return new List<int>{ 1006 };
+			return new List<int>{ 1006, 1007 };
 		}
 
 		public List<int> GetHeroIdsEnemy()
@@ -153,7 +152,12 @@ namespace MS
 		public void IsWaveEnd()
 		{
 			if(0 == m_CharInScene.m_listMonster.Count)
+			{
+				//if(++m_BattleScene.Level % 10 == 0)
+
 				SpawnMgr.GetInst().SetSpawnState();
+			}
+				
 		}
 
 		#region--静态------

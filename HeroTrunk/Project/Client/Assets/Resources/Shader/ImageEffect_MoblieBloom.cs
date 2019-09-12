@@ -47,8 +47,8 @@ public class ImageEffect_MoblieBloom : MonoBehaviour {
 	}
 
 	bool Supported(){
-		//return (SystemInfo.supportsImageEffects && SystemInfo.supportsRenderTextures && BloomShader.isSupported);
-		return true;
+		return (SystemInfo.supportsImageEffects && SystemInfo.supportsRenderTextures && BloomShader.isSupported);
+		// return true;
 	}
 
 
