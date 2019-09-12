@@ -74,7 +74,7 @@ namespace MS
 
 		public List<int> GetHeroIdsMine()
 		{
-			return new List<int>{ 1006, 1007, 1008 };
+			return new List<int>{ 1006 };
 		}
 
 		public List<int> GetHeroIdsEnemy()

@@ -101,7 +101,7 @@ namespace MS
 		{
 			string path = m_SkillDataSon.m_ReceptorEffect[0];
 			Transform effectTrans = BattleScenePool.GetInst().PopEffect(path);
-			effectTrans.SetParent(parent);
+			effectTrans.SetParent(parent, false);
 			effectTrans.localPosition = Vector3.zero;
 			funcEnd += (bool bCancel) =>
 			{

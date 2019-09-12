@@ -42,7 +42,7 @@ namespace MS
 				for(int i = 0; i < targets.Count; ++i)
 				{
 					hurt = BattleCalculate.HeroNormalHurt(charData, targets[i].m_CharData);
-					hurt = ChangeProperty.RatioCoefficient(hurt, SkillEnum.SkillKind.Force, charHandler, targets[i]);
+					hurt = 100000;//ChangeProperty.RatioCoefficient(hurt, SkillEnum.SkillKind.Force, charHandler, targets[i]);
 					targets[i].BeHit(hurt, charHandler);
 				}
 			}
