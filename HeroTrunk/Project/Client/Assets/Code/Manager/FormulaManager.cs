@@ -8,30 +8,10 @@ namespace MS
 	public class FormulaManager : MonoBehaviour
 	{
 		public static LuaState luaState;
-		private static Dictionary<string, LuaFunction> dicFunction = new Dictionary<string, LuaFunction>();
 
 		private void Awake()
 		{
-			TextAsset scriptFile = Resources.Load<TextAsset>("Text/FormulaMgr.lua");
 			luaState = new LuaState();
-			luaState.DoString(scriptFile.text);
-		}
-
-		public static LuaFunction LoadFunction(string sName)
-		{
-			if(dicFunction.ContainsKey(sName))
-				return dicFunction[sName];
-			else
-			{
-				LuaFunction f = luaState.GetFunction(sName);
-				if(f == null)
-				{
-					Debug.LogError(string.Format("未在FormulaMgr文件中找到名字为:{0}的函数", sName));
-					return null;
-				}
-				dicFunction.Add(sName, f);
-				return f;
-			}
 		}
 
 		public static float Arithmetic(string express)
