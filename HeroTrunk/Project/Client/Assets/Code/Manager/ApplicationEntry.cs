@@ -37,6 +37,8 @@ public class ApplicationEntry : MonoBehaviour
 		_gameObject.AddComponent<ServiceManager>();
 		_gameObject.AddComponent<FormulaManager>();
 
+		_gameObject.AddComponent<Database>();
+
 		PlatformSet();
 	}
 
