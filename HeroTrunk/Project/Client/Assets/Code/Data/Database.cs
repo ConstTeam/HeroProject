@@ -24,8 +24,7 @@ namespace MS
 
 		public void OnLogin(string account)
 		{
-			string playerId = ES3.FileExists("Account.es") ? ES3.Load<string>(account, "Account.es"): AddPlayer(account);
-
+			string playerId = ES3.FileExists("Account.es") && ES3.KeyExists(account, "Account.es") ? ES3.Load<string>(account, "Account.es") : AddPlayer(account);
 			ByteBuffer data = new ByteBuffer(1);
 			data.writeByte(2);
 			data.writeByte(PlayerService.PLAYER_INFO);
@@ -58,6 +57,8 @@ namespace MS
 			ES3.Save<string>("PlayerName", sPlayerId, filePath);
 
 			AddHero(sPlayerId, 1006);
+			AddHero(sPlayerId, 1007);
+			AddHero(sPlayerId, 1008);
 
 			return sPlayerId;
 		}
