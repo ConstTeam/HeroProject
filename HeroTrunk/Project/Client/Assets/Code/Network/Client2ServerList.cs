@@ -9,24 +9,9 @@ namespace MS
 
 		//--大厅服---------------------------------------------------------------------------------------
 		public ArrayList C2S_LOGIN_SHORT;
-		public ArrayList C2S_LOGIN_LONG;
-		public ArrayList C2S_LOGIN_PVP_REQUEST;
-		public ArrayList C2S_LOGIN_PVP_CANCEL;
-
-		public ArrayList C2S_PLAYER_SET_SCENE;
-		public ArrayList C2S_PLAYER_SET_HERO;
-
-		public ArrayList C2S_STORE_BUY_HERO;
-		public ArrayList C2S_STORE_BUY_SCENE;
-
 
 		//--战斗服---------------------------------------------------------------------------------------
 		public ArrayList C2S_BATTLE_LOGIN;
-		public ArrayList C2S_BATTLE_LOADED;
-		public ArrayList C2S_BATTLE_SYNC_HP;
-		public ArrayList C2S_BATTLE_GET_ITEM;
-		public ArrayList C2S_BATTLE_RELEASE_SKILL;
-		public ArrayList C2S_BATTLE_HERO_FAILED;
 
 		//*******************************************************************************************
 
@@ -48,19 +33,11 @@ namespace MS
 			C2S_GM						= new ArrayList() { "sss",		ModuleDataFirst.MODULE_GM,				(byte)1 };
 
 			//--大厅服---------------------------------------------------------------------------------------
-			C2S_LOGIN_LONG				= new ArrayList() { "sssssss",	ModuleDataFirst.MODULE_LOGIN,			(byte)1 };
-			C2S_LOGIN_PVP_REQUEST		= new ArrayList() { "c",		ModuleDataFirst.MODULE_LOGIN,			(byte)2 };
-			C2S_LOGIN_PVP_CANCEL		= new ArrayList() { "",			ModuleDataFirst.MODULE_LOGIN,			(byte)3 };
-
-			C2S_PLAYER_SET_HERO			= new ArrayList() { "c",		ModuleDataFirst.MODULE_PLAYER,			(byte)1 };
-			C2S_PLAYER_SET_SCENE		= new ArrayList() { "c",		ModuleDataFirst.MODULE_PLAYER,			(byte)2 };
-			
-			C2S_STORE_BUY_HERO			= new ArrayList() { "cb",		ModuleDataFirst.MODULE_STORE,			(byte)1 };
-			C2S_STORE_BUY_SCENE			= new ArrayList() { "cb",		ModuleDataFirst.MODULE_STORE,			(byte)2 };
+			C2S_LOGIN_SHORT				= new ArrayList() { "sssssss",	ModuleDataFirst.MODULE_LOGIN,			(byte)1 };
 
 			//--战斗服---------------------------------------------------------------------------------------
 
-			C2S_BATTLE_LOADED			= new ArrayList() { "",			ModuleDataFirst.MODULE_BATTLE,			(byte)1 };
+			
 		}
 	}
 }

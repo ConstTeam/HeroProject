@@ -15,7 +15,7 @@ namespace MS
 		public static ShortSendExcute	ShortSendExcuteFun;
 		public static ShortSendBack		ShortSendBackFun;
 	
-		private List<ConnectShort>		_lstShortConn;
+		private List<ConnectShort>		_lstShortConn = new List<ConnectShort>();
 		private string					_sShortIp;
 		private int						_sShortPort;
 
@@ -41,11 +41,6 @@ namespace MS
 		void Awake()
 		{
 			m_Inst = this;
-		}
-
-		public void Init(int count)
-		{
-			_lstShortConn = new List<ConnectShort>();
 		}
 
 		public void ShortSetUrl(string sIp, int iPort)

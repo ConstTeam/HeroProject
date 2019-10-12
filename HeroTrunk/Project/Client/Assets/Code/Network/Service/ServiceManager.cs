@@ -101,11 +101,12 @@ namespace MS
 			}
 		}
 
-		public static void PostMessageUdp(ByteBuffer buff)
+		public static void PostMessageShortEx(ByteBuffer buff)
 		{
-			lock(m_LockerUdp)
+			lock(m_Locker)
 			{
-				m_queUdpData.Enqueue(buff);
+				ServerData data = new ServerData(null, buff, true);
+				m_lstData.Enqueue(data);
 			}
 		}
 	}

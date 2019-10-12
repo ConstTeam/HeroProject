@@ -6,8 +6,8 @@ namespace MS
 {
 	public class Database : MonoBehaviour
 	{
-		private Database _inst;
-		public Database GetInst()
+		private static Database _inst;
+		public static Database GetInst()
 		{
 			return _inst;
 		}
@@ -15,11 +15,6 @@ namespace MS
 		private void Awake()
 		{
 			_inst = this;
-			if(!ES3.KeyExists("HeroList"))
-			{
-				ES3.Save<List<int>>("HeroList", 1006);
-			}
-
 		}
 
 		private void OnDestroy()
@@ -27,9 +22,44 @@ namespace MS
 			_inst = null;
 		}
 
-		public void AddHero(int heroId)
+		public void OnLogin(string account)
 		{
+			string playerId = ES3.FileExists("Account.es") ? ES3.Load<string>(account, "Account.es"): AddPlayer(account);
 
+			ByteBuffer data = new ByteBuffer(1);
+			data.writeByte(2);
+			data.writeByte(PlayerService.PLAYER_INFO);
+			data.writeBoolean(true);
+			data.writeUTF(playerId);
+			data.writeUTF(playerId);
+			ServiceManager.PostMessageShortEx(data);
+		}
+
+		public string AddPlayer(string account)
+		{
+			int id = ES3.KeyExists("IncrementPlayerID") ? ES3.Load<int>("IncrementPlayerID") + 1 : 1;
+			ES3.Save<int>("IncrementPlayerID", id);
+			ES3.Save<string>(account, id.ToString(), "Account.es");
+			string filePath = string.Format("{0}/PlayerInfo.es", id);
+			ES3.Save<string>("PlayerName", id.ToString(), filePath);
+			return id.ToString();
+		}
+
+		public void AddHero(string playerId, int heroId)
+		{
+			string filePath = string.Format("{0}/HeroInfo/{1}.es", playerId, heroId);
+			ES3.Save<int>("HeroID", heroId, filePath);
+			ES3.Save<int>("HeroLevel", 1, filePath);
+		}
+
+		public List<int> GetHeroList(string playerId)
+		{
+			string dirPath = string.Format("{0}/HeroInfo", playerId);
+			string[] arr = ES3.GetFiles(dirPath);
+			List<int> lstHero = new List<int>();
+			for(int i = 0; i < arr.Length; ++i)
+				lstHero.Add(int.Parse(arr[i]));
+			return lstHero;
 		}
 	}
 }

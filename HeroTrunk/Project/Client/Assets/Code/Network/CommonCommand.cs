@@ -154,8 +154,12 @@ namespace MS
 
 		static public void ExecuteShort(ArrayList paramList1, ArrayList paramList2, bool bFlag = false)
 		{
-			ByteBuffer data = PackData(paramList1, paramList2);
-			SocketHandler.GetInst().ShortSend(data, bFlag);
+			//ByteBuffer data = PackData(paramList1, paramList2);
+			//SocketHandler.GetInst().ShortSend(data, bFlag);
+			if(paramList1 == Client2ServerList.GetInst().C2S_LOGIN_SHORT)
+			{
+				Database.GetInst().OnLogin((string)paramList2[5]);
+			}
 		}
 	}
 }

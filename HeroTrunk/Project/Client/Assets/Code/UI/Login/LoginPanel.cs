@@ -95,13 +95,7 @@ public class LoginPanel : MonoBehaviour
 			PlayerInfo.Account,
 			PlayerInfo.Token
 		};
-		//CommonCommand.ExecuteShort(Client2ServerList.GetInst().C2S_LOGIN_SHORT, _loginParam, true);
-
-		SaveAccount();
-		ApplicationConst.bGM = true;
-		PlayerInfo.PlayerId = 101;
-		PlayerInfo.Nickname = "abc";
-		SceneLoader.LoadScene("MainScene");
+		CommonCommand.ExecuteShort(Client2ServerList.GetInst().C2S_LOGIN_SHORT, _loginParam, true);
 	}
 
 	private void OnShowServerList()
