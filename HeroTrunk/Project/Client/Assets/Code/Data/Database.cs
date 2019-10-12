@@ -37,12 +37,17 @@ namespace MS
 
 		public string AddPlayer(string account)
 		{
-			int id = ES3.KeyExists("IncrementPlayerID") ? ES3.Load<int>("IncrementPlayerID") + 1 : 1;
-			ES3.Save<int>("IncrementPlayerID", id);
-			ES3.Save<string>(account, id.ToString(), "Account.es");
-			string filePath = string.Format("{0}/PlayerInfo.es", id);
-			ES3.Save<string>("PlayerName", id.ToString(), filePath);
-			return id.ToString();
+			int iPlayerId = ES3.KeyExists("IncrementPlayerID") ? ES3.Load<int>("IncrementPlayerID") + 1 : 1;
+			ES3.Save<int>("IncrementPlayerID", iPlayerId);
+
+			string sPlayerId = iPlayerId.ToString();
+			ES3.Save<string>(account, sPlayerId, "Account.es");
+			string filePath = string.Format("{0}/PlayerInfo.es", sPlayerId);
+			ES3.Save<string>("PlayerName", sPlayerId, filePath);
+
+			AddHero(sPlayerId, 1006);
+
+			return sPlayerId;
 		}
 
 		public void AddHero(string playerId, int heroId)
