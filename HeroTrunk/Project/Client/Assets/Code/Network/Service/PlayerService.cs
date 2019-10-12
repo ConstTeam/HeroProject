@@ -14,6 +14,14 @@ namespace MS
 					ApplicationConst.bGM = data.readBoolean();
 					PlayerInfo.PlayerId = data.readUTF();
 					PlayerInfo.Nickname = data.readUTF();
+					int heroCount = data.readByte();
+					int heroId, heroLv;
+					for(int i = 0; i < heroCount; ++i)
+					{
+						heroId	= data.readInt();
+						heroLv	= data.readInt();
+						HeroAll.SetHeroInfo(heroId, new HeroInfo(heroId, heroLv));
+					}
 					SceneLoader.LoadScene("MainScene");
 					break;
 			}

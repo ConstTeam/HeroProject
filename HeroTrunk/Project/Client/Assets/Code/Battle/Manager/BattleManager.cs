@@ -109,12 +109,12 @@ namespace MS
 
 		public HeroInfo GetHeroInfoMine(int charId)
 		{
-			return new HeroInfo(charId);
+			return new HeroInfo(charId, 1);
 		}
 
 		public HeroInfo GetHeroInfoEnemy(int charId)
 		{
-			return new HeroInfo(charId);
+			return new HeroInfo(charId, 1);
 		}
 
 		public HeroInfo GetHeroInfo(BattleEnum.Enum_CharSide side, int charId)

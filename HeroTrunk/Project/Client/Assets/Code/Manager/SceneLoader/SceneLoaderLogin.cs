@@ -2,19 +2,13 @@ using UnityEngine;
 
 namespace MS
 {
-	public class SceneLoaderLogin : SceneLoaderBase
+	public class SceneLoaderLogin : MonoBehaviour
 	{
 		public Transform uiRoot;
 
 		private void Awake()
 		{
-			Clear();
 			LoadPanel();
-		}
-
-		private void OnDestroy()
-		{
-			Clear();
 		}
 
 		private void LoadPanel()

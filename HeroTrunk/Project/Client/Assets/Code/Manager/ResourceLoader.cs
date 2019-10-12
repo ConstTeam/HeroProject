@@ -69,37 +69,5 @@ namespace MS
 				return new GameObject();
 			}
 		}
-
-		public static GameObject LoadPanel(string sPath, Transform parent, int order = 0)
-		{
-			try
-			{
-
-				Object obj = Resources.Load(sPath);
-				GameObject go = Object.Instantiate(obj) as GameObject;
-				Transform trans = go.transform;
-				trans.SetParent(parent, false);
-				return go;
-			}
-			catch
-			{
-				Debug.Log(string.Format("资源不存在{0}，或者未添加Canvas", sPath));
-				return new GameObject();
-			}
-		}
-
-		public static Sprite LoadSprite(string sSpriteName)
-		{
-			string sFinalPath   = string.Format("Texture/{0}", sSpriteName);
-			GameObject Resource = LoadAsset<GameObject>(sFinalPath);
-
-			if (Resource == null)
-			{
-				//Debug.LogWarning(string.Format("{0} sprite doesn't exist", sFinalPath));
-				return null;
-			}
-
-			return Resource.GetComponent<SpriteRenderer>().sprite;
-		}
 	}
 }

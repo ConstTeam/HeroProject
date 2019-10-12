@@ -26,11 +26,11 @@ namespace MS
 		public int[]	SkillIDs			{ get; set; }
 		public int[]	SkillLevels			{ get; set; }		
 
-		public HeroInfo(int charId)
+		public HeroInfo(int heroId, int heroLv)
 		{
-			ID					= charId;
-			ConfigRow row		= ConfigData.GetValue("Hero_Common", charId.ToString());
-			Level				= 1;
+			ID					= heroId;
+			ConfigRow row		= ConfigData.GetValue("Hero_Common", heroId.ToString());
+			Level				= heroLv;
 			Attack				= float.Parse(row.GetValue("Attack"));
 			Defence				= float.Parse(row.GetValue("Defence"));
 			Force				= float.Parse(row.GetValue("Force"));
@@ -47,7 +47,7 @@ namespace MS
 			SkillLevels		= new int[5];
 			for(int i = 0; i < 5; ++i)
 			{
-				SkillIDs[i] = charId * 100 + i + 1;
+				SkillIDs[i] = heroId * 100 + i + 1;
 				SkillLevels[i] = 1;
 			}
 		}

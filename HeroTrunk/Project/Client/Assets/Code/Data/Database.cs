@@ -32,6 +32,18 @@ namespace MS
 			data.writeBoolean(true);
 			data.writeUTF(playerId);
 			data.writeUTF(playerId);
+
+			string dirPath = string.Format("{0}/HeroInfo", playerId);
+			string[] arr = ES3.GetFiles(dirPath);
+			data.writeByte(arr.Length);
+			List<int> lstHero = new List<int>();
+			for(int i = 0; i < arr.Length; ++i)
+			{
+				string filePath = string.Format("{0}/HeroInfo/{1}", playerId, arr[i]);
+				data.writeInt(ES3.Load<int>("HeroID", filePath));
+				data.writeInt(ES3.Load<int>("HeroLevel", filePath));
+			}
+			
 			ServiceManager.PostMessageShortEx(data);
 		}
 
@@ -55,16 +67,6 @@ namespace MS
 			string filePath = string.Format("{0}/HeroInfo/{1}.es", playerId, heroId);
 			ES3.Save<int>("HeroID", heroId, filePath);
 			ES3.Save<int>("HeroLevel", 1, filePath);
-		}
-
-		public List<int> GetHeroList(string playerId)
-		{
-			string dirPath = string.Format("{0}/HeroInfo", playerId);
-			string[] arr = ES3.GetFiles(dirPath);
-			List<int> lstHero = new List<int>();
-			for(int i = 0; i < arr.Length; ++i)
-				lstHero.Add(int.Parse(arr[i]));
-			return lstHero;
 		}
 	}
 }

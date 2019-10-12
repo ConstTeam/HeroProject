@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MS
 {
-	public class SceneLoaderMain : SceneLoaderBase
+	public class SceneLoaderMain : MonoBehaviour
 	{
 		private static SceneLoaderMain _inst;
 
@@ -34,25 +34,14 @@ namespace MS
 		private IEnumerator LoadPanel()
 		{
 			SceneLoader.m_fSpeed = 0.1f;
-
-            //主界面
 			yield return LoadPanelProgress("PrefabUI/Main/MainPanel");
-
-
-            yield return SceneLoader.SetProgress(0.01f, 0.99f);
-            PanelLoaded();
+			yield return SceneLoader.SetProgress(SceneLoader.m_fProgress, 1f);
 		}
 
-		private IEnumerator LoadPanelProgress(string path, int order = 0)
+		private IEnumerator LoadPanelProgress(string path)
 		{
-			ResourceLoader.LoadPanel(path, mainUIRoot, order);
+			ResourceLoader.LoadAssetAndInstantiate(path, mainUIRoot);
 			yield return SceneLoader.SetProgress(0.01f, 0.99f);
-		}
-
-		public void PanelLoaded()
-		{
-			Clear();
-			StartCoroutine(SceneLoader.SetProgress(SceneLoader.m_fProgress, 1f));
 		}
 
 		public void LoadBattleScene()
