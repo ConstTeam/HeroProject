@@ -39,8 +39,20 @@ namespace MS
 			for(int i = 0; i < arr.Length; ++i)
 			{
 				string filePath = string.Format("{0}/HeroInfo/{1}", playerId, arr[i]);
-				data.writeInt(ES3.Load<int>("HeroID", filePath));
-				data.writeInt(ES3.Load<int>("HeroLevel", filePath));
+				data.writeInt(ES3.Load<int>("ID", filePath));
+				data.writeInt(ES3.Load<int>("Star", filePath));
+				data.writeInt(ES3.Load<int>("MaxPower", filePath));
+				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Attack",		filePath) * 100));
+				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Defence",		filePath) * 100));
+				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("HP",			filePath) * 100));
+				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("CriticalRatio",	filePath) * 100));
+				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("BlockRatio",	filePath) * 100));
+				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Force",			filePath) * 100));
+				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Strategy",		filePath) * 100));
+				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Rule",			filePath) * 100));
+				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Polity",		filePath) * 100));
+				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Charm",			filePath) * 100));
+				
 			}
 			
 			ServiceManager.PostMessageShortEx(data);
@@ -65,9 +77,21 @@ namespace MS
 
 		public void AddHero(string playerId, int heroId)
 		{
+			ConfigRow row = ConfigData.GetValue("Hero_Common", heroId.ToString());
 			string filePath = string.Format("{0}/HeroInfo/{1}.es", playerId, heroId);
-			ES3.Save<int>("HeroID", heroId, filePath);
-			ES3.Save<int>("HeroLevel", 1, filePath);
+			ES3.Save<int>("ID",					heroId, filePath);
+			ES3.Save<int>("Star",				0, filePath);
+			ES3.Save<int>("MaxPower",			int.Parse(row.GetValue("MaxPower")), filePath);
+			ES3.Save<float>("Attack",			float.Parse(row.GetValue("Attack")), filePath);
+			ES3.Save<float>("Defence",			float.Parse(row.GetValue("Defence")), filePath);
+			ES3.Save<float>("HP",				float.Parse(row.GetValue("Hp")), filePath);
+			ES3.Save<float>("CriticalRatio",	float.Parse(row.GetValue("BlockRatio")), filePath);
+			ES3.Save<float>("BlockRatio",		float.Parse(row.GetValue("BlockRatio")), filePath);
+			ES3.Save<float>("Force",			float.Parse(row.GetValue("Force")), filePath);
+			ES3.Save<float>("Strategy",			float.Parse(row.GetValue("Strategy")), filePath);
+			ES3.Save<float>("Rule",				float.Parse(row.GetValue("Rule")), filePath);
+			ES3.Save<float>("Polity",			float.Parse(row.GetValue("Polity")), filePath);
+			ES3.Save<float>("Charm",			float.Parse(row.GetValue("Charm")), filePath);
 		}
 	}
 }

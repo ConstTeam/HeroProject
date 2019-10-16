@@ -223,12 +223,12 @@ namespace MS
 
 		private static void _AddSoul(CharHandler aimCharHandler, float fValue)
 		{
-			aimCharHandler.m_CharData.RuleWorld += fValue;
+			aimCharHandler.m_CharData.Rule += fValue;
 		}
 
 		private static void _AddMagic(CharHandler aimCharHandler, float fValue)
 		{
-			aimCharHandler.m_CharData.Resourcefulness += fValue;
+			aimCharHandler.m_CharData.Strategy += fValue;
 		}
 
 		private static void _AddForceRatio(CharHandler aimCharHandler, float fValue)

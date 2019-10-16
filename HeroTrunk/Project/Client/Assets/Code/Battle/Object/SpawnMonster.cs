@@ -57,7 +57,7 @@ namespace MS
 			charData.MaxHP = float.Parse(monsterInfo.GetValue("Hp"));
 			charData.CurHP = charData.MaxHP;
 			charData.m_fOriHP = charData.MaxHP;
-			charData.CurLevel = BattleManager.GetInst().m_iEnemyPlayerLevel;
+			charData.CurStar = BattleManager.GetInst().m_iEnemyPlayerLevel;
 
 			charHandler.m_CharDefence.m_fBackwardClock = 0;
 		}

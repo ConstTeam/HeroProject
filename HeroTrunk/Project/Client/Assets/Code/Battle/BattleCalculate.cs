@@ -99,7 +99,7 @@ namespace MS
 		{
 			if(bAim)
 			{
-				formula = formula.Replace("Aim_HeroLv", charData.CurLevel.ToString());
+				formula = formula.Replace("Aim_HeroLv", charData.CurStar.ToString());
 				formula = formula.Replace("Aim_MaxHP", charData.MaxHP.ToString());
 				formula = formula.Replace("Aim_HP", charData.CurHP.ToString());
 				formula = formula.Replace("Aim_DEF", charData.CurDefence.ToString());
@@ -107,7 +107,7 @@ namespace MS
 			}
 			else
 			{
-				formula = formula.Replace("HeroLv", charData.CurLevel.ToString());
+				formula = formula.Replace("HeroLv", charData.CurStar.ToString());
 				formula = formula.Replace("MaxHP", charData.MaxHP.ToString());
 				formula = formula.Replace("HP", charData.CurHP.ToString());
 				formula = formula.Replace("DEF", charData.CurDefence.ToString());
@@ -122,8 +122,8 @@ namespace MS
 			if(bAim)
 			{
 				formula = formula.Replace("Aim_Force", (charData.Force * charData.ForceRatio).ToString());
-				formula = formula.Replace("Aim_Resourcefulness", (charData.Resourcefulness * charData.ResourcefulnessRatio).ToString());
-				formula = formula.Replace("Aim_RuleWorld", (charData.RuleWorld * charData.RuleRatio).ToString());
+				formula = formula.Replace("Aim_Resourcefulness", (charData.Strategy * charData.ResourcefulnessRatio).ToString());
+				formula = formula.Replace("Aim_RuleWorld", (charData.Rule * charData.RuleRatio).ToString());
 				formula = formula.Replace("Aim_Polity", (charData.Polity * charData.PolityRatio).ToString());
 				formula = formula.Replace("Aim_Charm", (charData.Charm * charData.CharmRatio).ToString());
 				formula = formula.Replace("Aim_MP", Mathf.Max(0, charData.CurMP).ToString());
@@ -131,8 +131,8 @@ namespace MS
 			else
 			{
 				formula = formula.Replace("Force", (charData.Force * charData.ForceRatio).ToString());
-				formula = formula.Replace("Resourcefulness", (charData.Resourcefulness * charData.ResourcefulnessRatio).ToString());
-				formula = formula.Replace("RuleWorld", (charData.RuleWorld * charData.RuleRatio).ToString());
+				formula = formula.Replace("Resourcefulness", (charData.Strategy * charData.ResourcefulnessRatio).ToString());
+				formula = formula.Replace("RuleWorld", (charData.Rule * charData.RuleRatio).ToString());
 				formula = formula.Replace("Polity", (charData.Polity * charData.PolityRatio).ToString());
 				formula = formula.Replace("Charm", (charData.Charm * charData.CharmRatio).ToString());
 				formula = formula.Replace("MP", Mathf.Max(0, charData.CurMP).ToString());

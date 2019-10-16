@@ -15,12 +15,17 @@ namespace MS
 					PlayerInfo.PlayerId = data.readUTF();
 					PlayerInfo.Nickname = data.readUTF();
 					int heroCount = data.readByte();
-					int heroId, heroLv;
+					int id, star, maxPower;
 					for(int i = 0; i < heroCount; ++i)
 					{
-						heroId	= data.readInt();
-						heroLv	= data.readInt();
-						HeroAll.SetHeroInfo(heroId, new HeroInfo(heroId, heroLv));
+						id = data.readInt();
+						star = data.readInt();
+						maxPower = data.readInt();
+						float[] mainProperty = new float[10];
+						for(int j = 0; j < 10; ++j)
+							mainProperty[j] = data.readInt() / 100f;
+
+						HeroAll.SetHeroInfo(id, new HeroInfo(id, star, maxPower, mainProperty));
 					}
 					SceneLoader.LoadScene("MainScene");
 					break;

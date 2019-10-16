@@ -36,8 +36,8 @@ namespace MS
 		//----------------------------------------------------------------------------------------
 
 		private ConfigRow _heroRow;
-		public int		CurLevel { get; set; }
-		public int[]	SkillIDs { get; set; }
+		public int		CurStar		{ get; set; }
+		public int[]	SkillIDs	{ get; set; }
 		
 
 		private Dictionary<int, int> _dicSkillLevels = new Dictionary<int, int>();
@@ -136,14 +136,14 @@ namespace MS
 		}
 
 		//谋略
-		public float Resourcefulness
+		public float Strategy
 		{
 			get { return _properties[2]; }
 			set { _properties[2] = Mathf.Max(0, value); }
 		}
 
 		//统御
-		public float RuleWorld
+		public float Rule
 		{
 			get { return _properties[1]; }
 			set { _properties[1] = Mathf.Max(0, value); }
@@ -318,17 +318,18 @@ namespace MS
 		{
 			SetConfigInfo();
 			
-			CurLevel		= heroInfo.Level;
-			CurAttack		= heroInfo.Attack + heroInfo.AddAttack;
-			CurDefence		= heroInfo.Defence + heroInfo.AddDefence;
-			CriticalRatio	= heroInfo.CriticalRatio;
-			BlockRatio		= heroInfo.BlockRatio;
-			Force			= heroInfo.Force + heroInfo.AddForce;
-			Resourcefulness	= heroInfo.Resourcefulness + heroInfo.AddResourcefulness;
-			RuleWorld		= heroInfo.RuleWorld + heroInfo.AddRuleWorld;
-			Polity = heroInfo.Force + heroInfo.AddForce;
-			Charm			= heroInfo.Force + heroInfo.AddForce;
-			MaxHP			= heroInfo.HP + heroInfo.AddHP;
+			CurStar			= heroInfo.Star;
+			CurAttack		= heroInfo.MainProperty[0] + heroInfo.AddAttack;
+			CurDefence		= heroInfo.MainProperty[1] + heroInfo.AddDefence;
+			MaxHP			= heroInfo.MainProperty[2] + heroInfo.AddHP;
+			CriticalRatio	= heroInfo.MainProperty[3];
+			BlockRatio		= heroInfo.MainProperty[4];
+			Force			= heroInfo.MainProperty[5] + heroInfo.AddForce;
+			Strategy		= heroInfo.MainProperty[6] + heroInfo.AddStrategy;
+			Rule			= heroInfo.MainProperty[7] + heroInfo.AddRule;
+			Polity			= heroInfo.MainProperty[8] + heroInfo.AddForce;
+			Charm			= heroInfo.MainProperty[9] + heroInfo.AddForce;
+			
 			CurHP			= MaxHP;
 			MaxMP			= heroInfo.MaxPower;
 			CurMP			= MaxMP;

@@ -22,5 +22,10 @@ namespace MS
 				_dicHero.Add(heroId, heroInfo);
 			}	
 		}
+
+		public static HeroInfo GetHeroInfo(int heroId)
+		{
+			return _dicHero[heroId];
+		}
 	}
 }

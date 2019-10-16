@@ -9,6 +9,9 @@ namespace MS
 		public Button PreBtn;
 		public Button NextBtn;
 
+		public Text[] Labels;
+		public Text[] Values;
+
 		private GameObject _gameObject;
 		private GameObject _curHeroGo;
 		private int _curHeroIndex = 0;
@@ -28,6 +31,10 @@ namespace MS
 			_gameObject = gameObject;
 			PreBtn.onClick.AddListener(OnClickPre);
 			NextBtn.onClick.AddListener(OnClickNext);
+			for(int i = 0; i < 10; ++i)
+			{
+				Labels[i].text = ConfigData.GetStaticText((10000 + i).ToString());
+			}
 		}
 
 		private void OnDestroy()
@@ -60,6 +67,16 @@ namespace MS
 			int heroId = HeroAll.GetHeroList()[_curHeroIndex];
 			_curHeroGo = ResourceLoader.LoadAssetAndInstantiate(string.Format("Character/Hero{0}_Stand", heroId), HeroModelRoot);
 			_curHeroGo.transform.Rotate(PositionMgr.vecRotY);
+			ShowHeroInfo(heroId);
+		}
+
+		private void ShowHeroInfo(int heroId)
+		{
+			HeroInfo heroInfo = HeroAll.GetHeroInfo(heroId);
+			for(int i = 0; i < 10; ++i)
+			{
+				Values[i].text = heroInfo.MainProperty[i].ToString();
+			}
 		}
 
 		private void OnClickPre()

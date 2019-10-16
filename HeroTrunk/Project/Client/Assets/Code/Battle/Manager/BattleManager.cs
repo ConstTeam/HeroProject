@@ -107,14 +107,14 @@ namespace MS
 			return BattleEnum.Enum_CharSide.Mine == side ? GetMainHero() : GetMainEnemy();
 		}
 
-		public HeroInfo GetHeroInfoMine(int charId)
+		public HeroInfo GetHeroInfoMine(int heroId)
 		{
-			return new HeroInfo(charId, 1);
+			return HeroAll.GetHeroInfo(heroId);
 		}
 
-		public HeroInfo GetHeroInfoEnemy(int charId)
+		public HeroInfo GetHeroInfoEnemy(int heroId)
 		{
-			return new HeroInfo(charId, 1);
+			return null;
 		}
 
 		public HeroInfo GetHeroInfo(BattleEnum.Enum_CharSide side, int charId)
