@@ -57,6 +57,7 @@ namespace MS
 
 		private void Start()
 		{
+			BattleMainPanel.GetInst().InitPanel();
 			ResourceLoader.LoadAssetAndInstantiate(m_sSpawnName);
 			BattleScenePool.GetInst().LoadHero(BattleEnum.Enum_CharSide.Mine);
 			m_BattleScene.OnBattleInit();
