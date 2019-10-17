@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MS
 {
 	public class BattleMainPanel : MonoBehaviour
 	{
+		public Button HeroBtn;
+
 		private static BattleMainPanel _inst;
 		public static BattleMainPanel GetInst()
 		{
@@ -16,6 +19,7 @@ namespace MS
 		private void Awake()
 		{
 			_inst = this;
+			HeroBtn.onClick.AddListener(OpenHeroPanel);
 		}
 
 		private void OnDestroy()
@@ -25,7 +29,12 @@ namespace MS
 
 		public void InitPanel()
 		{
-			ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/BattleHeroListPanel", SceneLoaderMain.GetInst().battleUIRoot);
+			
+		}
+
+		private void OpenHeroPanel()
+		{
+			BattleHeroListPanel.GetInst().OpenPanel();
 		}
 	}
 }
