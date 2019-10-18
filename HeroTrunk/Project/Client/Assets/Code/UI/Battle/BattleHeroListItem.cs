@@ -27,6 +27,7 @@ namespace MS
 
 		public void ShowHero()
 		{
+			AddHeroBtn.gameObject.SetActive(false);
 			HeroBgGo.SetActive(true);
 		}
 

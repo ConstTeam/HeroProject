@@ -70,6 +70,8 @@ namespace MS
 
 		public void ResetPosition(CharHandler h, int spawnId)
 		{
+			if(spawnId >= spawnPoints.Length)
+				spawnId = 0;
 			Transform trans = spawnPoints[spawnId];
 			h.m_ParentTrans.position = trans.position;
 			h.m_ParentTrans.rotation = trans.rotation;

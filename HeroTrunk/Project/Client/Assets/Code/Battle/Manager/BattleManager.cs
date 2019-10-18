@@ -46,7 +46,7 @@ namespace MS
 
 			m_CharInScene		= new BattleCharInScene();
 			m_TriggerManager	= new BattleTriggerManager();
-			m_BattleScene		= new BattleSceneNormal();
+			m_BattleScene		= _gameObject.AddComponent<BattleSceneNormal>();
 
 			m_MPData			= new MPData("Power1");
 
@@ -58,20 +58,11 @@ namespace MS
 			BattleMainPanel.GetInst().InitPanel();
 			ResourceLoader.LoadAssetAndInstantiate(m_sSpawnName);
 			m_BattleScene.OnBattleInit();
-			Invoke("BattleStart", 3);
-		}
-
-		public void BattleStart()
-		{
-			BattleCam.enabled = true;
-			BattleSceneTimer.GetInst().BeginTimer();
-			SpawnMgr.GetInst().Begin();
-			m_BattleScene.OnBattleStart();
 		}
 
 		public List<int> GetHeroIdsMine()
 		{
-			return new List<int>{ 1006, 1007 };
+			return new List<int>{ 1006, 1007, 1008 };
 		}
 
 		public List<int> GetHeroIdsEnemy()

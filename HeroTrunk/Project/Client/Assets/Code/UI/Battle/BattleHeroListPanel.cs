@@ -30,6 +30,7 @@ namespace MS
 				item.Show(false);
 				_lstHeroItem.Add(item);
 			}
+			_gameObject.SetActive(false);
 		}
 
 		private void Start()
@@ -55,14 +56,9 @@ namespace MS
 			_inst = null;
 		}
 
-		public void OpenPanel()
+		public void BeShowPanel()
 		{
-			_gameObject.SetActive(true);
-		}
-
-		public void ClosePanel()
-		{
-			_gameObject.SetActive(false);
+			_gameObject.SetActive(!_gameObject.activeSelf);
 		}
 	}
 }

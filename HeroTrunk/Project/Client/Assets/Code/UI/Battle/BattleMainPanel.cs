@@ -34,7 +34,7 @@ namespace MS
 
 		private void OpenHeroPanel()
 		{
-			BattleHeroListPanel.GetInst().OpenPanel();
+			BattleHeroListPanel.GetInst().BeShowPanel();
 		}
 	}
 }

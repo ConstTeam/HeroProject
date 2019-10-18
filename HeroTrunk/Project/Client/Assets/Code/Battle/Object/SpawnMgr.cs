@@ -35,11 +35,6 @@ namespace MS
 			_iCurSpawnMonsterIndex = 0;
 		}
 
-		public void Begin()
-		{
-			SetSpawnMonster();
-		}
-
 		public void CreateHeroM(int heroId, int heroIndex)
 		{
 			m_SpawnHerosMine.CreateChar(BattleEnum.Enum_CharSide.Mine, heroId, heroIndex);
@@ -91,7 +86,7 @@ namespace MS
 			charHandler.m_CharSkill.InitTriggerSkill();
 		}
 
-		private void SetSpawnMonster()
+		public void SetSpawnMonster()
 		{
 			string strIds = SectionData.GetMonsterSpawns(BattleManager.m_iSectionID, BattleManager.m_eBattleType);
 			if(string.Empty == strIds)

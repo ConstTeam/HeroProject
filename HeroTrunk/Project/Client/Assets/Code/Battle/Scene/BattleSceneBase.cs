@@ -1,6 +1,8 @@
+using UnityEngine;
+
 namespace MS
 {
-	public class BattleSceneBase
+	public class BattleSceneBase : MonoBehaviour
 	{
 		public int Level { get; set; }
 
@@ -9,7 +11,6 @@ namespace MS
 		public virtual void EnableMine()	{ }
 		public virtual void CreateEnemy()	{ }
 		public virtual void EnableEnemy()	{ }
-		public virtual void OnBattleStart()	{ }
 
 		public virtual BattleEnum.Enum_BattleType BattleType
 		{
@@ -17,5 +18,11 @@ namespace MS
 		}
 
 		public virtual void OnBattleInit(){}
+
+		public virtual void OnBattleStart()
+		{
+			BattleManager.GetInst().BattleCam.enabled = true;
+			BattleSceneTimer.GetInst().BeginTimer();
+		}
 	}
 }
