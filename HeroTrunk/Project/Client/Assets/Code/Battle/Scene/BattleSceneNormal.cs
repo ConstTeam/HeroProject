@@ -9,13 +9,14 @@ namespace MS
 
 		public override void OnBattleInit()
 		{
-			SpawnMgr.GetInst().CreateHerosM();
-			base.OnBattleInit();
+			//BattleCamera.GetInst().SetTarget(BattleManager.GetInst().GetMainHero())
+			BattleCamera.GetInst().SetPos(SpawnMgr.GetInst().m_SpawnHerosMine.GetSpawnTrans().position);
 		}
 
 		public override void OnBattleStart()
 		{
-			SpawnMgr.GetInst().EnableHerosM();
+			SpawnMgr.GetInst().ReleaseNextWave();
+			//SpawnMgr.GetInst().EnableHerosM();
 			//SpawnMgr.GetInst().EnableHerosE();
 		}
 	}

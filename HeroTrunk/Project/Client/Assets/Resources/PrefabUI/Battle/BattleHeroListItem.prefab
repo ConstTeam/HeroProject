@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 222461545900469192}
   - component: {fileID: 114605115389839688}
   m_Layer: 31
-  m_Name: Bg
+  m_Name: HeroBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 114112736212597900}
   - component: {fileID: 114219549568526722}
   m_Layer: 31
-  m_Name: AddBtn
+  m_Name: UpgradeBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 114754449031653118}
   - component: {fileID: 114910437848463260}
   m_Layer: 31
-  m_Name: AddHero
+  m_Name: AddHeroBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,6 +287,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0169ce8409dd7814eb6f3467b8d35c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HeroBgGo: {fileID: 1480970611746802}
+  AddHeroBtn: {fileID: 114910437848463260}
+  UpgradBtn: {fileID: 114219549568526722}
 --- !u!114 &114754449031653118
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -51,15 +51,12 @@ namespace MS
 			m_MPData			= new MPData("Power1");
 
 			BattlePoolGo.AddComponent<BattleScenePool>();
-
-			BattleScenePool.GetInst().SetHeroIdMine();
 		}
 
 		private void Start()
 		{
 			BattleMainPanel.GetInst().InitPanel();
 			ResourceLoader.LoadAssetAndInstantiate(m_sSpawnName);
-			BattleScenePool.GetInst().LoadHero(BattleEnum.Enum_CharSide.Mine);
 			m_BattleScene.OnBattleInit();
 			Invoke("BattleStart", 3);
 		}
@@ -85,6 +82,13 @@ namespace MS
 		public MPData GetMPData()
 		{
 			return m_MPData;
+		}
+
+		public void AddHero(int heroIndex)
+		{
+			int heroId = GetHeroIdsMine()[heroIndex];
+			SpawnMgr.GetInst().CreateHeroM(heroId, heroIndex);
+			m_CharInScene.EnableCharacters(BattleEnum.Enum_CharSide.Mine);
 		}
 
 		public CharHandler GetMainHero()

@@ -46,7 +46,7 @@ namespace MS
 		public virtual void CreateCharacters() { }
 		public virtual void EnableCharacters() { }
 		public virtual void ShowCharacters(bool bShow) { }
-		protected virtual CharHandler CreateChar(int spawnId, int charId) { return null; }
+		public virtual CharHandler CreateChar(BattleEnum.Enum_CharSide side, int charId, int charIndex) { return null; }
 		protected virtual void SetObstacleAvoidance(CharHandler handler) { }
 		protected virtual void SetRingLight(CharHandler charHandler) { }
 		protected virtual void SetApplyRootMotion(CharHandler charHandler) { }

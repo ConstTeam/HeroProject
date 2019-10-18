@@ -5,6 +5,8 @@ namespace MS
 {
 	public class BattleHeroListPanel : MonoBehaviour
 	{
+		public Transform ContentTrans;
+
 		private List<BattleHeroListItem> _lstHeroItem = new List<BattleHeroListItem>();
 		private GameObject _gameObject;
 
@@ -20,6 +22,32 @@ namespace MS
 		{
 			_inst = this;
 			_gameObject = gameObject;
+			BattleHeroListItem item;
+			for(int i = 0; i < 5; ++i)
+			{
+				item = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/BattleHeroListItem", ContentTrans).GetComponent<BattleHeroListItem>();
+				item.Index = i;
+				item.Show(false);
+				_lstHeroItem.Add(item);
+			}
+		}
+
+		private void Start()
+		{
+			Refresh();
+		}
+
+		public void Refresh()
+		{
+			int heroCount = BattleManager.GetInst().m_CharInScene.GetHeroCount(BattleEnum.Enum_CharSide.Mine);
+			int i = 0;
+			for(; i < heroCount; ++i)
+			{
+				_lstHeroItem[i].Show(true);
+				_lstHeroItem[i].ShowHero();
+			}
+			if(heroCount < 5)
+				_lstHeroItem[i].Show(true);
 		}
 
 		private void OnDestroy()

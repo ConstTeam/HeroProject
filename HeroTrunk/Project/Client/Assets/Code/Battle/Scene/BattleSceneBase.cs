@@ -16,10 +16,6 @@ namespace MS
 			get { return BattleEnum.Enum_BattleType.Normal; }
 		}
 
-		public virtual void OnBattleInit()
-		{
-			BattleCamera.GetInst().SetTarget(BattleManager.GetInst().GetMainHero());
-		}
-
+		public virtual void OnBattleInit(){}
 	}
 }

@@ -6,7 +6,6 @@ namespace MS
 {
 	public class BattleScenePool : MonoBehaviour
 	{
-		public List<int>	m_lstCharMineID		= new List<int>();
 		public List<int>	m_lstCharEnemyID	= new List<int>();
 		public List<int>	m_lstMonsterID		= new List<int>();
 
@@ -38,32 +37,16 @@ namespace MS
 			_monsterConfig = ConfigData.GetValue("Monster_Client");
 		}
 
-		public void SetHeroIdMine()
+		public CharHandler LoadHero(BattleEnum.Enum_CharSide side, int heroId, int heroIndex)
 		{
-			m_lstCharMineID = BattleManager.GetInst().GetHeroIdsMine();
-		}
-
-		public void LoadHero(BattleEnum.Enum_CharSide side)
-		{
-			bool bMine = BattleEnum.Enum_CharSide.Mine == side;
-			List<int> charIds = bMine ? m_lstCharMineID : m_lstCharEnemyID;
-			Dictionary<int, CharHandler> dicCharPool = bMine ? _dicCharMinePool : _dicCharEnemyPool;
-
-			GameObject charGo;
-			GameObject handlerGo;
-			int charId;
-			for(int i = 0; i < m_lstCharMineID.Count; ++i)
-			{
-				charId = charIds[i];
-				charGo = ResourceLoader.LoadAssetAndInstantiate(string.Format("Character/Hero{0}_Stand", charId.ToString()), _transform, PositionMgr.vecHidePos);
-				handlerGo = new GameObject("Handler");  //把其他代码和CharAnimCallback分开放
-				handlerGo.transform.SetParent(charGo.transform);
-				handlerGo.transform.localPosition = Vector3.zero;
-				CharHandler charHandler = handlerGo.AddComponent<CharHandler>();
-				charHandler.Init(charId, BattleEnum.Enum_CharSide.Mine, i);
-				dicCharPool.Add(charId, charHandler);
-				//PreloadBulletHero(charHandler);
-			}
+			GameObject charGo = ResourceLoader.LoadAssetAndInstantiate(string.Format("Character/Hero{0}_Stand", heroId.ToString()), _transform, PositionMgr.vecHidePos);
+			GameObject handlerGo = new GameObject("Handler");  //把其他代码和CharAnimCallback分开放
+			handlerGo.transform.SetParent(charGo.transform);
+			handlerGo.transform.localPosition = Vector3.zero;
+			CharHandler charHandler = handlerGo.AddComponent<CharHandler>();
+			charHandler.Init(heroId, side, heroIndex);
+			//PreloadBulletHero(charHandler);
+			return charHandler;
 		}
 
 		public Transform PopEffect(string key)

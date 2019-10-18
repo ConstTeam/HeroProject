@@ -162,8 +162,26 @@ namespace MS
 			}
 		}
 
-		//--��ȡս���еĶ���------------------------------------------------------------------------------------
-		//��ȡĳ���� ���ж���
+		public void EnableCharacters(BattleEnum.Enum_CharSide side)
+		{
+			bool bMine = BattleEnum.Enum_CharSide.Mine == side;
+			List<CharHandler> lst = bMine ? BattleManager.GetInst().m_CharInScene.m_listGeneralMine : BattleManager.GetInst().m_CharInScene.m_listGeneralEnemy;
+			if(lst.Count <= 0)
+				return;
+
+			for(int i = 0; i < lst.Count; ++i)
+			{
+				lst[i].m_CharState.enabled = true;
+				lst[i].m_CharMove.SetAgentEnable(true);
+				lst[i].m_CharSkill.RunCD(true);
+			}
+
+			if(!bMine)
+				BattleManager.GetInst().FinalEnemyBorned(lst);
+		}
+
+		//--获取战斗中的对象------------------------------------------------------------------------------------
+		//获取某方的 所有对象
 		public void GetAllChar(BattleEnum.Enum_CharSide side, List<List<CharHandler>> lst)
 		{
 			GetAllHero(side, lst);
@@ -171,7 +189,7 @@ namespace MS
 				GetAllMonster(lst);
 		}
 
-		//��ȡĳ���� ����Ӣ��
+		//获取某方的 所有英雄
 		public void GetAllHero(BattleEnum.Enum_CharSide side, List<List<CharHandler>> lst)
 		{
 			if(BattleEnum.Enum_CharSide.Mine == side)
@@ -186,7 +204,7 @@ namespace MS
 			}
 		}
 
-		//��ȡĳ���� �ڳ�Ӣ��
+		//获取某方的 在场英雄
 		public void GetPresence(BattleEnum.Enum_CharSide side, List<List<CharHandler>> lst)
 		{
 			if(BattleEnum.Enum_CharSide.Mine == side)
@@ -201,43 +219,43 @@ namespace MS
 			}
 		}
 
-		//��ȡĳ�������
+		//获取某方的武官
 		public void GetGeneral(BattleEnum.Enum_CharSide side, List<List<CharHandler>> lst)
 		{
 			lst.Add(BattleEnum.Enum_CharSide.Mine == side ? m_listGeneralMine : m_listGeneralEnemy);
 		}
 
-		//��ȡĳ�������
+		//获取某方的武官
 		public List<CharHandler> GetGeneral(BattleEnum.Enum_CharSide side)
 		{
 			return BattleEnum.Enum_CharSide.Mine == side ? m_listGeneralMine : m_listGeneralEnemy;
 		}
 
-		//��ȡĳ�����Ĺ�
+		//获取某方的文官
 		public void GetOfficial(BattleEnum.Enum_CharSide side, List<List<CharHandler>> lst)
 		{
 			lst.Add(BattleEnum.Enum_CharSide.Mine == side ? m_listOfficialMine : m_listOfficialEnemy);
 		}
 
-		//��ȡĳ�����Ĺ�
+		//获取某方的文官
 		public List<CharHandler> GetOfficial(BattleEnum.Enum_CharSide side)
 		{
 			return BattleEnum.Enum_CharSide.Mine == side ? m_listOfficialMine : m_listOfficialEnemy;
 		}
 
-		//��ȡ����С��
+		//获取所有小怪
 		public void GetAllMonster(List<List<CharHandler>> lst)
 		{
 			lst.Add(m_listMonster);
 		}
 
-		//��ȡĳ�����������
+		//获取某方的阵亡武官
 		public void GetDeadGeneral(BattleEnum.Enum_CharSide side, List<List<CharHandler>> lst)
 		{
 			lst.Add(BattleEnum.Enum_CharSide.Mine == side ? m_listDeadMine : m_listDeadEnemy);
 		}
 
-		//��ȡĳ���ļ���Ŀ��
+		//获取某方的集火目标
 		public CharHandler GetConcentrate(BattleEnum.Enum_CharSide side)
 		{
 			List<CharHandler> lst = BattleEnum.Enum_CharSide.Mine == side ? m_listGeneralMine : m_listGeneralEnemy;
@@ -250,7 +268,7 @@ namespace MS
 			return null;
 		}
 
-		//���
+		//最近
 		public CharHandler GetNearestChar(CharHandler charHandler, BattleEnum.Enum_CharSide side, ref float dis)
 		{
 			List<CharHandler> lst = BattleEnum.Enum_CharSide.Mine == side ? m_listGeneralMine : m_listGeneralEnemy;
@@ -280,7 +298,7 @@ namespace MS
 			return ret;
 		}
 
-		//���
+		//最近
 		public CharHandler GetNearestMonster(CharHandler handler, ref float dis)
 		{
 			List<CharHandler> lst = m_listMonster;
@@ -303,7 +321,7 @@ namespace MS
 			return ret;
 		}
 
-		//--ȫ�ּ�ħ-------------------------------------------------------
+		//--全局加魔-------------------------------------------------------
 		public void AddMPAll(float mp)
 		{
 			for(int i = 0; i < m_listGeneralMine.Count; ++i)

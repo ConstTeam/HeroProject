@@ -20,12 +20,12 @@ namespace MS
 		{
 			for(int i = 0; i < spawnPoints.Length; ++i)
 			{
-				CreateChar(i, m_iMonsterID);
+				CreateChar(BattleEnum.Enum_CharSide.Enemy, m_iMonsterID, i);
 				yield return new WaitForSeconds(0.2f);
 			}
 		}
 
-		protected override CharHandler CreateChar(int spawnId, int charId)
+		public override CharHandler CreateChar(BattleEnum.Enum_CharSide side, int charId, int spawnId)
 		{
 			CharHandler h = BattleScenePool.GetInst().PopMonsterHandler(charId);
 			SetMonsterData(h);

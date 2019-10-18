@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,9 +40,9 @@ namespace MS
 			SetSpawnMonster();
 		}
 
-		public void CreateHerosM()
+		public void CreateHeroM(int heroId, int heroIndex)
 		{
-			m_SpawnHerosMine.CreateCharacters();
+			m_SpawnHerosMine.CreateChar(BattleEnum.Enum_CharSide.Mine, heroId, heroIndex);
 		}
 
 		public void EnableHerosM()
@@ -61,18 +60,6 @@ namespace MS
 		{
 			if(null != m_SpawnHerosEnemy)
 				m_SpawnHerosEnemy.EnableCharacters();
-		}
-
-		//创建单个武将（己方）
-		public bool CreateHeroSingleM(int index)
-		{
-			return m_SpawnHerosMine.CreateCharacterSingle(index);
-		}
-
-		//创建单个武将（敌方）
-		public bool CreateHeroSingleE(int index)
-		{
-			return m_SpawnHerosEnemy.CreateCharacterSingle(index);
 		}
 
 		public void ResetHeroPositionM()
@@ -160,7 +147,7 @@ namespace MS
 				ReleaseNextWave();
 		}
 
-		private void ReleaseNextWave()
+		public void ReleaseNextWave()
 		{
 			m_SpawnMonsters[_iCurSpawnMonsterIndex].ReleaseChar();
 		}
