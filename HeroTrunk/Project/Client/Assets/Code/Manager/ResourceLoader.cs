@@ -9,8 +9,8 @@ namespace MS
 			return Resources.Load(sPath);
 		}
 
-		public static T LoadAsset<T>(string sPath) where T : Object 
-		{	
+		public static T LoadAsset<T>(string sPath) where T : Object
+		{
 			try
 			{
 				return Resources.Load<T>(sPath) as T;
@@ -40,10 +40,7 @@ namespace MS
 			try
 			{
 				Object obj = Resources.Load(sPath);
-				GameObject go = Object.Instantiate(obj) as GameObject;
-				Transform trans = go.transform;
-				trans.SetParent(parent, false);
-				return go;
+				return Object.Instantiate(obj, parent, false) as GameObject;
 			}
 			catch
 			{
@@ -57,10 +54,26 @@ namespace MS
 			try
 			{
 				Object obj = Resources.Load(sPath);
-				GameObject go = Object.Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
+				GameObject go = Object.Instantiate(obj, parent, false) as GameObject;
+				go.transform.localPosition = pos;
+				return go;
+			}
+			catch
+			{
+				Debug.Log(string.Format("资源不存在{0}!", sPath));
+				return new GameObject();
+			}
+		}
+
+		public static GameObject LoadAssetAndInstantiate(string sPath, Transform parent, Vector3 pos, Vector3 rot)
+		{
+			try
+			{
+				Object obj = Resources.Load(sPath);
+				GameObject go = Object.Instantiate(obj, parent, false) as GameObject;
 				Transform trans = go.transform;
-				trans.SetParent(parent, false);
 				trans.localPosition = pos;
+				trans.localRotation = Quaternion.Euler(rot.x, rot.y, rot.z);
 				return go;
 			}
 			catch

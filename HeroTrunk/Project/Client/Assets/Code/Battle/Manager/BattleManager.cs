@@ -12,7 +12,7 @@ namespace MS
 		public Transform			HeadUIParentTran;
 		public GameObject			HUDTextRes;
 
-		public BattleSceneBase		m_BattleScene;
+		public BattleScene			m_BattleScene;
 		public BattleCharInScene	m_CharInScene;
 		public BattleTriggerManager m_TriggerManager;
 
@@ -46,7 +46,7 @@ namespace MS
 
 			m_CharInScene		= new BattleCharInScene();
 			m_TriggerManager	= new BattleTriggerManager();
-			m_BattleScene		= _gameObject.AddComponent<BattleSceneNormal>();
+			m_BattleScene		= _gameObject.AddComponent<BattleScene>();
 
 			m_MPData			= new MPData("Power1");
 
@@ -78,7 +78,7 @@ namespace MS
 		public void AddHero(int heroIndex)
 		{
 			int heroId = GetHeroIdsMine()[heroIndex];
-			SpawnMgr.GetInst().CreateHeroM(heroId, heroIndex);
+			SpawnHandler.GetInst().CreateHeroM(heroId, heroIndex);
 			m_CharInScene.EnableCharacters(BattleEnum.Enum_CharSide.Mine);
 		}
 
@@ -148,12 +148,7 @@ namespace MS
 		public void IsWaveEnd()
 		{
 			if(0 == m_CharInScene.m_listMonster.Count)
-			{
-				//if(++m_BattleScene.Level % 10 == 0)
-
-				SpawnMgr.GetInst().SetSpawnState();
-			}
-				
+				SpawnHandler.GetInst().ReleaseNextWave();	
 		}
 
 		#region--静态------

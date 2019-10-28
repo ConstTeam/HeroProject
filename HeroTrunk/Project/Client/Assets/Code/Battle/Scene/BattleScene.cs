@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MS
 {
-	public class BattleSceneBase : MonoBehaviour
+	public class BattleScene : MonoBehaviour
 	{
 		public int Level { get; set; }
 
@@ -12,17 +12,21 @@ namespace MS
 		public virtual void CreateEnemy()	{ }
 		public virtual void EnableEnemy()	{ }
 
-		public virtual BattleEnum.Enum_BattleType BattleType
+		public virtual void OnBattleInit()
 		{
-			get { return BattleEnum.Enum_BattleType.Normal; }
+			BattleCamera.GetInst().SetPos(SpawnHandler.GetInst().Heroes[0].position);
+			Invoke("OnBattleStart", 1);
 		}
-
-		public virtual void OnBattleInit(){}
 
 		public virtual void OnBattleStart()
 		{
 			BattleManager.GetInst().BattleCam.enabled = true;
 			BattleSceneTimer.GetInst().BeginTimer();
+			SpawnHandler.GetInst().CurSpawnIndex = 1;
+			SpawnHandler.GetInst().SetSpawnInfo();
+			SpawnHandler.GetInst().ReleaseNextWave();
+			//SpawnMgr.GetInst().EnableHerosM();
+			//SpawnMgr.GetInst().EnableHerosE();
 		}
 	}
 }

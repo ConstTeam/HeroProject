@@ -8,7 +8,7 @@ namespace MS
 			switch(battleType)
 			{
 				case BattleEnum.Enum_BattleType.Normal:
-					cfgName = "City_Common";
+					cfgName = "SceneNormal_Client";
 					break;
 			}
 			return cfgName;
@@ -52,7 +52,7 @@ namespace MS
 
 		public static string GetMonsterSpawns(int iSectionId, BattleEnum.Enum_BattleType battleType)
 		{
-			//string cfgName = GetConfigName(battleType);
+			string cfgName = GetConfigName(battleType);
 			return "2006;3|2016;1";//ConfigData.GetValue(cfgName, iSectionId.ToString(), "MonsterSpawns");
 		}
 

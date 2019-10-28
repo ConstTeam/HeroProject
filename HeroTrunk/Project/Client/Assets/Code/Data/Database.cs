@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,7 +51,6 @@ namespace MS
 				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Rule",			filePath) * 100));
 				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Polity",		filePath) * 100));
 				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Charm",			filePath) * 100));
-				
 			}
 			
 			ServiceManager.PostMessageShortEx(data);

@@ -124,18 +124,11 @@ namespace MS
 		}
 
 		#region --小怪相关------------------------------------------------------------------
-		private CharHandler LoaderMonster(Object obj, int charId)
+		private CharHandler LoaderMonster(GameObject go, int charId)
 		{
-			Transform tempTrans;
-
-			GameObject charGo = Instantiate(obj) as GameObject;
-			tempTrans = charGo.transform;
-			tempTrans.SetParent(_transform);
-			tempTrans.position = PositionMgr.vecHidePos;
-
 			GameObject handlerGo = new GameObject("Handler");   //把其他代码和CharAnimCallback分开放
-			tempTrans = handlerGo.transform;
-			tempTrans.SetParent(charGo.transform, false);
+			Transform tempTrans = handlerGo.transform;
+			tempTrans.SetParent(go.transform, false);
 			tempTrans.localPosition = Vector3.zero;
 
 			CharHandler ch = handlerGo.AddComponent<CharHandler>();
@@ -157,8 +150,8 @@ namespace MS
 				return _dicMonsterPool[monsterId].Pop();
 			else
 			{
-				Object obj = ResourceLoader.LoadAssets(_monsterConfig.GetValue(monsterId.ToString(), "PrefabPath"));
-				CharHandler ch = LoaderMonster(obj, monsterId);
+				GameObject go = ResourceLoader.LoadAssetAndInstantiate(_monsterConfig.GetValue(monsterId.ToString(), "PrefabPath"), _transform, PositionMgr.vecHidePos);
+				CharHandler ch = LoaderMonster(go, monsterId);
 				return ch;
 			}
 		}

@@ -5,25 +5,6 @@ namespace MS
 {
 	public class SpawnHeroBase : SpawnBase
 	{
-		public override CharHandler CreateChar(BattleEnum.Enum_CharSide side, int charId, int charIndex)
-		{
-			CharHandler h = BattleScenePool.GetInst().LoadHero(side, charId, charIndex);
-			Rigidbody rb = h.m_Go.AddComponent<Rigidbody>();
-			BoxCollider cl = h.m_Go.AddComponent<BoxCollider>();
-			rb.useGravity = false;
-			cl.isTrigger = true;
-			h.m_CharData.SetCharType(BattleEnum.Enum_CharType.General);
-			SetObstacleAvoidance(h);
-			SetRadius(h);
-			h.m_CharSkill.InitTriggerSkill();
-			SetApplyRootMotion(h);
-			BattleManager.GetInst().m_CharInScene.AddChar(h);
-			SetRingLight(h);
-			ResetPosition(h, charIndex);
-
-			return h;
-		}
-
 		private void CreateCharOfficial(BattleEnum.Enum_CharSide side, int charId, int charIndex)
 		{
 			CharHandler h = BattleScenePool.GetInst().LoadHero(side, charId, charIndex);

@@ -2,14 +2,12 @@ using MS;
 using UnityEditor;
 
 [CanEditMultipleObjects]
-[CustomEditor(typeof(SpawnBase))]
+[CustomEditor(typeof(SpawnNormal))]
 public class SpwanEditor : Editor
 {
 	public override void OnInspectorGUI()
 	{
 		serializedObject.Update();
-
-		EditorTools.DrawProperty("Char Side", serializedObject, "m_CharSide");
 
 		SerializedProperty sp = EditorTools.DrawProperty("Shape", serializedObject, "m_Shape");
 		SpawnBase.SpawnShape shape = (SpawnBase.SpawnShape)sp.intValue;
@@ -24,7 +22,8 @@ public class SpwanEditor : Editor
 			EditorTools.DrawProperty("Radius", serializedObject, "m_fRadius");
 		}
 
-		EditorTools.DrawPropertyIncludeChildren("SpwanPoints", serializedObject, "spawnPoints");
+		EditorTools.DrawPropertyIncludeChildren("MonsterPoints", serializedObject, "MonsterSpawn");
+		EditorTools.DrawPropertyIncludeChildren("BossPoints", serializedObject, "BossSpawn");
 
 		serializedObject.ApplyModifiedProperties();
 	}
