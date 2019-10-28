@@ -37,14 +37,16 @@ namespace MS
 
 		public void ReleaseNextWave()
 		{
-			if(Spawns[CurSpawnIndex].m_iRemainingWaves > 0)
-				Spawns[CurSpawnIndex].ReleaseChar();
-			else
+			if(Spawns[CurSpawnIndex].m_iRemainingWaves <= 0)
 			{
 				++CurSpawnIndex;
-				if(CurSpawnIndex < Spawns.Length)
-					SetSpawnInfo();	
+				if(CurSpawnIndex > Spawns.Length)
+					return;
+					
+				SetSpawnInfo();
 			}
+
+			Spawns[CurSpawnIndex].ReleaseChar();
 		}
 	}
 }

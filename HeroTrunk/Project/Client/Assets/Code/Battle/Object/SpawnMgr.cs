@@ -5,34 +5,8 @@ namespace MS
 {
 	public class SpawnMgr : MonoBehaviour
 	{
-		public enum SpawnType
-		{
-			Normal,
-			PVP
-		}
-
-		public SpawnType m_eSpawnType;
 		public SpawnHeroBase m_SpawnHerosMine;
 		public SpawnHeroBase m_SpawnHerosEnemy;
-
-		private int _iCurSpawnMonsterIndex;
-
-		private static SpawnMgr _inst;
-		public static SpawnMgr GetInst()
-		{
-			return _inst;
-		}
-
-		private void OnDestroy()
-		{
-			_inst = null;
-		}
-
-		private void Awake()
-		{
-			_inst = this;
-			_iCurSpawnMonsterIndex = 0;
-		}
 
 		public void EnableHerosM()
 		{

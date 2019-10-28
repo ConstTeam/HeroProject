@@ -22,7 +22,7 @@ namespace MS
 		{
 			BattleManager.GetInst().BattleCam.enabled = true;
 			BattleSceneTimer.GetInst().BeginTimer();
-			SpawnHandler.GetInst().CurSpawnIndex = 1;
+			SpawnHandler.GetInst().CurSpawnIndex = 0;
 			SpawnHandler.GetInst().SetSpawnInfo();
 			SpawnHandler.GetInst().ReleaseNextWave();
 			//SpawnMgr.GetInst().EnableHerosM();
