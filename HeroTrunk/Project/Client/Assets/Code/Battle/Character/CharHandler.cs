@@ -70,7 +70,7 @@ namespace MS
 
 		public void ToIdle()
 		{
-			if(this == BattleManager.GetInst().GetMainHero())
+			if(this == BattleManager.GetInst().m_CharInScene.GetMainHeroM())
 				m_CharMove.SetObstacleAvoidanceType(UnityEngine.AI.ObstacleAvoidanceType.NoObstacleAvoidance);
 
 			m_CharMove.StopAutoMove();
@@ -245,7 +245,7 @@ namespace MS
 		{
 			if(m_CharData.m_eType == BattleEnum.Enum_CharType.Official)
 			{
-				CharHandler handler = BattleManager.GetInst().GetMainHeroBySide(m_CharData.m_eSide);
+				CharHandler handler = BattleManager.GetInst().m_CharInScene.GetMainHeroBySide(m_CharData.m_eSide);
 				if(3 == m_iIndex)
 					m_ParentTrans.position = handler.m_ParentTrans.position + handler.m_ParentTrans.right * 2 - handler.m_ParentTrans.forward * 2;
 				else if(4 == m_iIndex)
@@ -283,7 +283,7 @@ namespace MS
 				default:
 					if(m_CharData.SkillForbid.Value)
 						return false;
-					if(null == BattleManager.GetInst().GetMainHeroBySide(m_CharData.m_eSide))
+					if(null == BattleManager.GetInst().m_CharInScene.GetMainHeroBySide(m_CharData.m_eSide))
 						return false;
 					return true;
 			}
@@ -297,7 +297,7 @@ namespace MS
 
 		public bool IsMainHero()
 		{
-			return this == BattleManager.GetInst().GetMainHeroBySide(m_CharData.m_eSide);
+			return this == BattleManager.GetInst().m_CharInScene.GetMainHeroBySide(m_CharData.m_eSide);
 		}
 
 		public bool IsInexistence()

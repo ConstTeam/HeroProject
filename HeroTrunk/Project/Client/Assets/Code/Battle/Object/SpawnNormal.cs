@@ -68,11 +68,10 @@ namespace MS
 		public void EnableCharacters() { }
 		public void ShowCharacters(bool bShow) { }
 
-		public void ResetInfo(int index)
+		public void ResetInfo(ConfigRow row)
 		{
 			m_lstCharID.Clear();
 			m_lstCharCount.Clear();
-			ConfigRow row = ConfigData.GetValue("SceneNormal_Client", index.ToString());
 			string[] ids = row.GetValue("CharID").Split('|');
 			string[] count = row.GetValue("CharCount").Split('|');
 			for(int i = 0; i < ids.Length; ++i)

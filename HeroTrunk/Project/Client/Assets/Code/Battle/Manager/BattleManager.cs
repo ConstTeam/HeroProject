@@ -82,27 +82,6 @@ namespace MS
 			m_CharInScene.EnableCharacters(BattleEnum.Enum_CharSide.Mine);
 		}
 
-		public CharHandler GetMainHero()
-		{
-			if(m_CharInScene.m_listGeneralMine.Count > 0)
-				return m_CharInScene.m_listGeneralMine[0];
-
-			return null;
-		}
-
-		public CharHandler GetMainEnemy()
-		{
-			if(m_CharInScene.m_listGeneralEnemy.Count > 0)
-				return m_CharInScene.m_listGeneralEnemy[0];
-
-			return null;
-		}
-
-		public CharHandler GetMainHeroBySide(BattleEnum.Enum_CharSide side)
-		{
-			return BattleEnum.Enum_CharSide.Mine == side ? GetMainHero() : GetMainEnemy();
-		}
-
 		public HeroInfo GetHeroInfoMine(int heroId)
 		{
 			return HeroAll.GetHeroInfo(heroId);

@@ -53,16 +53,5 @@ namespace MS
 			charHandler.m_CharSkill.RunCD(true);
 			charHandler.m_CharSkill.InitTriggerSkill();
 		}
-
-		public SpawnBase GetNextSpawn()
-		{
-			//if(_iCurSpawnMonsterIndex < m_SpawnMonsters.Length)
-			//	return m_SpawnMonsters[_iCurSpawnMonsterIndex];
-
-			if(null != m_SpawnHerosEnemy && m_SpawnHerosEnemy.ColliderEnable)
-				return m_SpawnHerosEnemy;
-
-			return null;
-		}
 	}
 }

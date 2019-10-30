@@ -7,7 +7,8 @@ namespace MS
 		public Transform[]		Heroes;
 		public SpawnNormal[]	Spawns;
 
-		public int CurSpawnIndex { get; set; }
+		public int CurSpawnIndex	{ get; set; }
+		public int CurSpawnId		{ get; set; }
 
 		private static SpawnHandler _inst;
 		public static SpawnHandler GetInst()
@@ -32,21 +33,32 @@ namespace MS
 
 		public void SetSpawnInfo()
 		{
-			Spawns[CurSpawnIndex].ResetInfo(CurSpawnIndex);
+			ConfigRow row = ConfigData.GetValue("SceneNormal_Client", CurSpawnIndex.ToString());
+			if(row == null)
+				CurSpawnId = -1;
+			else
+			{
+				CurSpawnId = int.Parse(row.GetValue("SpawnId"));
+				Spawns[CurSpawnId].ResetInfo(row);
+			}	
 		}
 
 		public void ReleaseNextWave()
 		{
-			if(Spawns[CurSpawnIndex].m_iRemainingWaves <= 0)
+			if(Spawns[CurSpawnId].m_iRemainingWaves <= 0)
 			{
 				++CurSpawnIndex;
-				if(CurSpawnIndex > Spawns.Length)
-					return;
-					
 				SetSpawnInfo();
 			}
+			else
+				Spawns[CurSpawnId].ReleaseChar();
+		}
 
-			Spawns[CurSpawnIndex].ReleaseChar();
+		public SpawnNormal GetCurSpawn()
+		{
+			if(CurSpawnId == -1)
+				return null;
+			return Spawns[CurSpawnId];		
 		}
 	}
 }

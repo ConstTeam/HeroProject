@@ -20,11 +20,45 @@ namespace MS
 			switch(_charHandler.m_CharData.m_eState)
 			{
 				case BattleEnum.Enum_CharState.Idle:
+					IdleState();
+					break;
 				case BattleEnum.Enum_CharState.Run:
 					CheckNearestCharAndExcute();
 					break;
 				default:
 					break;
+			}
+		}
+
+		private void IdleState()
+		{
+			if(!CheckNearestCharAndExcute())
+			{
+				if(BattleEnum.Enum_CharType.General == _charHandler.m_CharData.m_eType)
+				{
+					if(_charHandler == BattleManager.GetInst().m_CharInScene.GetMainHeroM())
+					{
+						SpawnNormal spawn = SpawnHandler.GetInst().GetCurSpawn();
+						if(null != spawn)
+							_charHandler.ToRun(spawn.transform, 1);
+					}
+					else
+					{
+						CharHandler charHandler = BattleManager.GetInst().m_CharInScene.GetMainHeroBySide(_charHandler.m_CharData.m_eSide);
+						if(1 == _charHandler.m_iIndex || 2 == _charHandler.m_iIndex)
+						{
+							int sign = _charHandler.m_iIndex * 2 - 3;//取正负
+							Vector3 toPos = charHandler.m_ParentTrans.position + charHandler.m_ParentTrans.right * 2 * sign + charHandler.m_ParentTrans.forward * 2.5f;
+							if(Vector3.Distance(toPos, charHandler.m_ParentTrans.position) > 1f)
+							{
+								if(IsInNavMash(toPos))
+									_charHandler.ToRun(toPos, 1f);
+								else
+									_charHandler.ToRun(charHandler.m_ParentTrans.position, 2f);
+							}
+						}
+					}
+				}
 			}
 		}
 
@@ -65,9 +99,24 @@ namespace MS
 
 		private bool CheckSlide(float dis, float touchDis)
 		{
-				if(BattleManager.GetInst().GetMainHero() == _charHandler && BattleEnum.Enum_AttackType.Close == _charHandler.m_CharData.m_eAtkType)
+				if(BattleManager.GetInst().m_CharInScene.GetMainHeroM() == _charHandler && BattleEnum.Enum_AttackType.Close == _charHandler.m_CharData.m_eAtkType)
 					return dis > touchDis + ApplicationConst.fFightSlideMin && dis < touchDis + ApplicationConst.fFightSlideMax;
 				return false;
+		}
+
+		private Ray ray = new Ray();
+		private RaycastHit hit;
+		private bool IsInNavMash(Vector3 origin)
+		{
+			ray.origin = origin;
+			ray.direction = Vector3.down;
+			if(Physics.Raycast(ray, out hit, 5, 1 << 9))
+			{
+				if(hit.collider.gameObject.CompareTag("Ground"))
+					return true;
+			}
+
+			return false;
 		}
 	}
 }

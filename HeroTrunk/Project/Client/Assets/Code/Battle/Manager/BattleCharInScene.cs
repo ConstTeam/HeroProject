@@ -181,6 +181,29 @@ namespace MS
 		}
 
 		//--获取战斗中的对象------------------------------------------------------------------------------------
+		//获取我方主将
+		public CharHandler GetMainHeroM()
+		{
+			if(m_listGeneralMine.Count > 0)
+				return m_listGeneralMine[0];
+
+			return null;
+		}
+
+		//获取敌方主将
+		public CharHandler GetMainHeroE()
+		{
+			if(m_listGeneralEnemy.Count > 0)
+				return m_listGeneralEnemy[0];
+
+			return null;
+		}
+
+		public CharHandler GetMainHeroBySide(BattleEnum.Enum_CharSide side)
+		{
+			return BattleEnum.Enum_CharSide.Mine == side ? GetMainHeroM() : GetMainHeroE();
+		}
+
 		//获取某方的 所有对象
 		public void GetAllChar(BattleEnum.Enum_CharSide side, List<List<CharHandler>> lst)
 		{
