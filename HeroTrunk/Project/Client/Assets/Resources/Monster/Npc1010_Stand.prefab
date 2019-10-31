@@ -515,8 +515,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4000013335218266}
   - component: {fileID: 95000011144749624}
-  - component: {fileID: 114296655302011006}
-  - component: {fileID: 114240383834580412}
+  - component: {fileID: 114745802471210308}
+  - component: {fileID: 114148946511915530}
   m_Layer: 0
   m_Name: Npc1010_Stand
   m_TagString: Untagged
@@ -1310,7 +1310,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114240383834580412
+--- !u!114 &114148946511915530
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1321,11 +1321,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46505135e5ee209409460b230dc81ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Head: {fileID: 4000013901773146}
-  LeftHand: {fileID: 4000012914660730}
-  RightHand: {fileID: 4000010566635388}
-  Chest: {fileID: 4000011112502262}
---- !u!114 &114296655302011006
+  Head: {fileID: 0}
+  LeftHand: {fileID: 0}
+  RightHand: {fileID: 0}
+  Chest: {fileID: 0}
+--- !u!114 &114745802471210308
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}

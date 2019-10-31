@@ -6,6 +6,7 @@ namespace MS
 	public class HeroPanel : MonoBehaviour
 	{
 		public Transform HeroModelRoot;
+		public Button CloseBtn;
 		public Button PreBtn;
 		public Button NextBtn;
 
@@ -29,6 +30,7 @@ namespace MS
 		{
 			_inst = this;
 			_gameObject = gameObject;
+			CloseBtn.onClick.AddListener(ClosePanel);
 			PreBtn.onClick.AddListener(OnClickPre);
 			NextBtn.onClick.AddListener(OnClickNext);
 			for(int i = 0; i < 10; ++i)

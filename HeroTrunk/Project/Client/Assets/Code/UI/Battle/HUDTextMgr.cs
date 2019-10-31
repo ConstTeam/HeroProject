@@ -15,8 +15,8 @@ namespace MS
 			BUFF				//Buff类型信息
 		}
 
-		public Transform HeadHUDParent;
-		public Transform HeadHUDSkillParent;
+		public Transform HUDParent;
+		public Transform HUDSkillParent;
 
 		private GameObject TextPrefab;
 		private Queue<HUDTextItem> pool = new Queue<HUDTextItem>();
@@ -55,7 +55,7 @@ namespace MS
 				for(int i = 0; i < count; i++)
 				{
 					obj = Instantiate(TextPrefab);
-					obj.transform.SetParent(HeadHUDSkillParent);
+					obj.transform.SetParent(HUDSkillParent);
 					obj.transform.localScale = Vector3.one;
 					poolSkill.Enqueue(obj.GetComponentInChildren<HUDTextItem>());
 				}
@@ -65,7 +65,7 @@ namespace MS
 				for(int i = 0; i < count; i++)
 				{
 					obj = Instantiate(TextPrefab);
-					obj.transform.SetParent(HeadHUDParent);
+					obj.transform.SetParent(HUDParent);
 					obj.transform.localScale = Vector3.one;
 					pool.Enqueue(obj.GetComponentInChildren<HUDTextItem>());
 				}

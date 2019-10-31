@@ -49,7 +49,7 @@ namespace MS
 
 		private static void SetRingLightHero(CharHandler charHandler)
 		{
-			string ring = BattleEnum.Enum_CharSide.Mine == charHandler.m_CharData.m_eSide ? BattleManager.GetInst().m_CharInScene.GetMainHeroM() == charHandler ? "Effect/PassiveSkill/RingLight_Mine" : "Effect/PassiveSkill/RingLight_MineAI" : "Effect/PassiveSkill/RingLight_Boss";
+			string ring = BattleEnum.Enum_CharSide.Mine == charHandler.m_CharData.m_eSide ? BattleManager.GetInst().m_CharInScene.GetHeroByIndexM(0) == charHandler ? "Effect/PassiveSkill/RingLight_Mine" : "Effect/PassiveSkill/RingLight_MineAI" : "Effect/PassiveSkill/RingLight_Boss";
 			charHandler.m_CharEffect.SetRingLight(ring);
 		}
 		#endregion
@@ -110,20 +110,20 @@ namespace MS
 			charData.m_eType = BattleEnum.Enum_CharType.Monster;
 
 			ConfigRow monsterInfo = ConfigData.GetValue("Monster_Client", charData.m_iCharID.ToString());
-			charData.m_fAtkX = float.Parse(monsterInfo.GetValue("AttackX"));
-			charData.m_fAtkRange = float.Parse(monsterInfo.GetValue("AtkRange"));
-			charData.m_fBodyRange = float.Parse(monsterInfo.GetValue("BodyRange"));
-			charData.m_fMoveSpeed = float.Parse(monsterInfo.GetValue("MoveSpeed"));
-			charData.CurAttack = float.Parse(monsterInfo.GetValue("Attack"));
-			charData.m_fOriAtk = charData.CurAttack;
-			charData.CurDefence = float.Parse(monsterInfo.GetValue("Defence"));
-			charData.m_fOriDef = charData.CurDefence;
-			charData.CriticalRatio = float.Parse(monsterInfo.GetValue("CriticalRatio"));
-			charData.BlockRatio = float.Parse(monsterInfo.GetValue("BlockRatio"));
-			charData.MaxHP = float.Parse(monsterInfo.GetValue("Hp"));
-			charData.CurHP = charData.MaxHP;
-			charData.m_fOriHP = charData.MaxHP;
-			charData.CurStar = BattleManager.GetInst().m_iEnemyPlayerLevel;
+			charData.m_fAtkX		= float.Parse(monsterInfo.GetValue("AttackX"));
+			charData.m_fAtkRange	= float.Parse(monsterInfo.GetValue("AtkRange"));
+			charData.m_fBodyRange	= float.Parse(monsterInfo.GetValue("BodyRange"));
+			charData.m_fMoveSpeed	= float.Parse(monsterInfo.GetValue("MoveSpeed"));
+			charData.CurAttack		= float.Parse(monsterInfo.GetValue("Attack")) * (1 + 0.2f * BattleManager.GetInst().m_BattleScene.Level);
+			charData.m_fOriAtk		= charData.CurAttack;
+			charData.CurDefence		= float.Parse(monsterInfo.GetValue("Defence")) * (1 + 0.2f * BattleManager.GetInst().m_BattleScene.Level);
+			charData.m_fOriDef		= charData.CurDefence;
+			charData.CriticalRatio	= float.Parse(monsterInfo.GetValue("CriticalRatio"));
+			charData.BlockRatio		= float.Parse(monsterInfo.GetValue("BlockRatio"));
+			charData.MaxHP			= float.Parse(monsterInfo.GetValue("Hp")) * (1 + 0.2f * BattleManager.GetInst().m_BattleScene.Level);
+			charData.CurHP			= charData.MaxHP;
+			charData.m_fOriHP		= charData.MaxHP;
+			charData.CurStar		= BattleManager.GetInst().m_iEnemyPlayerLevel;
 
 			charHandler.m_CharDefence.m_fBackwardClock = 0;
 		}

@@ -196,6 +196,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 37.5, y: 48.27, z: -1.15}
+--- !u!1 &599256524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 599256525}
+  - component: {fileID: 599256526}
+  m_Layer: 5
+  m_Name: HUDSkillPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &599256525
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 599256524}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000013, y: 1.0000013, z: 1.0000013}
+  m_Children: []
+  m_Father: {fileID: 1470750870}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &599256526
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 599256524}
+  m_CullTransparentMesh: 0
 --- !u!1 &612030236
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +247,7 @@ GameObject:
   - component: {fileID: 612030237}
   - component: {fileID: 612030238}
   m_Layer: 5
-  m_Name: HeadUIPanel
+  m_Name: HUDPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -281,8 +322,10 @@ MonoBehaviour:
   BattleCam: {fileID: 534669904}
   BattleRootTrans: {fileID: 1125660363}
   BattlePoolGo: {fileID: 1320551037}
-  HeadUIParentTran: {fileID: 612030237}
+  HUDParentTran: {fileID: 612030237}
+  HUDSkillParentTran: {fileID: 599256525}
   HUDTextRes: {fileID: 0}
+  m_BattleScene: {fileID: 0}
   m_iEnemyPlayerLevel: 0
 --- !u!1 &1125660362
 GameObject:
@@ -429,6 +472,7 @@ RectTransform:
   m_Children:
   - {fileID: 1845359177}
   - {fileID: 612030237}
+  - {fileID: 599256525}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

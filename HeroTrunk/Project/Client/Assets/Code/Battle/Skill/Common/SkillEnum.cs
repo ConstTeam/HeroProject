@@ -55,7 +55,6 @@ namespace MS
 			SoulSkillDefRatio,      //魂技免伤
 			MagicSkillDefRatio,     //术法免伤
 			CriticalRatio,          //暴击率
-			DamageRatio,            //输出伤害比例
 			Absorb,                 //吸收伤害
 			SuperAbsorb,            //到时间未破则回满血
 			Unbeatable,             //无敌

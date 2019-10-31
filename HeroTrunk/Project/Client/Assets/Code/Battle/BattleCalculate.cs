@@ -52,6 +52,7 @@ namespace MS
 			return ret;
 		}
 
+		//小怪普攻公式
 		public static float MonsterNormalHurt(CharData charData, CharData aimCharData)
 		{
 			string f = _dicMath["MonsterNormalHurt"];

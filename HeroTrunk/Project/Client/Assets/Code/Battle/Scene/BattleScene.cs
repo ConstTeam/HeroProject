@@ -6,12 +6,6 @@ namespace MS
 	{
 		public int Level { get; set; }
 
-		public virtual void ToBattle()		{ }
-		public virtual void CreateMine()	{ }
-		public virtual void EnableMine()	{ }
-		public virtual void CreateEnemy()	{ }
-		public virtual void EnableEnemy()	{ }
-
 		public virtual void OnBattleInit()
 		{
 			BattleCamera.GetInst().SetPos(SpawnHandler.GetInst().Heroes[0].position);
@@ -25,8 +19,6 @@ namespace MS
 			SpawnHandler.GetInst().CurSpawnIndex = 0;
 			SpawnHandler.GetInst().SetSpawnInfo();
 			SpawnHandler.GetInst().ReleaseNextWave();
-			//SpawnMgr.GetInst().EnableHerosM();
-			//SpawnMgr.GetInst().EnableHerosE();
 		}
 	}
 }

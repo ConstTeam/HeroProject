@@ -7,8 +7,14 @@ namespace MS
 		public Transform[]		Heroes;
 		public SpawnNormal[]	Spawns;
 
-		public int CurSpawnIndex	{ get; set; }
-		public int CurSpawnId		{ get; set; }
+		private int _iCurSpawnIndex;
+		public int CurSpawnIndex
+		{
+			get { return _iCurSpawnIndex; }
+			set { _iCurSpawnIndex = value; BattleManager.GetInst().m_BattleScene.Level = value; BattleMainPanel.GetInst().CurLevelText.text = (value + 1).ToString(); }
+		}
+
+		public int CurSpawnId { get; set; }
 
 		private static SpawnHandler _inst;
 		public static SpawnHandler GetInst()

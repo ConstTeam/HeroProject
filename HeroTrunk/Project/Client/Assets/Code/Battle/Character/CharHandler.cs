@@ -70,7 +70,7 @@ namespace MS
 
 		public void ToIdle()
 		{
-			if(this == BattleManager.GetInst().m_CharInScene.GetMainHeroM())
+			if(this == BattleManager.GetInst().m_CharInScene.GetHeroByIndexM(0))
 				m_CharMove.SetObstacleAvoidanceType(UnityEngine.AI.ObstacleAvoidanceType.NoObstacleAvoidance);
 
 			m_CharMove.StopAutoMove();
@@ -289,7 +289,6 @@ namespace MS
 			}
 		}
 
-		
 		public void BeHit(float hurt, CharHandler srcHandler, SkillDataSon srcSkillDataSon = null, bool bDirect = true) //bDirect是否是直接伤害（非反弹、连锁、传递之类）
 		{
 			m_CharDefence.BeHit(hurt, srcHandler, srcSkillDataSon, bDirect);
@@ -402,7 +401,7 @@ namespace MS
 		private void SetHeadUI()
 		{
 			UIObj = new GameObject("HeadUI");
-			UIObj.transform.parent = BattleManager.GetInst().HeadUIParentTran;
+			UIObj.transform.parent = BattleManager.GetInst().HUDParentTran;
 			UIObj.transform.localScale = Vector3.one;
 			UIObj.transform.localRotation = Quaternion.identity;
 

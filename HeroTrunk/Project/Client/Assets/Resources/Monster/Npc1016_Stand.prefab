@@ -606,8 +606,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4000013034641010}
   - component: {fileID: 95000011715831720}
-  - component: {fileID: 114401668315865372}
-  - component: {fileID: 114283906167823358}
+  - component: {fileID: 114340960055575220}
+  - component: {fileID: 114068596987951122}
   m_Layer: 0
   m_Name: Npc1016_Stand
   m_TagString: Untagged
@@ -1231,7 +1231,7 @@ Transform:
   m_GameObject: {fileID: 1000013779293968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_Children:
   - {fileID: 4000012775738798}
   - {fileID: 4000012317731448}
@@ -1397,7 +1397,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114283906167823358
+--- !u!114 &114068596987951122
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1412,7 +1412,7 @@ MonoBehaviour:
   LeftHand: {fileID: 4000012332797476}
   RightHand: {fileID: 4000012354473028}
   Chest: {fileID: 4000010647370634}
---- !u!114 &114401668315865372
+--- !u!114 &114340960055575220
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}

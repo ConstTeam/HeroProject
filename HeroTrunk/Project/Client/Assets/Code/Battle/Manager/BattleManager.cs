@@ -9,7 +9,8 @@ namespace MS
 		public Camera				BattleCam;
 		public Transform			BattleRootTrans;
 		public GameObject			BattlePoolGo;
-		public Transform			HeadUIParentTran;
+		public Transform			HUDParentTran;
+		public Transform			HUDSkillParentTran;
 		public GameObject			HUDTextRes;
 
 		public BattleScene			m_BattleScene;
@@ -43,20 +44,19 @@ namespace MS
 
 			_gameObject.AddComponent<HUDTextMgr>();
 			_gameObject.AddComponent<BattleSceneTimer>();
-
 			m_CharInScene		= new BattleCharInScene();
 			m_TriggerManager	= new BattleTriggerManager();
 			m_BattleScene		= _gameObject.AddComponent<BattleScene>();
-
 			m_MPData			= new MPData("Power1");
-
 			BattlePoolGo.AddComponent<BattleScenePool>();
+
+			HUDTextMgr.GetInst().HUDParent = HUDParentTran;
+			HUDTextMgr.GetInst().HUDSkillParent = HUDSkillParentTran;
 		}
 
 		private void Start()
 		{
 			BattleMainPanel.GetInst().InitPanel();
-			ResourceLoader.LoadAssetAndInstantiate(m_sSpawnName);
 			m_BattleScene.OnBattleInit();
 		}
 
@@ -75,11 +75,16 @@ namespace MS
 			return m_MPData;
 		}
 
-		public void AddHero(int heroIndex)
+		public int AddHero(int heroIndex)
 		{
 			int heroId = GetHeroIdsMine()[heroIndex];
 			SpawnHandler.GetInst().CreateHeroM(heroId, heroIndex);
-			m_CharInScene.EnableCharacters(BattleEnum.Enum_CharSide.Mine);
+			m_CharInScene.EnableCharacter(BattleEnum.Enum_CharSide.Mine, heroIndex);
+
+			if(heroIndex == 0)
+				BattleCamera.GetInst().SetTarget(m_CharInScene.GetHeroByIndexM(0));
+
+			return heroId;
 		}
 
 		public HeroInfo GetHeroInfoMine(int heroId)

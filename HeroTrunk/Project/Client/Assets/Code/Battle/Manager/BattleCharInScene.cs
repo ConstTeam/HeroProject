@@ -180,28 +180,39 @@ namespace MS
 				BattleManager.GetInst().FinalEnemyBorned(lst);
 		}
 
+		public void EnableCharacter(BattleEnum.Enum_CharSide side, int heroIndex)
+		{
+			List<CharHandler> lst = BattleEnum.Enum_CharSide.Mine == side ? BattleManager.GetInst().m_CharInScene.m_listGeneralMine : BattleManager.GetInst().m_CharInScene.m_listGeneralEnemy;
+			if(heroIndex < lst.Count)
+			{
+				lst[heroIndex].m_CharState.enabled = true;
+				lst[heroIndex].m_CharMove.SetAgentEnable(true);
+				lst[heroIndex].m_CharSkill.RunCD(true);
+			}
+		}
+
 		//--获取战斗中的对象------------------------------------------------------------------------------------
 		//获取我方主将
-		public CharHandler GetMainHeroM()
+		public CharHandler GetHeroByIndexM(int index)
 		{
-			if(m_listGeneralMine.Count > 0)
-				return m_listGeneralMine[0];
+			if(m_listGeneralMine.Count > index)
+				return m_listGeneralMine[index];
 
 			return null;
 		}
 
 		//获取敌方主将
-		public CharHandler GetMainHeroE()
+		public CharHandler GetHeroByIndexE(int index)
 		{
-			if(m_listGeneralEnemy.Count > 0)
-				return m_listGeneralEnemy[0];
+			if(m_listGeneralEnemy.Count > index)
+				return m_listGeneralEnemy[index];
 
 			return null;
 		}
 
 		public CharHandler GetMainHeroBySide(BattleEnum.Enum_CharSide side)
 		{
-			return BattleEnum.Enum_CharSide.Mine == side ? GetMainHeroM() : GetMainHeroE();
+			return BattleEnum.Enum_CharSide.Mine == side ? GetHeroByIndexM(0) : GetHeroByIndexE(0);
 		}
 
 		//获取某方的 所有对象

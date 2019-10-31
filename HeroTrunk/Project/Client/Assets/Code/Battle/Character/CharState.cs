@@ -36,7 +36,7 @@ namespace MS
 			{
 				if(BattleEnum.Enum_CharType.General == _charHandler.m_CharData.m_eType)
 				{
-					if(_charHandler == BattleManager.GetInst().m_CharInScene.GetMainHeroM())
+					if(_charHandler == BattleManager.GetInst().m_CharInScene.GetHeroByIndexM(0))
 					{
 						SpawnNormal spawn = SpawnHandler.GetInst().GetCurSpawn();
 						if(null != spawn)
@@ -44,17 +44,17 @@ namespace MS
 					}
 					else
 					{
-						CharHandler charHandler = BattleManager.GetInst().m_CharInScene.GetMainHeroBySide(_charHandler.m_CharData.m_eSide);
+						CharHandler targetChar = BattleManager.GetInst().m_CharInScene.GetMainHeroBySide(_charHandler.m_CharData.m_eSide);
 						if(1 == _charHandler.m_iIndex || 2 == _charHandler.m_iIndex)
 						{
 							int sign = _charHandler.m_iIndex * 2 - 3;//取正负
-							Vector3 toPos = charHandler.m_ParentTrans.position + charHandler.m_ParentTrans.right * 2 * sign + charHandler.m_ParentTrans.forward * 2.5f;
-							if(Vector3.Distance(toPos, charHandler.m_ParentTrans.position) > 1f)
+							Vector3 toPos = targetChar.m_ParentTrans.position + targetChar.m_ParentTrans.right * 4 * sign + targetChar.m_ParentTrans.forward * 5f;
+							if(Vector3.Distance(toPos, targetChar.m_ParentTrans.position) > 5f)
 							{
 								if(IsInNavMash(toPos))
 									_charHandler.ToRun(toPos, 1f);
 								else
-									_charHandler.ToRun(charHandler.m_ParentTrans.position, 2f);
+									_charHandler.ToRun(targetChar.m_ParentTrans.position, 2f);
 							}
 						}
 					}
@@ -99,9 +99,9 @@ namespace MS
 
 		private bool CheckSlide(float dis, float touchDis)
 		{
-				if(BattleManager.GetInst().m_CharInScene.GetMainHeroM() == _charHandler && BattleEnum.Enum_AttackType.Close == _charHandler.m_CharData.m_eAtkType)
-					return dis > touchDis + ApplicationConst.fFightSlideMin && dis < touchDis + ApplicationConst.fFightSlideMax;
-				return false;
+			if(_charHandler.m_CharData.m_eType == BattleEnum.Enum_CharType.General && _charHandler.m_CharData.m_eAtkType == BattleEnum.Enum_AttackType.Close)
+				return dis > touchDis + ApplicationConst.fFightSlideMin && dis < touchDis + ApplicationConst.fFightSlideMax;
+			return false;
 		}
 
 		private Ray ray = new Ray();

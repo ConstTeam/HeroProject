@@ -26,7 +26,7 @@ namespace MS
 			for(int i = 0; i < 5; ++i)
 			{
 				item = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/BattleHeroListItem", ContentTrans).GetComponent<BattleHeroListItem>();
-				item.Index = i;
+				item.HeroIndex = i;
 				item.Show(false);
 				_lstHeroItem.Add(item);
 			}
@@ -40,12 +40,19 @@ namespace MS
 
 		public void Refresh()
 		{
-			int heroCount = BattleManager.GetInst().m_CharInScene.GetHeroCount(BattleEnum.Enum_CharSide.Mine);
+			List<CharHandler> lst1 = BattleManager.GetInst().m_CharInScene.GetGeneral(BattleEnum.Enum_CharSide.Mine);
+			List<CharHandler> lst2 = BattleManager.GetInst().m_CharInScene.GetOfficial(BattleEnum.Enum_CharSide.Mine);
+			int heroCount = lst1.Count + lst2.Count;
 			int i = 0;
+			for(; i < lst1.Count; ++i)
+			{
+				_lstHeroItem[i].Show(true);
+				_lstHeroItem[i].ShowHero(lst1[i].m_CharData.m_iCharID);
+			}
 			for(; i < heroCount; ++i)
 			{
 				_lstHeroItem[i].Show(true);
-				_lstHeroItem[i].ShowHero();
+				_lstHeroItem[i].ShowHero(lst2[i].m_CharData.m_iCharID);
 			}
 			if(heroCount < 5)
 				_lstHeroItem[i].Show(true);
@@ -56,9 +63,11 @@ namespace MS
 			_inst = null;
 		}
 
-		public void BeShowPanel()
+		public bool BeShowPanel()
 		{
-			_gameObject.SetActive(!_gameObject.activeSelf);
+			bool ret = !_gameObject.activeSelf;
+			_gameObject.SetActive(ret);
+			return ret;
 		}
 	}
 }

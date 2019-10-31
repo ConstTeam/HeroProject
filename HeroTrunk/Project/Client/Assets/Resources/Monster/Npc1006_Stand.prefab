@@ -111,8 +111,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4000013737718080}
   - component: {fileID: 95000011084713184}
-  - component: {fileID: 114807145053020252}
-  - component: {fileID: 114546667324446762}
+  - component: {fileID: 114622789814175914}
+  - component: {fileID: 114626184476584974}
   m_Layer: 0
   m_Name: Npc1006_Stand
   m_TagString: Untagged
@@ -1164,7 +1164,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114546667324446762
+--- !u!114 &114622789814175914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010382416762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77fe132ca50ee4c4d8fb33e1e62bac02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114626184476584974
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1179,17 +1190,6 @@ MonoBehaviour:
   LeftHand: {fileID: 4000013567048290}
   RightHand: {fileID: 4000014267855948}
   Chest: {fileID: 4000012426309024}
---- !u!114 &114807145053020252
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010382416762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77fe132ca50ee4c4d8fb33e1e62bac02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!137 &137000012081160450
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

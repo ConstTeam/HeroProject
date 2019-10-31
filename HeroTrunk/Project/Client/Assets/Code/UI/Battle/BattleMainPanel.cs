@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,9 @@ namespace MS
 	public class BattleMainPanel : MonoBehaviour
 	{
 		public Button HeroBtn;
+		public TextMeshProUGUI CurLevelText;
+
+		private Transform _heroBtnTrans;
 
 		private static BattleMainPanel _inst;
 		public static BattleMainPanel GetInst()
@@ -19,6 +23,7 @@ namespace MS
 		private void Awake()
 		{
 			_inst = this;
+			_heroBtnTrans = HeroBtn.transform;
 			HeroBtn.onClick.AddListener(OpenHeroPanel);
 		}
 
@@ -34,7 +39,8 @@ namespace MS
 
 		private void OpenHeroPanel()
 		{
-			BattleHeroListPanel.GetInst().BeShowPanel();
+			bool bShow = BattleHeroListPanel.GetInst().BeShowPanel();
+			_heroBtnTrans.localRotation = bShow ? Quaternion.Euler(0, 0, 270) : Quaternion.Euler(0, 0, 90);
 		}
 	}
 }
