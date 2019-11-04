@@ -1,0 +1,117 @@
+fileFormatVersion: 2
+guid: 62e07d2400965644cad9dfac0705a02a
+timeCreated: 1504611440
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: DZMG_YHY_HuaTan01
+    100004: DZMG_YHY_HuaTan01 1
+    100006: DZMG_YHY_HuaTan02
+    100008: DZMG_YHY_HuaTan03
+    100010: DZMG_YHY_HuaTanCao01
+    100012: DZMG_YHY_HuaTanCao02
+    100014: DZMG_YHY_HuaTanCao03
+    100016: DZMG_YHY_HuaTanCao04
+    100018: DZMG_YHY_HuaTanCao05
+    400000: //RootNode
+    400002: DZMG_YHY_HuaTan01
+    400004: DZMG_YHY_HuaTan01 1
+    400006: DZMG_YHY_HuaTan02
+    400008: DZMG_YHY_HuaTan03
+    400010: DZMG_YHY_HuaTanCao01
+    400012: DZMG_YHY_HuaTanCao02
+    400014: DZMG_YHY_HuaTanCao03
+    400016: DZMG_YHY_HuaTanCao04
+    400018: DZMG_YHY_HuaTanCao05
+    2300000: DZMG_YHY_HuaTan01 1
+    2300002: DZMG_YHY_HuaTan02
+    2300004: DZMG_YHY_HuaTan03
+    2300006: DZMG_YHY_HuaTanCao01
+    2300008: DZMG_YHY_HuaTanCao02
+    2300010: DZMG_YHY_HuaTanCao03
+    2300012: DZMG_YHY_HuaTanCao04
+    2300014: DZMG_YHY_HuaTanCao05
+    2300016: DZMG_YHY_HuaTan01
+    3300000: DZMG_YHY_HuaTan01 1
+    3300002: DZMG_YHY_HuaTan02
+    3300004: DZMG_YHY_HuaTan03
+    3300006: DZMG_YHY_HuaTanCao01
+    3300008: DZMG_YHY_HuaTanCao02
+    3300010: DZMG_YHY_HuaTanCao03
+    3300012: DZMG_YHY_HuaTanCao04
+    3300014: DZMG_YHY_HuaTanCao05
+    3300016: DZMG_YHY_HuaTan01
+    4300000: DZMG_YHY_HuaTanCao02
+    4300002: DZMG_YHY_HuaTanCao03
+    4300004: DZMG_YHY_HuaTanCao01
+    4300006: DZMG_YHY_HuaTanCao04
+    4300008: DZMG_YHY_HuaTanCao05
+    4300010: DZMG_YHY_HuaTan03
+    4300012: DZMG_YHY_HuaTan02
+    4300014: DZMG_YHY_HuaTan01
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

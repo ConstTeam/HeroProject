@@ -1,0 +1,105 @@
+fileFormatVersion: 2
+guid: 2925e9404d24b794bb3bbbfc9f024d0a
+timeCreated: 1506077631
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: JJS_QY_ShuGan01
+    100004: JJS_QY_ShuGan02
+    100006: JJS_QY_ShuYe01
+    100008: JJS_QY_ShuYe02
+    100010: JJS_QY_ShuGan002
+    100012: JJS_QY_ShuYe002
+    400000: //RootNode
+    400002: JJS_QY_ShuGan01
+    400004: JJS_QY_ShuGan02
+    400006: JJS_QY_ShuYe01
+    400008: JJS_QY_ShuYe02
+    400010: JJS_QY_ShuGan002
+    400012: JJS_QY_ShuYe002
+    2300000: //RootNode
+    2300002: JJS_QY_ShuGan01
+    2300004: JJS_QY_ShuGan02
+    2300006: JJS_QY_ShuYe01
+    2300008: JJS_QY_ShuYe02
+    2300010: JJS_QY_ShuGan002
+    2300012: JJS_QY_ShuYe002
+    3300000: //RootNode
+    3300002: JJS_QY_ShuGan01
+    3300004: JJS_QY_ShuGan02
+    3300006: JJS_QY_ShuYe01
+    3300008: JJS_QY_ShuYe02
+    3300010: JJS_QY_ShuGan002
+    3300012: JJS_QY_ShuYe002
+    4300000: JJS_QY_ShuGan02
+    4300002: JJS_QY_ShuGan01
+    4300004: JJS_QY_ShuYe01
+    4300006: JJS_QY_ShuYe02
+    4300008: JJS_QY_ShuYe002
+    4300010: JJS_QY_ShuGan002
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

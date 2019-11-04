@@ -1,0 +1,208 @@
+fileFormatVersion: 2
+guid: 703a2c259ea524b4bbda1020e028f1ca
+timeCreated: 1504610436
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: DZMG_DDGC_DiZhuan
+    100002: DZMG_DDGC_DiZuo
+    100004: DZMG_DDGC_DiZuoZhuan
+    100006: DZMG_DDGC_TaDing
+    100008: DZMG_DDGC_TaiJie
+    100010: DZMG_DDGC_YuanDiZhuan
+    100012: DZMG_DDGC_YuanDiZhuanShuiJing
+    100014: //RootNode
+    100016: DZMG_ZD_DiZhuan
+    100018: DZMG_ZD_DiZhuan01
+    100020: DZMG_ZD_DiZuoZhuan
+    100022: DZMG_ZD_DiZuoZhuanBian
+    100024: DZMG_ZD_WangZuo
+    100026: DZMG_ZD_WeiQiang
+    100028: DZMG_ZD_WZDiZhuan
+    100030: DZMG_DDGC_Zhuan
+    100032: DZMG_DDGC_ShuiJing01
+    100034: DZMG_DDGC_ShuiJing02
+    100036: DZMG_DDGC_ShuiJing03
+    100038: DZMG_DDGC_ShuiJing04
+    100040: DZMG_DDGC_ShuiJing06
+    100042: DZMG_ZD_DiZhuan2
+    100044: DZMG_ZD_FangDiZhuan
+    100046: Object002
+    100048: DZMG_DDGC_Ta
+    100050: KLX_GC_DiZhuan02
+    100052: DZMG_ZD_DiZhuan02
+    100054: DZMG_ZD_DiZhuanHuaWen
+    400000: DZMG_DDGC_DiZhuan
+    400002: DZMG_DDGC_DiZuo
+    400004: DZMG_DDGC_DiZuoZhuan
+    400006: DZMG_DDGC_TaDing
+    400008: DZMG_DDGC_TaiJie
+    400010: DZMG_DDGC_YuanDiZhuan
+    400012: DZMG_DDGC_YuanDiZhuanShuiJing
+    400014: //RootNode
+    400016: DZMG_ZD_DiZhuan
+    400018: DZMG_ZD_DiZhuan01
+    400020: DZMG_ZD_DiZuoZhuan
+    400022: DZMG_ZD_DiZuoZhuanBian
+    400024: DZMG_ZD_WangZuo
+    400026: DZMG_ZD_WeiQiang
+    400028: DZMG_ZD_WZDiZhuan
+    400030: DZMG_DDGC_Zhuan
+    400032: DZMG_DDGC_ShuiJing01
+    400034: DZMG_DDGC_ShuiJing02
+    400036: DZMG_DDGC_ShuiJing03
+    400038: DZMG_DDGC_ShuiJing04
+    400040: DZMG_DDGC_ShuiJing06
+    400042: DZMG_ZD_DiZhuan2
+    400044: DZMG_ZD_FangDiZhuan
+    400046: Object002
+    400048: DZMG_DDGC_Ta
+    400050: KLX_GC_DiZhuan02
+    400052: DZMG_ZD_DiZhuan02
+    400054: DZMG_ZD_DiZhuanHuaWen
+    2300000: DZMG_DDGC_DiZhuan
+    2300002: DZMG_DDGC_DiZuo
+    2300004: DZMG_DDGC_DiZuoZhuan
+    2300006: DZMG_DDGC_TaDing
+    2300008: DZMG_DDGC_TaiJie
+    2300010: DZMG_DDGC_YuanDiZhuan
+    2300012: DZMG_DDGC_YuanDiZhuanShuiJing
+    2300014: DZMG_ZD_DiZhuan
+    2300016: DZMG_ZD_DiZhuan01
+    2300018: DZMG_ZD_DiZuoZhuan
+    2300020: DZMG_ZD_DiZuoZhuanBian
+    2300022: DZMG_ZD_WangZuo
+    2300024: DZMG_ZD_WeiQiang
+    2300026: DZMG_ZD_WZDiZhuan
+    2300028: DZMG_DDGC_Zhuan
+    2300030: DZMG_DDGC_ShuiJing01
+    2300032: DZMG_DDGC_ShuiJing02
+    2300034: DZMG_DDGC_ShuiJing03
+    2300036: DZMG_DDGC_ShuiJing04
+    2300038: DZMG_DDGC_ShuiJing06
+    2300040: DZMG_ZD_DiZhuan2
+    2300042: DZMG_ZD_FangDiZhuan
+    2300044: Object002
+    2300046: DZMG_DDGC_Ta
+    2300048: KLX_GC_DiZhuan02
+    2300050: DZMG_ZD_DiZhuan02
+    2300052: DZMG_ZD_DiZhuanHuaWen
+    3300000: DZMG_DDGC_DiZhuan
+    3300002: DZMG_DDGC_DiZuo
+    3300004: DZMG_DDGC_DiZuoZhuan
+    3300006: DZMG_DDGC_TaDing
+    3300008: DZMG_DDGC_TaiJie
+    3300010: DZMG_DDGC_YuanDiZhuan
+    3300012: DZMG_DDGC_YuanDiZhuanShuiJing
+    3300014: DZMG_ZD_DiZhuan
+    3300016: DZMG_ZD_DiZhuan01
+    3300018: DZMG_ZD_DiZuoZhuan
+    3300020: DZMG_ZD_DiZuoZhuanBian
+    3300022: DZMG_ZD_WangZuo
+    3300024: DZMG_ZD_WeiQiang
+    3300026: DZMG_ZD_WZDiZhuan
+    3300028: DZMG_DDGC_Zhuan
+    3300030: DZMG_DDGC_ShuiJing01
+    3300032: DZMG_DDGC_ShuiJing02
+    3300034: DZMG_DDGC_ShuiJing03
+    3300036: DZMG_DDGC_ShuiJing04
+    3300038: DZMG_DDGC_ShuiJing06
+    3300040: DZMG_ZD_DiZhuan2
+    3300042: DZMG_ZD_FangDiZhuan
+    3300044: Object002
+    3300046: DZMG_DDGC_Ta
+    3300048: KLX_GC_DiZhuan02
+    3300050: DZMG_ZD_DiZhuan02
+    3300052: DZMG_ZD_DiZhuanHuaWen
+    4300000: DZMG_DDGC_DiZuoZhuan
+    4300002: DZMG_DDGC_DiZhuan
+    4300004: DZMG_DDGC_TaDing
+    4300006: DZMG_DDGC_DiZuo
+    4300008: DZMG_ZD_DiZuoZhuanBian
+    4300010: DZMG_ZD_WeiQiang
+    4300012: DZMG_ZD_WangZuo
+    4300014: DZMG_DDGC_YuanDiZhuan
+    4300016: DZMG_ZD_WZDiZhuan
+    4300018: DZMG_ZD_DiZuoZhuan
+    4300020: DZMG_ZD_DiZhuan
+    4300022: DZMG_ZD_DiZhuan01
+    4300024: DZMG_DDGC_YuanDiZhuanShuiJing
+    4300026: DZMG_DDGC_TaiJie
+    4300028: DZMG_DDGC_Zhuan
+    4300030: Object002
+    4300032: DZMG_DDGC_ShuiJing01
+    4300034: DZMG_DDGC_ShuiJing02
+    4300036: DZMG_DDGC_ShuiJing03
+    4300038: DZMG_DDGC_ShuiJing04
+    4300040: DZMG_DDGC_ShuiJing06
+    4300042: DZMG_ZD_FangDiZhuan
+    4300044: DZMG_ZD_DiZhuan2
+    4300046: DZMG_DDGC_Ta
+    4300048: KLX_GC_DiZhuan02
+    4300050: DZMG_ZD_DiZhuan02
+    4300052: DZMG_ZD_DiZhuanHuaWen
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
