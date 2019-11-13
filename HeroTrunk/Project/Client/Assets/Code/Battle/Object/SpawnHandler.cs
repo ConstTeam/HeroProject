@@ -11,7 +11,14 @@ namespace MS
 		public int CurSpawnIndex
 		{
 			get { return _iCurSpawnIndex; }
-			set { _iCurSpawnIndex = value; BattleManager.GetInst().m_BattleScene.Level = value; BattleMainPanel.GetInst().CurLevelText.text = (value + 1).ToString(); }
+			set { _iCurSpawnIndex = value; BattleManager.GetInst().m_BattleScene.BigLevel = value; }
+		}
+
+		private int _iCurWave;
+		public int CurWave
+		{
+			get { return _iCurWave; }
+			set { _iCurWave = value; BattleManager.GetInst().m_BattleScene.SmallLevel = value; }
 		}
 
 		public int CurSpawnId { get; set; }
@@ -37,7 +44,7 @@ namespace MS
 			BattleCharCreator.CreateHero(BattleEnum.Enum_CharSide.Mine, heroId, heroIndex, Heroes[0].position, Heroes[0].rotation);
 		}
 
-		public void SetSpawnInfo()
+		public void SetSpawnInfo(int curWave)
 		{
 			ConfigRow row = ConfigData.GetValue("SceneNormal_Client", CurSpawnIndex.ToString());
 			if(row == null)
@@ -45,19 +52,21 @@ namespace MS
 			else
 			{
 				CurSpawnId = int.Parse(row.GetValue("SpawnId"));
-				Spawns[CurSpawnId].ResetInfo(row);
+				Spawns[CurSpawnId].ResetInfo(row, curWave);
 			}	
 		}
 
 		public void ReleaseNextWave()
 		{
-			if(Spawns[CurSpawnId].m_iRemainingWaves <= 0)
+			if(Spawns[CurSpawnId].CurWave < Spawns[CurSpawnId].TotalWaves)
+				Spawns[CurSpawnId].ReleaseChar();
+			else
 			{
 				++CurSpawnIndex;
-				SetSpawnInfo();
+				SetSpawnInfo(0);
 			}
-			else
-				Spawns[CurSpawnId].ReleaseChar();
+			
+			CurWave = Spawns[CurSpawnId].CurWave;
 		}
 
 		public SpawnNormal GetCurSpawn()

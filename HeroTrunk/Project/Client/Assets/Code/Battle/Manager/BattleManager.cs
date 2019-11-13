@@ -75,7 +75,7 @@ namespace MS
 			return m_MPData;
 		}
 
-		public int AddHero(int heroIndex)
+		public void AddHero(int heroIndex)
 		{
 			int heroId = GetHeroIdsMine()[heroIndex];
 			SpawnHandler.GetInst().CreateHeroM(heroId, heroIndex);
@@ -84,7 +84,9 @@ namespace MS
 			if(heroIndex == 0)
 				BattleCamera.GetInst().SetTarget(m_CharInScene.GetHeroByIndexM(0));
 
-			return heroId;
+			BattleHeroListPanel.GetInst().Refresh();
+
+			Database.GetInst().NormalBattleAddHero(PlayerInfo.PlayerId, heroIndex, heroId);
 		}
 
 		public HeroInfo GetHeroInfoMine(int heroId)
@@ -136,10 +138,8 @@ namespace MS
 		}
 
 		#region--静态------
-		public static int m_iSectionID;
 		public static string m_sAddSceneName;
 		public static string m_sSpawnName;
-		public static BattleEnum.Enum_BattleType m_eBattleType;
 
 		public static void EnterBattle()
 		{

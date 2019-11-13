@@ -38,8 +38,12 @@ namespace MS
 			}
 		}
 
+		public int TotalWaves	{ get; set; }
+		public int CurWave		{ get; set; }
+
 		public int m_iIndex;
-		public int m_iRemainingWaves;
+		
+
 		public List<string[]> m_lstCharID = new List<string[]>();
 		public List<string[]> m_lstCharCount = new List<string[]>();
 		
@@ -65,10 +69,9 @@ namespace MS
 			}
 		}
 
-		public void EnableCharacters() { }
 		public void ShowCharacters(bool bShow) { }
 
-		public void ResetInfo(ConfigRow row)
+		public void ResetInfo(ConfigRow row, int curWave)
 		{
 			m_lstCharID.Clear();
 			m_lstCharCount.Clear();
@@ -81,7 +84,8 @@ namespace MS
 				string[] v2 = count[i].Split(',');
 				m_lstCharCount.Add(v2);
 			}
-			m_iRemainingWaves = ids.Length;
+			TotalWaves = ids.Length;
+			CurWave = curWave;
 			ColliderEnable = true;
 		}
 
@@ -93,21 +97,18 @@ namespace MS
 		public void ReleaseChar()
 		{
 			CreateCharacters();
-			if(BattleSceneTimer.GetInst().m_iSec >= 0)
-				EnableCharacters();
 		}
 
 		public void CreateCharacters()
 		{
-			--m_iRemainingWaves;
 			ColliderEnable = false;
 			StartCoroutine(_CreateCharacters());
 		}
 
 		private IEnumerator _CreateCharacters()
 		{
-			string[] ids = m_lstCharID[m_lstCharID.Count - m_iRemainingWaves - 1];
-			string[] counts = m_lstCharCount[m_lstCharCount.Count - m_iRemainingWaves - 1];
+			string[] ids = m_lstCharID[CurWave];
+			string[] counts = m_lstCharCount[CurWave];
 			int count = 0;
 			int indexMonster = 0, indexBoss = 0;
 			for(int i = 0; i < ids.Length; ++i)
@@ -132,6 +133,7 @@ namespace MS
 					}
 				}
 			}
+			++CurWave;
 		}
 
 		#region --编辑器中绘制辅助线----------------------------------------------

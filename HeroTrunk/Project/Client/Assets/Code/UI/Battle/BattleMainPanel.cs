@@ -7,7 +7,8 @@ namespace MS
 	public class BattleMainPanel : MonoBehaviour
 	{
 		public Button HeroBtn;
-		public TextMeshProUGUI CurLevelText;
+		public TextMeshProUGUI CurBigLevelText;
+		public TextMeshProUGUI CurSmallLevelText;
 
 		private Transform _heroBtnTrans;
 

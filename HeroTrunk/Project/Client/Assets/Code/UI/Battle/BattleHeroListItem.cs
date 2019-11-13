@@ -33,6 +33,7 @@ namespace MS
 			if(HeroBgGo.activeSelf)
 				return;
 
+			HeroId = heroId;
 			AddHeroBtn.gameObject.SetActive(false);
 			HeroBgGo.SetActive(true);
 			Icon.texture = ResourceLoader.LoadAsset<Texture>(string.Format("Texture/HeroIcon/Hero{0}", heroId));
@@ -40,8 +41,7 @@ namespace MS
 
 		private void AddHero()
 		{
-			HeroId = BattleManager.GetInst().AddHero(HeroIndex);
-			BattleHeroListPanel.GetInst().Refresh();
+			BattleManager.GetInst().AddHero(HeroIndex);
 		}
 
 		private void Upgrade()

@@ -27,6 +27,18 @@ namespace MS
 
 						HeroAll.SetHeroInfo(id, new HeroInfo(id, star, maxPower, mainProperty));
 					}
+
+					BattleScene.CurBigLv = data.readInt();
+					BattleScene.CurSmallLv = data.readInt();
+					BattleScene.m_lstHeroID.Clear();
+					BattleScene.m_lstHeroLv.Clear();
+					int size = data.readByte();
+					for(int i = 0; i < size; ++i)
+					{
+						BattleScene.m_lstHeroID.Add(data.readInt());
+						BattleScene.m_lstHeroLv.Add(data.readInt());
+					}
+
 					SceneLoader.LoadScene("MainScene");
 					break;
 			}

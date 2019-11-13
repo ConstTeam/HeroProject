@@ -36,6 +36,7 @@ namespace MS
 			SceneLoader.m_fSpeed = 0.1f;
 			yield return LoadPanelProgress("PrefabUI/Main/MainPanel");
 			yield return SceneLoader.SetProgress(SceneLoader.m_fProgress, 1f);
+			BattleManager.EnterBattle();
 		}
 
 		private IEnumerator LoadPanelProgress(string path)
