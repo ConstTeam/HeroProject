@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +10,18 @@ namespace MS
 		public Button AddHeroBtn;
 		public Button UpgradBtn;
 		public RawImage Icon;
+		public TextMeshProUGUI CoinText;
+		public TextMeshProUGUI LevelText;
 
 		public int HeroIndex	{ get; set; }
 		public int HeroId		{ get; set; }
+
+		private int _iHeroLevel;
+		public int HeroLevel
+		{
+			get { return _iHeroLevel; }
+			set { _iHeroLevel = value; LevelText.text = value.ToString(); }
+		}
 
 		private GameObject _gameObject;
 
@@ -46,10 +56,11 @@ namespace MS
 
 		private void Upgrade()
 		{
+			++HeroLevel;
 			CharHandler h = BattleManager.GetInst().m_CharInScene.GetHeroByIndexM(HeroIndex);
-			h.m_CharData.CurAttack *= 1.1f;
-			h.m_CharData.CurDefence *= 1.1f;
-			h.m_CharData.MaxHP *= 1.1f;
+			h.m_CharData.CurAttack = h.m_CharData.OriAtk * HeroLevel;
+			h.m_CharData.CurDefence = h.m_CharData.OriDef * HeroLevel;
+			h.m_CharData.MaxHP = h.m_CharData.OriHP * HeroLevel;
 		}
 	}
 }

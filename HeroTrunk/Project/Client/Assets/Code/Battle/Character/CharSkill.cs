@@ -250,14 +250,11 @@ namespace MS
 		public bool DequeueHoldSkill()
 		{
 			//检查辅助武将的魂技
-			if(_charHandler.IsMainHero())
+			List<CharHandler> lst = BattleManager.GetInst().m_CharInScene.GetOfficial(_charHandler.m_CharData.m_eSide);
+			for(int i = 0; i < lst.Count; ++i)
 			{
-				List<CharHandler> lst = BattleManager.GetInst().m_CharInScene.GetOfficial(_charHandler.m_CharData.m_eSide);
-				for(int i = 0; i < lst.Count; ++i)
-				{
-					if(lst[i].m_CharData.CurMP >= lst[i].m_CharData.MaxMP)
-						lst[i].ToSkill(lst[i].m_CharData.SkillIDs[0]);
-				}
+				if(lst[i].m_CharData.CurMP >= lst[i].m_CharData.MaxMP)
+					lst[i].ToSkill(lst[i].m_CharData.SkillIDs[0]);
 			}
 
 			if(_charHandler.m_CharData.CurMP >= _charHandler.m_CharData.MaxMP)

@@ -29,10 +29,10 @@ namespace MS
 			enabled = false;
 		}
 
-		private void Update()
-		{
-			_transform.position = Vector3.Lerp(_transform.position, _target.position + _offset, Time.deltaTime * 5);
-		}
+		//private void Update()
+		//{
+		//	_transform.position = Vector3.Lerp(_transform.position, _target.position + _offset, Time.deltaTime * 5);
+		//}
 
 		public void SetTarget(CharHandler charHandler)
 		{

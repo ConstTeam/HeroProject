@@ -16,7 +16,7 @@ namespace MS
 		}
 
 		#region --Hero-------------------------------------------
-		public static void CreateHero(BattleEnum.Enum_CharSide side, int charId, int charIndex, Vector3 pos, Quaternion rot)
+		public static CharHandler CreateHero(BattleEnum.Enum_CharSide side, int charId, int charIndex, Vector3 pos, Quaternion rot)
 		{
 			CharHandler h = BattleScenePool.GetInst().LoadHero(side, charId, charIndex);
 			Rigidbody rb = h.m_Go.AddComponent<Rigidbody>();
@@ -31,6 +31,7 @@ namespace MS
 			SetRingLightHero(h);
 			ResetPosition(h, pos, rot);
 			BattleManager.GetInst().m_CharInScene.AddChar(h);
+			return h;
 		}
 
 		private static void SetObstacleAvoidanceHero(CharHandler handler)
@@ -117,14 +118,14 @@ namespace MS
 			charData.m_fBodyRange	= float.Parse(monsterInfo.GetValue("BodyRange"));
 			charData.m_fMoveSpeed	= float.Parse(monsterInfo.GetValue("MoveSpeed"));
 			charData.CurAttack		= float.Parse(monsterInfo.GetValue("Attack")) * (1 + 0.2f * lv);
-			charData.m_fOriAtk		= charData.CurAttack;
+			charData.OriAtk			= charData.CurAttack;
 			charData.CurDefence		= float.Parse(monsterInfo.GetValue("Defence")) * (1 + 0.2f * lv);
-			charData.m_fOriDef		= charData.CurDefence;
+			charData.OriDef			= charData.CurDefence;
 			charData.CriticalRatio	= float.Parse(monsterInfo.GetValue("CriticalRatio"));
 			charData.BlockRatio		= float.Parse(monsterInfo.GetValue("BlockRatio"));
 			charData.MaxHP			= float.Parse(monsterInfo.GetValue("Hp")) * (1 + 0.2f * lv);
 			charData.CurHP			= charData.MaxHP;
-			charData.m_fOriHP		= charData.MaxHP;
+			charData.OriHP			= charData.MaxHP;
 			charData.CurStar		= BattleManager.GetInst().m_iEnemyPlayerLevel;
 
 			charHandler.m_CharDefence.m_fBackwardClock = 0;

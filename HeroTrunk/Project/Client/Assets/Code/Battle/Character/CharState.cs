@@ -20,45 +20,11 @@ namespace MS
 			switch(_charHandler.m_CharData.m_eState)
 			{
 				case BattleEnum.Enum_CharState.Idle:
-					IdleState();
-					break;
 				case BattleEnum.Enum_CharState.Run:
 					CheckNearestCharAndExcute();
 					break;
 				default:
 					break;
-			}
-		}
-
-		private void IdleState()
-		{
-			if(!CheckNearestCharAndExcute())
-			{
-				if(BattleEnum.Enum_CharType.General == _charHandler.m_CharData.m_eType)
-				{
-					if(_charHandler == BattleManager.GetInst().m_CharInScene.GetHeroByIndexM(0))
-					{
-						SpawnNormal spawn = SpawnHandler.GetInst().GetCurSpawn();
-						if(null != spawn)
-							_charHandler.ToRun(spawn.transform, 1);
-					}
-					else
-					{
-						CharHandler targetChar = BattleManager.GetInst().m_CharInScene.GetMainHeroBySide(_charHandler.m_CharData.m_eSide);
-						if(1 == _charHandler.m_iIndex || 2 == _charHandler.m_iIndex)
-						{
-							int sign = _charHandler.m_iIndex * 2 - 3;//取正负
-							Vector3 toPos = targetChar.m_ParentTrans.position + targetChar.m_ParentTrans.right * 4 * sign + targetChar.m_ParentTrans.forward * 5f;
-							if(Vector3.Distance(toPos, targetChar.m_ParentTrans.position) > 5f)
-							{
-								if(IsInNavMash(toPos))
-									_charHandler.ToRun(toPos, 1f);
-								else
-									_charHandler.ToRun(targetChar.m_ParentTrans.position, 2f);
-							}
-						}
-					}
-				}
 			}
 		}
 

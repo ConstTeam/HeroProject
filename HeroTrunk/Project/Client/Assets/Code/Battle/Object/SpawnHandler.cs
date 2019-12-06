@@ -39,9 +39,9 @@ namespace MS
 			_inst = null;
 		}
 
-		public void CreateHeroM(int heroId, int heroIndex)
+		public CharHandler CreateHeroM(int heroId, int heroIndex)
 		{
-			BattleCharCreator.CreateHero(BattleEnum.Enum_CharSide.Mine, heroId, heroIndex, Heroes[0].position, Heroes[0].rotation);
+			return BattleCharCreator.CreateHero(BattleEnum.Enum_CharSide.Mine, heroId, heroIndex, Heroes[0].position, Heroes[0].rotation);
 		}
 
 		public void SetSpawnInfo(int curWave)

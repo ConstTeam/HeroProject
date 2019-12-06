@@ -75,18 +75,15 @@ namespace MS
 			return m_MPData;
 		}
 
-		public void AddHero(int heroIndex)
+		public CharHandler AddHero(int heroIndex)
 		{
 			int heroId = GetHeroIdsMine()[heroIndex];
-			SpawnHandler.GetInst().CreateHeroM(heroId, heroIndex);
-			m_CharInScene.EnableCharacter(BattleEnum.Enum_CharSide.Mine, heroIndex);
-
-			if(heroIndex == 0)
-				BattleCamera.GetInst().SetTarget(m_CharInScene.GetHeroByIndexM(0));
-
+			CharHandler h = SpawnHandler.GetInst().CreateHeroM(heroId, heroIndex);
+			h.EnableChar();
 			BattleHeroListPanel.GetInst().Refresh();
 
 			Database.GetInst().NormalBattleAddHero(PlayerInfo.PlayerId, heroIndex, heroId);
+			return h;
 		}
 
 		public HeroInfo GetHeroInfoMine(int heroId)

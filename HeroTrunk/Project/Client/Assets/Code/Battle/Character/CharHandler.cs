@@ -56,6 +56,13 @@ namespace MS
 			SetHeadUI();
 		}
 
+		public void EnableChar()
+		{
+			m_CharState.enabled = true;
+			m_CharMove.SetAgentEnable(true);
+			m_CharSkill.RunCD(true);
+		}
+
 		public void ToBorn()
 		{
 			m_CharSkill.RunCD(true);
@@ -103,7 +110,6 @@ namespace MS
 			m_CharSlide.Slide = false;
 		}
 
-		//眩晕
 		public void ToDizzy()
 		{
 			m_CharMove.StopAutoMove();
@@ -245,14 +251,8 @@ namespace MS
 		{
 			if(m_CharData.m_eType == BattleEnum.Enum_CharType.Official)
 			{
-				CharHandler handler = BattleManager.GetInst().m_CharInScene.GetMainHeroBySide(m_CharData.m_eSide);
-				if(3 == m_iIndex)
-					m_ParentTrans.position = handler.m_ParentTrans.position + handler.m_ParentTrans.right * 2 - handler.m_ParentTrans.forward * 2;
-				else if(4 == m_iIndex)
-					m_ParentTrans.position = handler.m_ParentTrans.position - handler.m_ParentTrans.right * 2 - handler.m_ParentTrans.forward * 2;
-
-				m_ParentTrans.rotation = handler.m_ParentTrans.rotation;
-
+				m_ParentTrans.position = Vector3.one;
+				m_ParentTrans.rotation = Quaternion.identity;
 				List<CharHandler> lst = m_CharData.m_eSide == BattleEnum.Enum_CharSide.Mine ? BattleManager.GetInst().m_CharInScene.m_listOfficialPresenceMine : BattleManager.GetInst().m_CharInScene.m_listOfficialPresenceEnemy;
 				lst.Add(this);
 			}
@@ -283,8 +283,6 @@ namespace MS
 				default:
 					if(m_CharData.SkillForbid.Value)
 						return false;
-					if(null == BattleManager.GetInst().m_CharInScene.GetMainHeroBySide(m_CharData.m_eSide))
-						return false;
 					return true;
 			}
 		}
@@ -292,11 +290,6 @@ namespace MS
 		public void BeHit(float hurt, CharHandler srcHandler, SkillDataSon srcSkillDataSon = null, bool bDirect = true) //bDirect是否是直接伤害（非反弹、连锁、传递之类）
 		{
 			m_CharDefence.BeHit(hurt, srcHandler, srcSkillDataSon, bDirect);
-		}
-
-		public bool IsMainHero()
-		{
-			return this == BattleManager.GetInst().m_CharInScene.GetMainHeroBySide(m_CharData.m_eSide);
 		}
 
 		public bool IsInexistence()

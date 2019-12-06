@@ -143,10 +143,6 @@ namespace MS
 
 		public void ShowAllCharacters(bool bShow)
 		{
-			if(bShow == BattleCamera.GetInst().enabled)
-				return;
-
-			BattleCamera.GetInst().enabled = bShow;
 			_ShowAllCharacters(m_listGeneralMine, bShow);
 			_ShowAllCharacters(m_listGeneralEnemy, bShow);
 			_ShowAllCharacters(m_listDeadMine, bShow);
@@ -170,25 +166,10 @@ namespace MS
 				return;
 
 			for(int i = 0; i < lst.Count; ++i)
-			{
-				lst[i].m_CharState.enabled = true;
-				lst[i].m_CharMove.SetAgentEnable(true);
-				lst[i].m_CharSkill.RunCD(true);
-			}
+				lst[i].EnableChar();
 
 			if(!bMine)
 				BattleManager.GetInst().FinalEnemyBorned(lst);
-		}
-
-		public void EnableCharacter(BattleEnum.Enum_CharSide side, int heroIndex)
-		{
-			List<CharHandler> lst = BattleEnum.Enum_CharSide.Mine == side ? BattleManager.GetInst().m_CharInScene.m_listGeneralMine : BattleManager.GetInst().m_CharInScene.m_listGeneralEnemy;
-			if(heroIndex < lst.Count)
-			{
-				lst[heroIndex].m_CharState.enabled = true;
-				lst[heroIndex].m_CharMove.SetAgentEnable(true);
-				lst[heroIndex].m_CharSkill.RunCD(true);
-			}
 		}
 
 		//--获取战斗中的对象------------------------------------------------------------------------------------
@@ -208,11 +189,6 @@ namespace MS
 				return m_listGeneralEnemy[index];
 
 			return null;
-		}
-
-		public CharHandler GetMainHeroBySide(BattleEnum.Enum_CharSide side)
-		{
-			return BattleEnum.Enum_CharSide.Mine == side ? GetHeroByIndexM(0) : GetHeroByIndexE(0);
 		}
 
 		//获取某方的 所有对象

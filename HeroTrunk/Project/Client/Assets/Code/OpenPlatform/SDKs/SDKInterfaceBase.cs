@@ -22,8 +22,8 @@ public class SDKInterfaceBase
 	public virtual bool OnLogin(){ return false; }
 
 	public virtual bool OnPay(int id, string sIAPID, int iPrice, string sName, int iCount,
-								string sAccount, int iRoleId, string sRoleName, int iRoleLv, int iVipLv, int iGoldNum, string sFamilyName,
-								string sServerId, string sServerName, string sZoneId, string sGoldName, string sSingleName)
+			string sAccount, int iRoleId, string sRoleName, int iRoleLv, int iVipLv, int iGoldNum, string sFamilyName,
+			string sServerId, string sServerName, string sZoneId, string sGoldName, string sSingleName)
 	{ return false; }
 
 	//----------------------------------------------------------------------------------

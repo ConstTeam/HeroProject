@@ -27,10 +27,6 @@ namespace MS
 		public int		m_iAtkCount			= 0;		//普攻动作个数
 		public float	m_fAtkX				= 1;		//攻击系数
 
-		public float	m_fOriHP			= 0f;		//初始血量
-		public float	m_fOriAtk			= 0f;		//初始攻击
-		public float	m_fOriDef			= 0f;		//初始防御
-
 		//-----------------------------------------------------------------------------------------
 		public int		m_iCurSkillID		= 0;        //正在释放的技能
 		//----------------------------------------------------------------------------------------
@@ -47,6 +43,10 @@ namespace MS
 		}
 
 		#region --攻防血魔治疗------------------------------------------------------------------------
+		public float OriHP	{ get; set; }//初始血量
+		public float OriAtk { get; set; }//初始攻击
+		public float OriDef { get; set; }//初始防御
+
 		//当前血量
 		[SerializeField] private float _fCurHP;
 		public float CurHP
@@ -333,9 +333,9 @@ namespace MS
 			CurHP			= MaxHP;
 			MaxMP			= heroInfo.MaxPower;
 			CurMP			= MaxMP;
-			m_fOriHP		= MaxHP;
-			m_fOriDef		= CurDefence;
-			m_fOriAtk		= CurAttack;
+			OriHP			= MaxHP;
+			OriDef			= CurDefence;
+			OriAtk			= CurAttack;
 
 			for(int i = 0; i < 5; ++i)
 			{

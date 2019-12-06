@@ -26,7 +26,7 @@ namespace MS
 
 		public virtual void OnBattleInit()
 		{
-			BattleCamera.GetInst().SetPos(SpawnHandler.GetInst().Heroes[0].position);
+			//BattleCamera.GetInst().SetPos(SpawnHandler.GetInst().Heroes[0].position);
 			Invoke("OnBattleStart", 1);
 		}
 

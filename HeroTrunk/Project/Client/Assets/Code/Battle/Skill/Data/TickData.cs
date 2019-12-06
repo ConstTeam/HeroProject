@@ -10,8 +10,8 @@ namespace MS
 		public SkillDataSon m_SkillDataSon;
 		public TickFunc funcTick;
 		public TickEndFunc funcEnd;
-		public float m_fTotalSec;   //Tick总秒数
-		public float m_fUnitSec;        //执行间隔秒数
+		public float m_fTotalSec;	//Tick总秒数
+		public float m_fUnitSec;	//执行间隔秒数
 		public int m_iInstanceID;
 
 		public SkillEnum.SkillSonType m_eBuffType;
