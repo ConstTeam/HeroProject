@@ -321,7 +321,7 @@ MonoBehaviour:
   UICam: {fileID: 1845359175}
   BattleCam: {fileID: 534669904}
   BattleRootTrans: {fileID: 1125660363}
-  BattlePoolGo: {fileID: 1320551037}
+  BattlePoolTrans: {fileID: 1320551038}
   HUDParentTran: {fileID: 612030237}
   HUDSkillParentTran: {fileID: 599256525}
   HUDTextRes: {fileID: 0}

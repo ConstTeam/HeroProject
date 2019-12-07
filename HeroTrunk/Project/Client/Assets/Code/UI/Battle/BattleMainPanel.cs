@@ -33,9 +33,9 @@ namespace MS
 			_inst = null;
 		}
 
-		public void InitPanel()
+		private void OnMouseDown()
 		{
-			
+			BattleManager.GetInst().TapLightning();
 		}
 
 		private void OpenHeroPanel()

@@ -14,6 +14,8 @@ namespace MS
 					ApplicationConst.bGM = data.readBoolean();
 					PlayerInfo.PlayerId = data.readUTF();
 					PlayerInfo.Nickname = data.readUTF();
+					PlayerInfo.GuideStep = data.readByte();
+
 					int heroCount = data.readByte();
 					int id, star, maxPower;
 					for(int i = 0; i < heroCount; ++i)

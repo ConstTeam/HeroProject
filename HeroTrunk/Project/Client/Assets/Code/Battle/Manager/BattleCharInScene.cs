@@ -259,6 +259,12 @@ namespace MS
 			lst.Add(m_listMonster);
 		}
 
+		//获取所有小怪
+		public List<CharHandler> GetAllMonster()
+		{
+			return m_listMonster;
+		}
+
 		//获取某方的阵亡武官
 		public void GetDeadGeneral(BattleEnum.Enum_CharSide side, List<List<CharHandler>> lst)
 		{

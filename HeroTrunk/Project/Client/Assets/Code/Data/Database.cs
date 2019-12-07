@@ -29,9 +29,12 @@ namespace MS
 			data.writeByte(PlayerService.PLAYER_INFO);
 			data.writeBoolean(true);
 			data.writeUTF(playerId);
-			data.writeUTF(playerId);
 
 			string filePath = string.Empty;
+			filePath = string.Format("{0}/PlayerInfo.es", playerId);
+			data.writeUTF(ES3.Load<string>("PlayerName", filePath));
+			data.writeByte(ES3.Load<int>("GuideStep", filePath));
+
 			string dirPath = string.Format("{0}/HeroInfo", playerId);
 			string[] arr = ES3.GetFiles(dirPath);
 			data.writeByte(arr.Length);
@@ -83,6 +86,7 @@ namespace MS
 			ES3.Save<string>(account, sPlayerId, "Account.es");
 			string filePath = string.Format("{0}/PlayerInfo.es", sPlayerId);
 			ES3.Save<string>("PlayerName", sPlayerId, filePath);
+			ES3.Save<int>("GuideStep", 0, filePath);
 
 			AddHero(sPlayerId, 1006);
 			AddHero(sPlayerId, 1007);
@@ -112,6 +116,14 @@ namespace MS
 			ES3.Save<float>("Polity",			float.Parse(row.GetValue("Polity")), filePath);
 			ES3.Save<float>("Charm",			float.Parse(row.GetValue("Charm")), filePath);
 		}
+
+		#region --Guide------
+		public void SetGuideStep(string playerId, int guideStep)
+		{
+			string filePath = string.Format("{0}/PlayerInfo.es", playerId);
+			ES3.Save<int>("GuideStep", guideStep, filePath);
+		}
+		#endregion
 
 		#region --Normal Battle------
 		public void NormalBattleSaveBigLevel(string playerId, int bigLevel)

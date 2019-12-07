@@ -8,7 +8,7 @@ namespace MS
 		public Camera				UICam;
 		public Camera				BattleCam;
 		public Transform			BattleRootTrans;
-		public GameObject			BattlePoolGo;
+		public Transform			BattlePoolTrans;
 		public Transform			HUDParentTran;
 		public Transform			HUDSkillParentTran;
 		public GameObject			HUDTextRes;
@@ -48,7 +48,7 @@ namespace MS
 			m_TriggerManager	= new BattleTriggerManager();
 			m_BattleScene		= _gameObject.AddComponent<BattleScene>();
 			m_MPData			= new MPData("Power1");
-			BattlePoolGo.AddComponent<BattleScenePool>();
+			BattlePoolTrans.gameObject.AddComponent<BattleScenePool>();
 
 			HUDTextMgr.GetInst().HUDParent = HUDParentTran;
 			HUDTextMgr.GetInst().HUDSkillParent = HUDSkillParentTran;
@@ -56,8 +56,11 @@ namespace MS
 
 		private void Start()
 		{
-			BattleMainPanel.GetInst().InitPanel();
 			m_BattleScene.OnBattleInit();
+			if(PlayerInfo.GuideStep == 0)
+			{
+
+			}
 		}
 
 		public List<int> GetHeroIdsMine()
@@ -99,6 +102,13 @@ namespace MS
 		public HeroInfo GetHeroInfo(BattleEnum.Enum_CharSide side, int charId)
 		{
 			return side == BattleEnum.Enum_CharSide.Mine ? GetHeroInfoMine(charId) : GetHeroInfoEnemy(charId);
+		}
+
+		public void TapLightning()
+		{
+			List<CharHandler> lst = m_CharInScene.GetAllMonster();
+			CharHandler monster = lst[Random.Range(0, lst.Count)];
+			ResourceMgr.PopTapLightning(monster.m_ParentTrans.position);
 		}
 
 		#region --被动技能相关-------------------------------------------------------------
