@@ -67,7 +67,7 @@ namespace MS
 			float value = BattleCalculate.ExcuteFormula(skillData.m_sEffectExpress, skillData.m_sEffectExpressMax, charHandler, aimCharHandler);
 			aimCharHandler.m_CharData.CurHP = value;
 			BattleManager.GetInst().m_CharInScene.ReAddChar(aimCharHandler);
-			aimCharHandler.ToBorn();
+			aimCharHandler.Revive();
 		}
 	}
 }

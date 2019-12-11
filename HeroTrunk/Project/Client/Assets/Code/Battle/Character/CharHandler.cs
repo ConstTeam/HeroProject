@@ -6,6 +6,7 @@ namespace MS
 	public class CharHandler : MonoBehaviour
 	{
 		public GameObject	m_Go;
+		public GameObject	m_ParentGo;
 		public Transform	m_ParentTrans;
 		public int			m_iIndex;
 
@@ -29,6 +30,7 @@ namespace MS
 		{
 			m_Go			= gameObject;
 			m_ParentTrans	= transform.parent;
+			m_ParentGo		= m_ParentTrans.gameObject;
 			m_iIndex		= index;
 			_animCb			= m_ParentTrans.GetComponent<CharAnimCb>();
 			m_CharBody		= m_ParentTrans.GetComponent<CharBody>();
@@ -63,16 +65,16 @@ namespace MS
 			m_CharSkill.RunCD(true);
 		}
 
-		public void ToBorn()
+		public void Revive()
 		{
 			m_CharSkill.RunCD(true);
 			m_CharMove.SetAgentEnable(true);
 			ToIdle();
 		}
 
-		public void ToBornEx()
+		public void ToBorn(float delay)
 		{
-			m_CharAnim.ToBorn();
+			m_CharAnim.ToBorn(delay);
 		}
 
 		public void ToIdle()

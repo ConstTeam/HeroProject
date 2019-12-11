@@ -38,7 +38,7 @@ namespace MS
 				else
 				{
 					_BeHit(hurt, srcHandler, srcSkillDataSon, bDirect);
-					if(srcHandler.m_CharData.AbsorbHP.Value > 0)
+					if(null != srcHandler && srcHandler.m_CharData.AbsorbHP.Value > 0)
 						AbsorbHP(hurt, srcHandler);
 				}
 			}
@@ -138,7 +138,7 @@ namespace MS
 			if(BattleEnum.Enum_CharType.Monster == _charHandler.m_CharData.m_eType)
 			{
 				//击退
-				if(null == srcSkillDataSon || srcSkillDataSon.m_Parent.m_bHitBackward)
+				if(null != srcHandler && (null == srcSkillDataSon || srcSkillDataSon.m_Parent.m_bHitBackward))
 				{
 					float t = Time.time;
 					if(t - m_fBackwardClock > ApplicationConst.fBackwardCD)

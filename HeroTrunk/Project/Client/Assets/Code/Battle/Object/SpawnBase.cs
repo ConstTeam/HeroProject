@@ -20,29 +20,6 @@ namespace MS
 		public float m_fRadius;
 		public Transform[] spawnPoints;
 
-		private Collider m_Collider;
-
-		private void Awake()
-		{
-			if(SpawnShape.Rectangle == m_Shape)
-			{
-				BoxCollider collider = gameObject.AddComponent<BoxCollider>();
-				collider.size = new Vector3(m_fSizeX, 1f, m_fSizeY);
-				collider.isTrigger = true;
-				m_Collider = collider;
-				ColliderEnable = false;
-			}
-			else if(SpawnShape.Circle == m_Shape)
-			{
-				CapsuleCollider collider = gameObject.AddComponent<CapsuleCollider>();
-				collider.radius = m_fRadius;
-				collider.height = 1f;
-				collider.isTrigger = true;
-				m_Collider = collider;
-				ColliderEnable = false;
-			}
-		}
-
 		public virtual void CreateCharacters() { }
 		public virtual void EnableCharacters() { }
 		public virtual void ShowCharacters(bool bShow) { }
@@ -54,11 +31,6 @@ namespace MS
 		protected virtual void SetRadius(CharHandler handler)
 		{
 			handler.m_CharMove.SetRadius(handler.m_CharData.m_fBodyRange / handler.m_ParentTrans.localScale.z);
-		}
-
-		private void OnTriggerEnter(Collider other)
-		{
-			ReleaseChar();
 		}
 
 		public void ReleaseChar()
@@ -75,24 +47,6 @@ namespace MS
 			Transform trans = spawnPoints[spawnId];
 			h.m_ParentTrans.position = trans.position;
 			h.m_ParentTrans.rotation = trans.rotation;
-		}
-
-		public bool ColliderEnable
-		{
-			get
-			{
-				if(null == m_Collider)
-					return false;
-
-				return m_Collider.enabled;
-			}
-			set
-			{
-				if(null == m_Collider)
-					return;
-
-				m_Collider.enabled = value;
-			}
 		}
 	}
 }

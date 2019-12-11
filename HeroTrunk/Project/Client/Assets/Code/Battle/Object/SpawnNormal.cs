@@ -89,11 +89,6 @@ namespace MS
 			ColliderEnable = true;
 		}
 
-		private void OnTriggerEnter(Collider other)
-		{
-			ReleaseChar();
-		}
-
 		public void ReleaseChar()
 		{
 			CreateCharacters();
@@ -102,11 +97,6 @@ namespace MS
 		public void CreateCharacters()
 		{
 			ColliderEnable = false;
-			StartCoroutine(_CreateCharacters());
-		}
-
-		private IEnumerator _CreateCharacters()
-		{
 			string[] ids = m_lstCharID[CurWave];
 			string[] counts = m_lstCharCount[CurWave];
 			int count = 0;
@@ -118,9 +108,8 @@ namespace MS
 				{
 					for(int j = 0; j < count; ++j)
 					{
-						BattleCharCreator.CreateMonster(BattleEnum.Enum_CharSide.Enemy, int.Parse(ids[i]), i, MonsterSpawn[indexMonster].position, MonsterSpawn[indexMonster].rotation);
+						BattleCharCreator.CreateMonster(BattleEnum.Enum_CharSide.Enemy, int.Parse(ids[i]), i, MonsterSpawn[indexMonster].position, MonsterSpawn[indexMonster].rotation, j);
 						++indexMonster;
-						yield return new WaitForSeconds(0.2f);
 					}
 				}
 				else
@@ -129,7 +118,6 @@ namespace MS
 					{
 						BattleCharCreator.CreateBoss(BattleEnum.Enum_CharSide.Enemy, int.Parse(ids[i]), i, BossSpawn[indexBoss].position, BossSpawn[indexBoss].rotation);
 						++indexBoss;
-						yield return new WaitForSeconds(0.2f);
 					}
 				}
 			}

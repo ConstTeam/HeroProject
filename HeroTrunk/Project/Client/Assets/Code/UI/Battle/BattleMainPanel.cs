@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace MS
 {
-	public class BattleMainPanel : MonoBehaviour
+	public class BattleMainPanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 	{
 		public Button HeroBtn;
 		public TextMeshProUGUI CurBigLevelText;
@@ -33,9 +34,14 @@ namespace MS
 			_inst = null;
 		}
 
-		private void OnMouseDown()
+		public void OnPointerDown(PointerEventData eventData)
 		{
 			BattleManager.GetInst().TapLightning();
+		}
+
+		public void OnPointerUp(PointerEventData eventData)
+		{
+			//throw new System.NotImplementedException();
 		}
 
 		private void OpenHeroPanel()

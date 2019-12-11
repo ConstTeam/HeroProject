@@ -58,14 +58,13 @@ namespace MS
 
 		public void ReleaseNextWave()
 		{
-			if(Spawns[CurSpawnId].CurWave < Spawns[CurSpawnId].TotalWaves)
-				Spawns[CurSpawnId].ReleaseChar();
-			else
+			if(Spawns[CurSpawnId].CurWave >= Spawns[CurSpawnId].TotalWaves)
 			{
 				++CurSpawnIndex;
 				SetSpawnInfo(0);
 			}
-			
+
+			Spawns[CurSpawnId].ReleaseChar();
 			CurWave = Spawns[CurSpawnId].CurWave;
 		}
 

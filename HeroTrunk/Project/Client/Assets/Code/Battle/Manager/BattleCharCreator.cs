@@ -92,13 +92,13 @@ namespace MS
 		#endregion
 
 		#region --Monster----------------------------------------
-		public static CharHandler CreateMonster(BattleEnum.Enum_CharSide side, int charId, int charIndex, Vector3 pos, Quaternion rot)
+		public static CharHandler CreateMonster(BattleEnum.Enum_CharSide side, int charId, int charIndex, Vector3 pos, Quaternion rot, int index)
 		{
 			CharHandler h = BattleScenePool.GetInst().PopMonsterHandler(charId);
 			SetMonsterData(h);
 			SetObstacleAvoidanceMonster(h);
 			SetRadius(h);
-			h.ToBornEx();
+			h.ToBorn(0.3f * (index + 1));
 			ResetPosition(h, pos, rot);
 			BattleManager.GetInst().m_CharInScene.AddChar(h);
 			return h;

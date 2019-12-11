@@ -1,5 +1,4 @@
 using MS;
-using System.Collections;
 using UnityEngine;
 
 public class ApplicationEntry : MonoBehaviour

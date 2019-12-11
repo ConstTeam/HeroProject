@@ -16,6 +16,7 @@ namespace MS
 			Dead,
 			DoSkill,
 			Dizzy,
+			PreBorn,
 			Born,
 			Slide
 		}

@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7970cfebc77d01d40864cd45d134e0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Shape: 1
+  m_Shape: 0
   m_fSizeX: 5
   m_fSizeY: 20
   m_fRadius: 15
@@ -528,7 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7970cfebc77d01d40864cd45d134e0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Shape: 2
+  m_Shape: 0
   m_fSizeX: 0
   m_fSizeY: 0
   m_fRadius: 15

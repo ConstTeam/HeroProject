@@ -56,11 +56,10 @@ namespace MS
 
 		private void Start()
 		{
-			m_BattleScene.OnBattleInit();
 			if(PlayerInfo.GuideStep == 0)
-			{
-
-			}
+				GuidePanel.GetInst().ShowPanel();
+			else
+				m_BattleScene.OnBattleInit();
 		}
 
 		public List<int> GetHeroIdsMine()
@@ -107,8 +106,15 @@ namespace MS
 		public void TapLightning()
 		{
 			List<CharHandler> lst = m_CharInScene.GetAllMonster();
-			CharHandler monster = lst[Random.Range(0, lst.Count)];
-			ResourceMgr.PopTapLightning(monster.m_ParentTrans.position);
+			if(lst.Count > 0)
+			{
+				CharHandler monster = lst[Random.Range(0, lst.Count)];
+				if(monster.m_CharData.m_eState != BattleEnum.Enum_CharState.PreBorn)
+				{
+					ResourceMgr.PopTapLightning(monster.m_ParentTrans.position);
+					monster.BeHit(100f, null);
+				}
+			}
 		}
 
 		#region --被动技能相关-------------------------------------------------------------

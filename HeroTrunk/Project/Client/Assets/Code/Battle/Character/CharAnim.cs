@@ -76,9 +76,22 @@ namespace MS
 			_animator.SetInteger("SubState", 0);
 		}
 
-		public void ToBorn()
+		public void ToBorn(float delay = 0f)
+		{
+			if(0 == delay)
+				_ToBornAnim();
+			else
+			{
+				_charHandler.m_CharData.m_eState = BattleEnum.Enum_CharState.PreBorn;
+				_charHandler.m_ParentGo.SetActive(false);
+				Invoke("_ToBornAnim", delay);
+			}
+		}
+
+		private void _ToBornAnim()
 		{
 			_charHandler.m_CharData.m_eState = BattleEnum.Enum_CharState.Born;
+			_charHandler.m_ParentGo.SetActive(true);
 			_animator.SetInteger("State", 20);
 			_animator.SetInteger("SubState", 0);
 		}
