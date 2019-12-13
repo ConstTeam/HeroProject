@@ -164,7 +164,11 @@ namespace MS
 			BattleManager.GetInst().m_CharInScene.RemoveChar(this);
 
 			if(BattleEnum.Enum_CharSide.Enemy == m_CharData.m_eSide)
+			{
 				BattleManager.GetInst().IsWaveEnd();
+				if(BattleEnum.Enum_CharType.Monster == m_CharData.m_eType)
+					ResourceMgr.GetInst().PopSoulBall(this, 3);
+			}	
 		}
 
 		public void BornEnd()
@@ -264,7 +268,7 @@ namespace MS
 		{
 			if(m_CharData.m_eType == BattleEnum.Enum_CharType.Official)
 			{
-				m_ParentTrans.position = PositionMgr.vecHidePos;
+				Hide();
 				List<CharHandler> lst = m_CharData.m_eSide == BattleEnum.Enum_CharSide.Mine ? BattleManager.GetInst().m_CharInScene.m_listOfficialPresenceMine : BattleManager.GetInst().m_CharInScene.m_listOfficialPresenceEnemy;
 				lst.Remove(this);
 				m_CharSkill.DequeueHoldSkill();
@@ -297,6 +301,11 @@ namespace MS
 		public bool IsInexistence()
 		{
 			return BattleEnum.Enum_CharState.Dead == m_CharData.m_eState || BattleEnum.Enum_CharState.Born == m_CharData.m_eState;
+		}
+
+		public void Hide()
+		{
+			m_ParentTrans.position = PositionMgr.vecHidePos;
 		}
 
 		#region --动作回调-------------------------------------------------------------------------------
@@ -383,7 +392,7 @@ namespace MS
 
 		private void _DeadEnd()
 		{
-			BattleScenePool.GetInst().PushMonsterHandler(m_CharData.m_iCharID, this);
+			BattleScenePool.GetInst().PushMonsterHandler(this);
 		}
 
 		public void ShootTrace()

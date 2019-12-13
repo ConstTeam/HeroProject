@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224614081152649290}
   - component: {fileID: 222040850227877024}
   - component: {fileID: 114737936900315980}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 222381563682225990}
   - component: {fileID: 114628482551587908}
   - component: {fileID: 114337828073436918}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: IconBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 224902920409339524}
   - component: {fileID: 222090780895957692}
   - component: {fileID: 114678449053768200}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: BattleHeroListItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 224149135722939204}
   - component: {fileID: 222461545900469192}
   - component: {fileID: 114605115389839688}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: HeroBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 222948892271203458}
   - component: {fileID: 114112736212597900}
   - component: {fileID: 114219549568526722}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: UpgradeBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 222697960149972300}
   - component: {fileID: 114754449031653118}
   - component: {fileID: 114910437848463260}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: AddHeroBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 224615531512341824}
   - component: {fileID: 222942812071021612}
   - component: {fileID: 114739373302109946}
-  m_Layer: 31
+  m_Layer: 5
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}

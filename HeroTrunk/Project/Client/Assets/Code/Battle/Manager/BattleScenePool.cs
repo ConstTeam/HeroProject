@@ -136,9 +136,10 @@ namespace MS
 			return ch;
 		}
 
-		public void PushMonsterHandler(int monsterId, CharHandler charHandler)
+		public void PushMonsterHandler(CharHandler charHandler)
 		{
-			_dicMonsterPool[monsterId].Push(charHandler);
+			charHandler.Hide();
+			_dicMonsterPool[charHandler.m_CharData.m_iCharID].Push(charHandler);
 		}
 
 		public CharHandler PopMonsterHandler(int monsterId)

@@ -52,6 +52,12 @@ namespace MS
 			_gameObject.SetActive(false);
 		}
 
+		private void SaveGuideStep(int step)
+		{
+			PlayerInfo.GuideStep = step;
+			Database.GetInst().SetGuideStep(PlayerInfo.PlayerId, PlayerInfo.GuideStep);
+		}
+
 		private void SetInfo()
 		{
 			if(_iCurIndex < _arrCurText.Length)
@@ -67,7 +73,10 @@ namespace MS
 					case 0:
 						BattleManager.GetInst().m_BattleScene.OnBattleInit();
 						break;
+					case 1:
+						break;
 				}
+				SaveGuideStep(PlayerInfo.GuideStep + 1);
 			}
 				
 		}

@@ -31,6 +31,7 @@ public class ApplicationEntry : MonoBehaviour
 		_gameObject	= gameObject;
 		_appConst	= _gameObject.AddComponent<ApplicationConst>();
 
+		_gameObject.AddComponent<ResourceMgr>();
 		_gameObject.AddComponent<InputManager>();
 		_gameObject.AddComponent<SocketHandler>();
 		_gameObject.AddComponent<ServiceManager>();

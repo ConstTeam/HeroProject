@@ -30,6 +30,7 @@ namespace MS
 						HeroAll.SetHeroInfo(id, new HeroInfo(id, star, maxPower, mainProperty));
 					}
 
+					BattleScene.CurCoin = data.readInt();
 					BattleScene.CurBigLv = data.readInt();
 					BattleScene.CurSmallLv = data.readInt();
 					BattleScene.m_lstHeroID.Clear();

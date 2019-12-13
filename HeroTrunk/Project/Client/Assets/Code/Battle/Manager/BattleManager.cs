@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -111,8 +112,8 @@ namespace MS
 				CharHandler monster = lst[Random.Range(0, lst.Count)];
 				if(monster.m_CharData.m_eState != BattleEnum.Enum_CharState.PreBorn)
 				{
-					ResourceMgr.PopTapLightning(monster.m_ParentTrans.position);
-					monster.BeHit(100f, null);
+					ResourceMgr.GetInst().PopTapLightning(monster.m_ParentTrans.position);
+					monster.BeHit(10f, null);
 				}
 			}
 		}

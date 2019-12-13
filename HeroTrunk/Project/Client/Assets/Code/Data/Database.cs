@@ -58,6 +58,7 @@ namespace MS
 			}
 
 			filePath = string.Format("{0}/NormalBattle.es", playerId);
+			data.writeInt(ES3.Load<int>("Coin", filePath));
 			data.writeInt(ES3.Load<int>("BigLevel", filePath));
 			data.writeInt(ES3.Load<int>("SmallLevel", filePath));
 
@@ -92,6 +93,7 @@ namespace MS
 			AddHero(sPlayerId, 1007);
 			AddHero(sPlayerId, 1008);
 
+			NormalBattleSaveCoin(sPlayerId, 0);
 			NormalBattleSaveBigLevel(sPlayerId, 0);
 			NormalBattleSaveSmallLevel(sPlayerId, 0);
 
@@ -126,6 +128,12 @@ namespace MS
 		#endregion
 
 		#region --Normal Battle------
+		public void NormalBattleSaveCoin(string playerId, int coin)
+		{
+			string filePath = string.Format("{0}/NormalBattle.es", playerId);
+			ES3.Save<int>("Coin", coin, filePath);
+		}
+
 		public void NormalBattleSaveBigLevel(string playerId, int bigLevel)
 		{
 			string filePath = string.Format("{0}/NormalBattle.es", playerId);

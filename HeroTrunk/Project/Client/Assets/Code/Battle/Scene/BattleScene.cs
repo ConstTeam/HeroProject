@@ -5,8 +5,9 @@ namespace MS
 {
 	public class BattleScene : MonoBehaviour
 	{
-		public static int CurBigLv { get; set; }
-		public static int CurSmallLv { get; set; }
+		public static int CurCoin		{ get; set; }
+		public static int CurBigLv		{ get; set; }
+		public static int CurSmallLv	{ get; set; }
 		public static List<int> m_lstHeroID = new List<int>();
 		public static List<int> m_lstHeroLv = new List<int>();
 
@@ -24,6 +25,13 @@ namespace MS
 			set { _iSmallLevel = value; BattleMainPanel.GetInst().CurSmallLevelText.text = (value + 1).ToString(); Database.GetInst().NormalBattleSaveSmallLevel(PlayerInfo.PlayerId, value); }
 		}
 
+		private int _iCoin;
+		public int Coin
+		{
+			get { return _iCoin; }
+			set { _iCoin = value; BattleMainPanel.GetInst().CoinText.text = value.ToString(); if(_iCoin == 500f && PlayerInfo.GuideStep == 1) GuidePanel.GetInst().ShowPanel(); }
+		}
+
 		public virtual void OnBattleInit()
 		{
 			//BattleCamera.GetInst().SetPos(SpawnHandler.GetInst().Heroes[0].position);
@@ -34,6 +42,7 @@ namespace MS
 		{
 			BattleManager.GetInst().BattleCam.enabled = true;
 			BattleSceneTimer.GetInst().BeginTimer();
+			BattleManager.GetInst().m_BattleScene.Coin = CurCoin;
 			SpawnHandler.GetInst().CurSpawnIndex = CurBigLv;
 			SpawnHandler.GetInst().SetSpawnInfo(CurSmallLv);
 			SpawnHandler.GetInst().ReleaseNextWave();

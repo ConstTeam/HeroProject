@@ -10,6 +10,7 @@ namespace MS
 		public Button HeroBtn;
 		public TextMeshProUGUI CurBigLevelText;
 		public TextMeshProUGUI CurSmallLevelText;
+		public TextMeshProUGUI CoinText;
 
 		private Transform _heroBtnTrans;
 
