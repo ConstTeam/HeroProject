@@ -4,10 +4,11 @@ namespace MS
 {
 	public class SceneLoaderLogin : MonoBehaviour
 	{
-		public Transform uiRoot;
+		public RectTransform uiRoot;
 
 		private void Awake()
 		{
+			uiRoot.sizeDelta = ApplicationConst.uiSize;
 			LoadPanel();
 		}
 

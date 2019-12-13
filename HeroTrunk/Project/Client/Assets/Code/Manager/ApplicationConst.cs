@@ -16,9 +16,10 @@ namespace MS
 		public static Hashtable		dictStaticInfo;
 		public static Hashtable		dictStaticText;
 
-		public static float			screenRatio;
 		public static Rect			sceneCamRect;
 		public static float			matchWidthOrHeight;
+		public static Vector2		uiSize;
+		public static float			fRatio;
 
 		public static bool			bFreeSkill			= false;
 		public static float			fFightSlideMin;
@@ -53,7 +54,7 @@ namespace MS
 			text = Resources.Load<TextAsset>("Text/StaticText");
 			dictStaticText = MiniJSON.jsonDecode(text.text) as Hashtable;
 
-			SetSceneCamRect();
+			SetRect();
 		}
 
 		public void OnConfigLoadEnd()
@@ -67,20 +68,26 @@ namespace MS
 			fBackwardCD			= float.Parse(tbl.GetValue("BACKWARD_CD", "Value"));
 		}
 
-		private void SetSceneCamRect()
+		private void SetRect()
 		{
-			screenRatio = (1080f * Screen.width) / (1920f * Screen.height);
-			if(screenRatio > 1f)
+			fRatio = (1920f * Screen.height) / (1080f * Screen.width);
+			if(fRatio < 1f)
 			{
-				screenRatio = 1f;
+				fRatio = 1f;
 				matchWidthOrHeight = 1f;
+
+				if(Screen.width * 1125 > Screen.height * (2436 - 84))
+					uiSize = new Vector2(1080f * Screen.width / Screen.height - 128, 1080f);
+				else
+					uiSize = new Vector2(1080f * Screen.width / Screen.height, 1080f);
 			}
 			else
 			{
-				screenRatio = 1f / screenRatio;
+				fRatio = 1f / fRatio;
 				matchWidthOrHeight = 0f;
+				uiSize = new Vector2(1920f, 1080f);
 			}
-			sceneCamRect = new Rect(0f, (1f - screenRatio) / 2f, 1f, screenRatio);
+			sceneCamRect = new Rect(0f, (1f - fRatio) / 2f, 1f, fRatio);
 		}
 	}
 }

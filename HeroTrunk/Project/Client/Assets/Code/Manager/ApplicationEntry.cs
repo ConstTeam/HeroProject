@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ApplicationEntry : MonoBehaviour
 {
-	public Transform			uiRoot;
+	public RectTransform		uiRoot;
 	public GameObject			Communicate;
 
 	private GameObject			_gameObject;
@@ -30,6 +30,8 @@ public class ApplicationEntry : MonoBehaviour
 		_inst		= this;
 		_gameObject	= gameObject;
 		_appConst	= _gameObject.AddComponent<ApplicationConst>();
+
+		uiRoot.sizeDelta = ApplicationConst.uiSize;
 
 		_gameObject.AddComponent<ResourceMgr>();
 		_gameObject.AddComponent<InputManager>();

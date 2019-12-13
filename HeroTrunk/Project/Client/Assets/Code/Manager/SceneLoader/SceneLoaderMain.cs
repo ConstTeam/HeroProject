@@ -12,17 +12,18 @@ namespace MS
 			return _inst;
 		}
 
-		public GameObject	mainUICanvas;
-		public Camera		mainUICamera;
-		public Transform	mainUIRoot;
+		public GameObject		mainUICanvas;
+		public Camera			mainUICamera;
+		public RectTransform	mainUIRoot;
 
-		public GameObject	battleUICanvas;
-		public Camera		battleUICamera;
-		public Transform	battleUIRoot;
+		public GameObject		battleUICanvas;
+		public Camera			battleUICamera;
+		public RectTransform	battleUIRoot;
 
 		private void Awake()
 		{
 			_inst = this;
+			mainUIRoot.sizeDelta = battleUIRoot.sizeDelta = ApplicationConst.uiSize;
 			StartCoroutine(LoadPanel());
 		}
 
