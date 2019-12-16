@@ -9,6 +9,7 @@ namespace MS
 		public Button ContinueBtn;
 
 		private GameObject _gameObject;
+		private RectTransform _continueRect;
 		private string[] _arrCurText;
 		private int _iCurIndex;
 
@@ -24,6 +25,7 @@ namespace MS
 		{
 			_inst = this;
 			_gameObject = gameObject;
+			_continueRect = ContinueBtn.GetComponent<RectTransform>();
 			transform.SetAsFirstSibling();
 			ContinueBtn.onClick.AddListener(Continue);
 		}
@@ -64,6 +66,14 @@ namespace MS
 			{
 				string t = ConfigData.GetValue("Lan_Guide_Client", _arrCurText[_iCurIndex], "Text");
 				Description.text = t;
+
+				switch(PlayerInfo.GuideStep)
+				{
+					case 1:
+						_continueRect.sizeDelta = new Vector2(100, 100);
+						_continueRect.position = BattleHeroListPanel.GetInst().GetShowBtnPos();
+						break;
+				}
 			}
 			else
 			{

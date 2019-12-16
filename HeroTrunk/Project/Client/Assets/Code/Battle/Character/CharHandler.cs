@@ -167,7 +167,7 @@ namespace MS
 			{
 				BattleManager.GetInst().IsWaveEnd();
 				if(BattleEnum.Enum_CharType.Monster == m_CharData.m_eType)
-					ResourceMgr.GetInst().PopSoulBall(this, 3);
+					BattleManager.GetInst().m_BattleScene.Coin += 15;
 			}	
 		}
 

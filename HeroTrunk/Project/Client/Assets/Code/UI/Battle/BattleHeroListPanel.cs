@@ -1,20 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MS
 {
 	public class BattleHeroListPanel : MonoBehaviour
 	{
+		public Button ShowBtn;
 		public Transform ContentTrans;
+		public Animation Anim;
 
 		private List<BattleHeroListItem> _lstHeroItem = new List<BattleHeroListItem>();
 		private GameObject _gameObject;
+		private bool _bShow = false;
 
 		private static BattleHeroListPanel _inst;
 		public static BattleHeroListPanel GetInst()
 		{
-			if(_inst == null)
-				ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/BattleHeroListPanel", SceneLoaderMain.GetInst().battleUIRoot);
 			return _inst;
 		}
 
@@ -30,12 +32,18 @@ namespace MS
 				item.Show(false);
 				_lstHeroItem.Add(item);
 			}
-			_gameObject.SetActive(false);
+			ShowBtn.onClick.AddListener(ShowOrHide);
 		}
 
 		private void Start()
 		{
 			Refresh();
+		}
+
+		private void ShowOrHide()
+		{
+			Anim.Play(_bShow ? "BattleHeroListClose" : "BattleHeroListOpen");
+			_bShow = !_bShow;
 		}
 
 		public void Refresh()
@@ -68,6 +76,11 @@ namespace MS
 			bool ret = !_gameObject.activeSelf;
 			_gameObject.SetActive(ret);
 			return ret;
+		}
+
+		public Vector3 GetShowBtnPos()
+		{
+			return ShowBtn.transform.position;
 		}
 	}
 }
