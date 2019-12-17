@@ -70,6 +70,7 @@ namespace MS
 				switch(PlayerInfo.GuideStep)
 				{
 					case 1:
+						BattleHeroListPanel.GetInst().SetActive(true);
 						_continueRect.sizeDelta = new Vector2(100, 100);
 						_continueRect.position = BattleHeroListPanel.GetInst().GetShowBtnPos();
 						break;
@@ -84,6 +85,7 @@ namespace MS
 						BattleManager.GetInst().m_BattleScene.OnBattleInit();
 						break;
 					case 1:
+						BattleHeroListPanel.GetInst().ShowOrHide();
 						break;
 				}
 				SaveGuideStep(PlayerInfo.GuideStep + 1);

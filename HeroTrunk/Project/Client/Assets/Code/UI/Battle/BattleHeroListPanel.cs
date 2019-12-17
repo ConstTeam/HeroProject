@@ -11,6 +11,7 @@ namespace MS
 		public Animation Anim;
 
 		private List<BattleHeroListItem> _lstHeroItem = new List<BattleHeroListItem>();
+		private BattleAddHeroItem _addHeroItem;
 		private GameObject _gameObject;
 		private bool _bShow = false;
 
@@ -29,10 +30,12 @@ namespace MS
 			{
 				item = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/BattleHeroListItem", ContentTrans).GetComponent<BattleHeroListItem>();
 				item.HeroIndex = i;
-				item.Show(false);
 				_lstHeroItem.Add(item);
 			}
+			_addHeroItem = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/BattleAddHeroItem", ContentTrans).GetComponent<BattleAddHeroItem>();
 			ShowBtn.onClick.AddListener(ShowOrHide);
+
+			SetActive(PlayerInfo.GuideStep > 1);
 		}
 
 		private void Start()
@@ -40,7 +43,12 @@ namespace MS
 			Refresh();
 		}
 
-		private void ShowOrHide()
+		public void SetActive(bool bActive)
+		{
+			_gameObject.SetActive(bActive);
+		}
+
+		public void ShowOrHide()
 		{
 			Anim.Play(_bShow ? "BattleHeroListClose" : "BattleHeroListOpen");
 			_bShow = !_bShow;
@@ -51,19 +59,13 @@ namespace MS
 			List<CharHandler> lst1 = BattleManager.GetInst().m_CharInScene.GetGeneral(BattleEnum.Enum_CharSide.Mine);
 			List<CharHandler> lst2 = BattleManager.GetInst().m_CharInScene.GetOfficial(BattleEnum.Enum_CharSide.Mine);
 			int heroCount = lst1.Count + lst2.Count;
+
 			int i = 0;
 			for(; i < lst1.Count; ++i)
-			{
-				_lstHeroItem[i].Show(true);
 				_lstHeroItem[i].ShowHero(lst1[i].m_CharData.m_iCharID);
-			}
 			for(; i < heroCount; ++i)
-			{
-				_lstHeroItem[i].Show(true);
 				_lstHeroItem[i].ShowHero(lst2[i].m_CharData.m_iCharID);
-			}
-			if(heroCount < 5)
-				_lstHeroItem[i].Show(true);
+			_addHeroItem.SetState(i);
 		}
 
 		private void OnDestroy()
@@ -71,11 +73,11 @@ namespace MS
 			_inst = null;
 		}
 
-		public bool BeShowPanel()
+		public void SyncCoin()
 		{
-			bool ret = !_gameObject.activeSelf;
-			_gameObject.SetActive(ret);
-			return ret;
+			for(int i = 0; i < _lstHeroItem.Count; ++i)
+				_lstHeroItem[i].SetBtnState();
+			_addHeroItem.SetBtnState();
 		}
 
 		public Vector3 GetShowBtnPos()

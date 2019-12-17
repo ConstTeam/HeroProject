@@ -29,7 +29,14 @@ namespace MS
 		public int Coin
 		{
 			get { return _iCoin; }
-			set { _iCoin = value; BattleMainPanel.GetInst().CoinText.text = value.ToString(); if(_iCoin >= 500f && PlayerInfo.GuideStep == 1) GuidePanel.GetInst().ShowPanel(); }
+			set
+			{
+				_iCoin = value;
+				BattleMainPanel.GetInst().CoinText.text = value.ToString();
+				BattleHeroListPanel.GetInst().SyncCoin();
+				if(_iCoin >= 500f && PlayerInfo.GuideStep == 1)
+					GuidePanel.GetInst().ShowPanel();
+			}
 		}
 
 		public virtual void OnBattleInit()
