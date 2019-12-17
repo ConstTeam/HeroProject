@@ -36,6 +36,8 @@ namespace MS
 				BattleHeroListPanel.GetInst().SyncCoin();
 				if(_iCoin >= 500f && PlayerInfo.GuideStep == 1)
 					GuidePanel.GetInst().ShowPanel();
+
+				Database.GetInst().NormalBattleSaveCoin(PlayerInfo.PlayerId, _iCoin);
 			}
 		}
 
