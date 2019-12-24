@@ -213,7 +213,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Mask/List
+    path: Mask/Root
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -232,7 +232,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Mask/List
+    path: Mask/Root
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -242,7 +242,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.z
-    path: Mask/List
+    path: Mask/Root
     classID: 224
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -856,7 +856,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Mask/List
+    path: Mask/Root
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -875,7 +875,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Mask/List
+    path: Mask/Root
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -885,7 +885,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.z
-    path: Mask/List
+    path: Mask/Root
     classID: 224
     script: {fileID: 0}
   m_EulerEditorCurves:

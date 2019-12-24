@@ -17,7 +17,7 @@ namespace MS
 			if(_inst == null)
 			{
 				ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/BattleMainPanel", SceneLoaderMain.GetInst().battleUIRoot);
-				ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/BattleHeroListPanel", SceneLoaderMain.GetInst().battleUIRoot);
+				ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/HeroList/BattleHeroListPanel", SceneLoaderMain.GetInst().battleUIRoot);
 			}
 			return _inst;
 		}

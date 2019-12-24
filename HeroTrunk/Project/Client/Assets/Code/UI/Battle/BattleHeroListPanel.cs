@@ -8,10 +8,15 @@ namespace MS
 	{
 		public Button ShowBtn;
 		public Transform ContentTrans;
-		public Animation Anim;
+		public Transform AddContentTrans;
+		public GameObject AddPanel;
+		public Button AddCloseBtn;
+		public ToggleGroup Group;
 
 		private List<BattleHeroListItem> _lstHeroItem = new List<BattleHeroListItem>();
-		private BattleAddHeroItem _addHeroItem;
+		private List<BattleHeroListInfoItem> _lstHeroInfoItem = new List<BattleHeroListInfoItem>();
+		private BattleHeroListAddItem _addHeroItem;
+		private Animation _anim;
 		private GameObject _gameObject;
 		private bool _bShow = false;
 
@@ -25,15 +30,19 @@ namespace MS
 		{
 			_inst = this;
 			_gameObject = gameObject;
+			_anim = GetComponent<Animation>();
 			BattleHeroListItem item;
 			for(int i = 0; i < 5; ++i)
 			{
-				item = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/BattleHeroListItem", ContentTrans).GetComponent<BattleHeroListItem>();
+				item = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/HeroList/BattleHeroListItem", ContentTrans).GetComponent<BattleHeroListItem>();
 				item.HeroIndex = i;
 				_lstHeroItem.Add(item);
 			}
-			_addHeroItem = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/BattleAddHeroItem", ContentTrans).GetComponent<BattleAddHeroItem>();
+			_addHeroItem = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/HeroList/BattleHeroListAddItem", ContentTrans).GetComponent<BattleHeroListAddItem>();
 			ShowBtn.onClick.AddListener(ShowOrHide);
+			AddCloseBtn.onClick.AddListener(CloseAddPanel);
+
+			SetAddPanel();
 
 			SetActive(PlayerInfo.GuideStep > 1);
 		}
@@ -50,7 +59,7 @@ namespace MS
 
 		public void ShowOrHide()
 		{
-			Anim.Play(_bShow ? "BattleHeroListClose" : "BattleHeroListOpen");
+			_anim.Play(_bShow ? "BattleHeroListClose" : "BattleHeroListOpen");
 			_bShow = !_bShow;
 		}
 
@@ -84,5 +93,45 @@ namespace MS
 		{
 			return ShowBtn.transform.position;
 		}
+
+		#region --Add Panel---------
+		public void ShowAddPanel(bool bShow)
+		{
+			if(bShow)
+			{
+				_anim["BattleHeroListChange"].speed = 1;
+				_anim["BattleHeroListChange"].time = 0;
+			}
+			else
+			{
+				_anim["BattleHeroListChange"].speed = -1;
+				_anim["BattleHeroListChange"].time = _anim["BattleHeroListChange"].length;
+			}
+			_anim.Play("BattleHeroListChange");
+		}
+
+		private void AddHero()
+		{
+			//BattleManager.GetInst().m_BattleScene.Coin -= _iNeedCoin;
+			//BattleManager.GetInst().AddHero(_curIndex);
+		}
+
+		private void CloseAddPanel()
+		{
+			ShowAddPanel(false);
+		}
+
+		private void SetAddPanel()
+		{
+			List<int> lst = HeroAll.GetHeroList();
+			BattleHeroListInfoItem item;
+			for(int i = 0; i < lst.Count; ++i)
+			{
+				item = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/HeroList/BattleHeroListInfoItem", AddContentTrans).GetComponent<BattleHeroListInfoItem>();
+				item.Init(lst[i], Group);
+				_lstHeroInfoItem.Add(item);
+			}
+		}
+		#endregion
 	}
 }

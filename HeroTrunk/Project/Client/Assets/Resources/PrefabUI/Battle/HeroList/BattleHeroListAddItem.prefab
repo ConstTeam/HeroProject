@@ -72,28 +72,14 @@ GameObject:
   m_Component:
   - component: {fileID: 224190499288901708}
   - component: {fileID: 222400353148278578}
-  - component: {fileID: 114244489023866856}
+  - component: {fileID: 114981982804571234}
   m_Layer: 5
-  m_Name: BattleAddHeroItem
+  m_Name: BattleHeroListAddItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114244489023866856
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1511014399195170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86ae7280b199b0b4abcf316560865dd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AddHeroBtn: {fileID: 114858409976732950}
-  Description: {fileID: 114931395842366652}
-  NeedCoinText: {fileID: 114760904569650402}
 --- !u!114 &114760904569650402
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -308,6 +294,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text
+--- !u!114 &114981982804571234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1511014399195170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae7280b199b0b4abcf316560865dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AddHeroBtn: {fileID: 114858409976732950}
+  Description: {fileID: 114931395842366652}
+  NeedCoinText: {fileID: 114760904569650402}
 --- !u!222 &222262818445287590
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -354,7 +354,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 180, y: -140}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 360, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224695205904142656

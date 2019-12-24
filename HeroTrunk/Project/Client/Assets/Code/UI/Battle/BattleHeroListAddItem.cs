@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MS
 {
-	public class BattleAddHeroItem : MonoBehaviour
+	public class BattleHeroListAddItem : MonoBehaviour
 	{
 		public Button AddHeroBtn;
 		public Text Description;
@@ -17,7 +15,7 @@ namespace MS
 
 		private void Awake()
 		{
-			AddHeroBtn.onClick.AddListener(AddHero);
+			AddHeroBtn.onClick.AddListener(OpenAddPanel);
 			Description.text = ConfigData.GetStaticText("20001");
 		}
 
@@ -39,10 +37,9 @@ namespace MS
 			AddHeroBtn.interactable = BattleManager.GetInst().m_BattleScene.Coin >= _iNeedCoin;
 		}
 
-		private void AddHero()
+		private void OpenAddPanel()
 		{
-			BattleManager.GetInst().m_BattleScene.Coin -= _iNeedCoin;
-			BattleManager.GetInst().AddHero(_curIndex);
+			BattleHeroListPanel.GetInst().ShowAddPanel(true);
 		}
 
 		private int NeedCoin()
