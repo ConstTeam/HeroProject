@@ -8,7 +8,7 @@ namespace MS
 		public static int CurCoin		{ get; set; }
 		public static int CurBigLv		{ get; set; }
 		public static int CurSmallLv	{ get; set; }
-		public static List<int> m_lstHeroID = new List<int>();
+		public static List<int> m_lstHeroId = new List<int>();
 		public static List<int> m_lstHeroLv = new List<int>();
 
 		private int _iBigLevel;
@@ -56,8 +56,8 @@ namespace MS
 			SpawnHandler.GetInst().SetSpawnInfo(CurSmallLv);
 			SpawnHandler.GetInst().ReleaseNextWave();
 
-			for(int i = 0; i < m_lstHeroID.Count; ++i)
-				BattleManager.GetInst().AddHero(i);
+			for(int i = 0; i < m_lstHeroId.Count; ++i)
+				BattleManager.GetInst().AddHero(m_lstHeroId[i], i);
 		}
 	}
 }

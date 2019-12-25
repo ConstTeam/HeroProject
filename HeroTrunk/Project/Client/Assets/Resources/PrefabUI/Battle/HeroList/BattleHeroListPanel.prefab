@@ -459,6 +459,8 @@ MonoBehaviour:
   AddContentTrans: {fileID: 224128273364015698}
   AddPanel: {fileID: 1482321457200946}
   AddCloseBtn: {fileID: 114788569452308128}
+  AddOkBtn: {fileID: 114284371139907484}
+  AddNeedCoinText: {fileID: 114882527006141938}
   Group: {fileID: 114850893570928996}
 --- !u!114 &114556912575548680
 MonoBehaviour:

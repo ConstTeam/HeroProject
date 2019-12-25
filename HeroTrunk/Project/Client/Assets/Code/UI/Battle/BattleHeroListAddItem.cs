@@ -39,7 +39,7 @@ namespace MS
 
 		private void OpenAddPanel()
 		{
-			BattleHeroListPanel.GetInst().ShowAddPanel(true);
+			BattleHeroListPanel.GetInst().ShowAddPanel(true, _curIndex, NeedCoin());
 		}
 
 		private int NeedCoin()

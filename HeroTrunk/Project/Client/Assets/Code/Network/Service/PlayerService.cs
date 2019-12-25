@@ -33,12 +33,12 @@ namespace MS
 					BattleScene.CurCoin = data.readInt();
 					BattleScene.CurBigLv = data.readInt();
 					BattleScene.CurSmallLv = data.readInt();
-					BattleScene.m_lstHeroID.Clear();
+					BattleScene.m_lstHeroId.Clear();
 					BattleScene.m_lstHeroLv.Clear();
 					int size = data.readByte();
 					for(int i = 0; i < size; ++i)
 					{
-						BattleScene.m_lstHeroID.Add(data.readInt());
+						BattleScene.m_lstHeroId.Add(data.readInt());
 						BattleScene.m_lstHeroLv.Add(data.readInt());
 					}
 
