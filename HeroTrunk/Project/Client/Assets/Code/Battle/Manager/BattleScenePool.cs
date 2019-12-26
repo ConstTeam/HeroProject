@@ -159,44 +159,6 @@ namespace MS
 		#endregion
 
 		#region --子弹相关------------------------------------------------------------------
-		private void PreloadBulletHero(CharHandler handler)
-		{
-			if(BattleEnum.Enum_AttackType.Distant == handler.m_CharData.m_eAtkType)
-			{
-				string bulletPath = string.Format("Effect/Prefabs_Character/Hero{0}/Hero{0}_Fly", handler.m_CharData.m_iCharID);
-				_PreloadBullet(handler.m_CharData.m_iCharID, bulletPath, _dicHeroBulletPool);
-			}
-		}
-
-		private void PreloadBulletMonster(int monsterId)
-		{
-			string bulletPath = _monsterConfig.GetValue(monsterId.ToString(), "BulletPath");
-
-			if(string.Empty != bulletPath)
-				_PreloadBullet(monsterId, bulletPath, _dicMonsterBulletPool);
-		}
-
-		private void _PreloadBullet(int charId, string bulletPath, Dictionary<int, Stack<BulletBase>> dicBullet)
-		{
-			GameObject go;
-			if(!dicBullet.ContainsKey(charId))
-			{
-				go = ResourceLoader.LoadAssetAndInstantiate(bulletPath, _transform, PositionMgr.vecHidePos);
-				go.SetActive(false);
-				BulletTrace bullet = go.AddComponent<BulletTraceEx>();
-				dicBullet.Add(charId, new Stack<BulletBase>());
-				dicBullet[charId].Push(bullet);
-			}
-
-			go = dicBullet[charId].Pop().gameObject;
-			GameObject clone;
-			for(int j = 0; j < 5; ++j)
-			{
-				clone = Instantiate(go, _transform) as GameObject;
-				dicBullet[charId].Push(clone.GetComponent<BulletTraceEx>());
-			}
-		}
-
 		public void PushBullet(CharHandler charHandler, BulletBase bullet)
 		{
 			CharData charData = charHandler.m_CharData;
@@ -210,15 +172,18 @@ namespace MS
 		{
 			CharData charData = charHandler.m_CharData;
 			Dictionary<int, Stack<BulletBase>> dicBullet = BattleEnum.Enum_CharType.Monster == charData.m_eType ? _dicMonsterBulletPool : _dicHeroBulletPool;
-			if(1 == dicBullet[charData.m_iCharID].Count)
-			{
-				BulletBase bullet = dicBullet[charData.m_iCharID].Peek();
-				GameObject clone = Instantiate(bullet.gameObject, _transform) as GameObject;
-				return clone.GetComponent<BulletBase>();
-			}
-			else
-				return dicBullet[charData.m_iCharID].Pop();
 
+			if(!dicBullet.ContainsKey(charData.m_iCharID))
+				dicBullet.Add(charData.m_iCharID, new Stack<BulletBase>());
+
+			if(dicBullet[charData.m_iCharID].Count > 0)
+				return dicBullet[charData.m_iCharID].Pop();
+			else
+			{
+				string bulletPath = BattleEnum.Enum_CharType.Monster == charData.m_eType ? _monsterConfig.GetValue(charData.m_iCharID.ToString(), "BulletPath") : string.Format("Effect/Prefabs_Character/Hero{0}/Hero{0}_Fly", charData.m_iCharID);
+				GameObject go = ResourceLoader.LoadAssetAndInstantiate(bulletPath, _transform, PositionMgr.vecHidePos);
+				return go.AddComponent<BulletTraceEx>();
+			}		
 		}
 		#endregion
 	}

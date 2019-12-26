@@ -156,10 +156,10 @@ namespace MS
 			m_CharMove.SetAgentEnable(false);
 			m_CharEffect.HideSkillEffect(m_CharData.m_iCurSkillID);
 
-			Vector3 dir = Quaternion.AngleAxis(180f, _rotY) * m_ParentTrans.forward;
-			m_CharSlide.SetValues(dir, 20);
-			m_CharSlide.Slide = true;
-			Invoke("StopSlide", 0.1f);
+			//Vector3 dir = Quaternion.AngleAxis(180f, _rotY) * m_ParentTrans.forward;
+			//m_CharSlide.SetValues(dir, 20);
+			//m_CharSlide.Slide = true;
+			//Invoke("StopSlide", 0.1f);
 
 			BattleManager.GetInst().m_CharInScene.RemoveChar(this);
 
@@ -168,7 +168,16 @@ namespace MS
 				BattleManager.GetInst().IsWaveEnd();
 				if(BattleEnum.Enum_CharType.Monster == m_CharData.m_eType)
 					BattleManager.GetInst().m_BattleScene.Coin += 15;
-			}	
+			}
+			else
+				Invoke("_ToDead", 5f);
+		}
+
+		private void _ToDead()
+		{
+			m_CharData.CurHP = m_CharData.MaxHP;
+			BattleManager.GetInst().m_CharInScene.ReAddChar(this);
+			Revive();
 		}
 
 		public void BornEnd()
