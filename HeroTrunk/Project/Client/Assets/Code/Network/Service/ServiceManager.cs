@@ -51,7 +51,7 @@ namespace MS
 			m_Inst = (ServiceManager)(MonoBehaviour)this;
 
 			m_ServiceDic.Add(MODULE_MAIN_THREAD_SERVICE,	new MainThreadService());
-			m_ServiceDic.Add(MODULE_LOGIN_SERVICE,			new LoginService());
+			m_ServiceDic.Add(MODULE_LOGIN_SERVICE,			new CommonService());
 			m_ServiceDic.Add(MODULE_ROLE_SERVICE,			new PlayerService());
 			m_ServiceDic.Add(MODULE_BATTLE_SERVICE,			new BattleService());
 		}

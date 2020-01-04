@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,56 +21,17 @@ namespace MS
 
 		private Collider m_Collider;
 
-		public bool ColliderEnable
-		{
-			get
-			{
-				if(null == m_Collider)
-					return false;
-				return m_Collider.enabled;
-			}
-			set
-			{
-				if(null == m_Collider)
-					return;
-				m_Collider.enabled = value;
-			}
-		}
-
 		public int TotalWaves	{ get; set; }
-		public int CurWave		{ get; set; }
 
 		public int m_iIndex;
 		
-
 		public List<string[]> m_lstCharID = new List<string[]>();
 		public List<string[]> m_lstCharCount = new List<string[]>();
 		
 
-		private void Awake()
-		{
-			if(SpawnShape.Rectangle == m_Shape)
-			{
-				BoxCollider collider = gameObject.AddComponent<BoxCollider>();
-				collider.size = new Vector3(m_fSizeX, 1f, m_fSizeY);
-				collider.isTrigger = true;
-				m_Collider = collider;
-				ColliderEnable = false;
-			}
-			else if(SpawnShape.Circle == m_Shape)
-			{
-				CapsuleCollider collider = gameObject.AddComponent<CapsuleCollider>();
-				collider.radius = m_fRadius;
-				collider.height = 1f;
-				collider.isTrigger = true;
-				m_Collider = collider;
-				ColliderEnable = false;
-			}
-		}
-
 		public void ShowCharacters(bool bShow) { }
 
-		public void ResetInfo(ConfigRow row, int curWave)
+		public void ResetInfo(ConfigRow row)
 		{
 			m_lstCharID.Clear();
 			m_lstCharCount.Clear();
@@ -85,20 +45,17 @@ namespace MS
 				m_lstCharCount.Add(v2);
 			}
 			TotalWaves = ids.Length;
-			CurWave = curWave;
-			ColliderEnable = true;
 		}
 
-		public void ReleaseChar()
+		public void ReleaseChar(int wave)
 		{
-			CreateCharacters();
+			CreateCharacters(wave);
 		}
 
-		public void CreateCharacters()
+		public void CreateCharacters(int wave)
 		{
-			ColliderEnable = false;
-			string[] ids = m_lstCharID[CurWave];
-			string[] counts = m_lstCharCount[CurWave];
+			string[] ids = m_lstCharID[wave];
+			string[] counts = m_lstCharCount[wave];
 			int count = 0;
 			int indexMonster = 0, indexBoss = 0;
 			for(int i = 0; i < ids.Length; ++i)
@@ -121,7 +78,6 @@ namespace MS
 					}
 				}
 			}
-			++CurWave;
 		}
 
 		#region --编辑器中绘制辅助线----------------------------------------------

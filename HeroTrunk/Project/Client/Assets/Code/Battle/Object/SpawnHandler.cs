@@ -4,21 +4,21 @@ namespace MS
 {
 	public class SpawnHandler : MonoBehaviour
 	{
-		public Transform[]		Heroes;
-		public SpawnNormal[]	Spawns;
+		public Transform[] Heroes;
+		public SpawnNormal[] Spawns;
 
 		private int _iCurSpawnIndex;
 		public int CurSpawnIndex
 		{
 			get { return _iCurSpawnIndex; }
-			set { _iCurSpawnIndex = value; BattleManager.GetInst().m_BattleScene.BigLevel = value; }
+			set { _iCurSpawnIndex = value; BattleMainPanel.GetInst().CurBigLevelText.text = value.ToString(); }
 		}
 
 		private int _iCurWave;
 		public int CurWave
 		{
 			get { return _iCurWave; }
-			set { _iCurWave = value; BattleManager.GetInst().m_BattleScene.SmallLevel = value; }
+			set { _iCurWave = value; BattleMainPanel.GetInst().CurSmallLevelText.text = value.ToString(); }
 		}
 
 		public int CurSpawnId { get; set; }
@@ -44,28 +44,30 @@ namespace MS
 			return BattleCharCreator.CreateHero(BattleEnum.Enum_CharSide.Mine, heroId, heroIndex, Heroes[0].position, Heroes[0].rotation);
 		}
 
-		public void SetSpawnInfo(int curWave)
+		public void SetSpawnInfo(int curSpawnIndex)
 		{
-			ConfigRow row = ConfigData.GetValue("SceneNormal_Client", CurSpawnIndex.ToString());
+			CurSpawnIndex = curSpawnIndex;
+			ConfigRow row = ConfigData.GetValue("NormalScene_Client", curSpawnIndex.ToString());
 			if(row == null)
 				CurSpawnId = -1;
 			else
 			{
 				CurSpawnId = int.Parse(row.GetValue("SpawnId"));
-				Spawns[CurSpawnId].ResetInfo(row, curWave);
-			}	
+				Spawns[CurSpawnId].ResetInfo(row);
+			}
+		}
+
+		public void ReleaseCurWave()
+		{
+			Spawns[CurSpawnId].ReleaseChar(CurWave);
 		}
 
 		public void ReleaseNextWave()
 		{
-			if(Spawns[CurSpawnId].CurWave >= Spawns[CurSpawnId].TotalWaves)
-			{
-				++CurSpawnIndex;
-				SetSpawnInfo(0);
-			}
-
-			Spawns[CurSpawnId].ReleaseChar();
-			CurWave = Spawns[CurSpawnId].CurWave;
+			if(CurWave < Spawns[CurSpawnId].TotalWaves - 1)
+				Database.GetInst().NormalBattleSaveCurWave(PlayerInfo.PlayerId, CurWave + 1);
+			else
+				Database.GetInst().NormalBattleSaveCurSpawn(PlayerInfo.PlayerId, CurSpawnIndex + 1);
 		}
 
 		public SpawnNormal GetCurSpawn()

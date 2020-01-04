@@ -1,30 +1,9 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MS
 {
 	public class BattleScene : MonoBehaviour
 	{
-		public static int CurCoin		{ get; set; }
-		public static int CurBigLv		{ get; set; }
-		public static int CurSmallLv	{ get; set; }
-		public static List<int> m_lstHeroId = new List<int>();
-		public static List<int> m_lstHeroLv = new List<int>();
-
-		private int _iBigLevel;
-		public int BigLevel
-		{
-			get { return _iBigLevel; }
-			set { _iBigLevel = value; BattleMainPanel.GetInst().CurBigLevelText.text = (value + 1).ToString(); Database.GetInst().NormalBattleSaveBigLevel(PlayerInfo.PlayerId, value); }
-		}
-
-		private int _iSmallLevel;
-		public int SmallLevel
-		{
-			get { return _iSmallLevel; }
-			set { _iSmallLevel = value; BattleMainPanel.GetInst().CurSmallLevelText.text = (value + 1).ToString(); Database.GetInst().NormalBattleSaveSmallLevel(PlayerInfo.PlayerId, value); }
-		}
-
 		private int _iCoin;
 		public int Coin
 		{
@@ -36,28 +15,29 @@ namespace MS
 				BattleHeroListPanel.GetInst().SyncCoin();
 				if(_iCoin >= 500f && PlayerInfo.GuideStep == 1)
 					GuidePanel.GetInst().ShowPanel();
-
-				Database.GetInst().NormalBattleSaveCoin(PlayerInfo.PlayerId, _iCoin);
 			}
 		}
 
 		public virtual void OnBattleInit()
 		{
-			//BattleCamera.GetInst().SetPos(SpawnHandler.GetInst().Heroes[0].position);
-			Invoke("OnBattleStart", 1);
+			Database.GetInst().SyncBattleInfo(PlayerInfo.PlayerId);
+		}
+
+		public void SetBattleHeroInfo(int heroId, int heroLv, int heroIndex)
+		{
+			BattleManager.GetInst().AddHero(heroId, heroIndex);
 		}
 
 		public virtual void OnBattleStart()
 		{
+			Invoke("_OnBattleStart", 1);
+		}
+
+		private void _OnBattleStart()
+		{
 			BattleManager.GetInst().BattleCam.enabled = true;
 			BattleSceneTimer.GetInst().BeginTimer();
-			BattleManager.GetInst().m_BattleScene.Coin = CurCoin;
-			SpawnHandler.GetInst().CurSpawnIndex = CurBigLv;
-			SpawnHandler.GetInst().SetSpawnInfo(CurSmallLv);
-			SpawnHandler.GetInst().ReleaseNextWave();
-
-			for(int i = 0; i < m_lstHeroId.Count; ++i)
-				BattleManager.GetInst().AddHero(m_lstHeroId[i], i);
+			SpawnHandler.GetInst().ReleaseNextWave();	
 		}
 	}
 }

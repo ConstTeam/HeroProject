@@ -141,7 +141,7 @@ namespace MS
 			{
 				if(v.IsToggleOn())
 				{
-					BattleManager.GetInst().m_BattleScene.Coin -= _iAddNeedCoin;
+					Database.GetInst().NormalBattleChangeCoin(PlayerInfo.PlayerId, -_iAddNeedCoin);
 					BattleManager.GetInst().AddHero(v.HeroId, _iCurAddIndex);
 					break;
 				}

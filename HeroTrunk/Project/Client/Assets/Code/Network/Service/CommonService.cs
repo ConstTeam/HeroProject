@@ -1,6 +1,6 @@
 namespace MS
 {
-	public class LoginService : IService
+	public class CommonService : IService
 	{
 		private const int SERVER_MESSAGEBOX		= 1;
 		private const int SERVER_STRING			= 2;

@@ -106,7 +106,7 @@ namespace MS
 
 		private static void SetMonsterData(CharHandler charHandler)
 		{
-			int lv = BattleManager.GetInst().m_BattleScene.BigLevel * 10 + BattleManager.GetInst().m_BattleScene.SmallLevel;
+			int lv = SpawnHandler.GetInst().CurSpawnIndex * 10 + SpawnHandler.GetInst().CurWave;
 
 			CharData charData = charHandler.m_CharData;
 			charData.m_eSide = BattleEnum.Enum_CharSide.Enemy;

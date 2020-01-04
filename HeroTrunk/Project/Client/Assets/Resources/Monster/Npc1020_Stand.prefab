@@ -1090,6 +1090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46505135e5ee209409460b230dc81ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoneRoot: {fileID: 4000010998759278}
   Head: {fileID: 4000010861819642}
   LeftHand: {fileID: 4000012053761246}
   RightHand: {fileID: 4000010987120648}

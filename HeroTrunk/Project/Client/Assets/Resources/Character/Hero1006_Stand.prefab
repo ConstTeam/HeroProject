@@ -1763,6 +1763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46505135e5ee209409460b230dc81ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoneRoot: {fileID: 497076}
   Head: {fileID: 497040}
   LeftHand: {fileID: 497014}
   RightHand: {fileID: 496996}

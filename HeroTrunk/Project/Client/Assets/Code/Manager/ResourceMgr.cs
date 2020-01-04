@@ -65,7 +65,7 @@ namespace MS
 		{
 			trans.gameObject.SetActive(false);
 			_stkSoulBall.Push(trans);
-			BattleManager.GetInst().m_BattleScene.Coin += v;
+			Database.GetInst().NormalBattleChangeCoin(PlayerInfo.PlayerId, v);
 		}
 	}
 }

@@ -57,7 +57,7 @@ namespace MS
 
 		private void Upgrade()
 		{
-			BattleManager.GetInst().m_BattleScene.Coin -= NeedCoin;
+			Database.GetInst().NormalBattleChangeCoin(PlayerInfo.PlayerId, -NeedCoin);
 			SetLevel(HeroLevel + 1);
 		}
 

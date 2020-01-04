@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MS
@@ -24,57 +23,16 @@ namespace MS
 		public void OnLogin(string account)
 		{
 			string playerId = ES3.FileExists("Account.es") && ES3.KeyExists(account, "Account.es") ? ES3.Load<string>(account, "Account.es") : AddPlayer(account);
-			ByteBuffer data = new ByteBuffer(1);
-			data.writeByte(2);
-			data.writeByte(PlayerService.PLAYER_INFO);
-			data.writeBoolean(true);
-			data.writeUTF(playerId);
-
-			string filePath = string.Empty;
-			filePath = string.Format("{0}/PlayerInfo.es", playerId);
-			data.writeUTF(ES3.Load<string>("PlayerName", filePath));
-			data.writeByte(ES3.Load<int>("GuideStep", filePath));
+			SyncPlayerInfo(playerId);
 
 			string dirPath = string.Format("{0}/HeroInfo", playerId);
 			string[] arr = ES3.GetFiles(dirPath);
-			data.writeByte(arr.Length);
-			List<int> lstHero = new List<int>();
 			for(int i = 0; i < arr.Length; ++i)
-			{
-				filePath = string.Format("{0}/HeroInfo/{1}", playerId, arr[i]);
-				data.writeInt(ES3.Load<int>("ID", filePath));
-				data.writeInt(ES3.Load<int>("Star", filePath));
-				data.writeInt(ES3.Load<int>("MaxPower", filePath));
-				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Attack",		filePath) * 100));
-				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Defence",		filePath) * 100));
-				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("HP",			filePath) * 100));
-				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("CriticalRatio",	filePath) * 100));
-				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("BlockRatio",	filePath) * 100));
-				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Force",			filePath) * 100));
-				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Strategy",		filePath) * 100));
-				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Rule",			filePath) * 100));
-				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Polity",		filePath) * 100));
-				data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Charm",			filePath) * 100));
-			}
+				SyncHero(playerId, arr[i]);
 
-			filePath = string.Format("{0}/NormalBattle.es", playerId);
-			data.writeInt(ES3.Load<int>("Coin", filePath));
-			data.writeInt(ES3.Load<int>("BigLevel", filePath));
-			data.writeInt(ES3.Load<int>("SmallLevel", filePath));
-
-			int count = 0;
-			for(int i = 0; i < 5; ++i)
-			{
-				if(ES3.KeyExists(string.Format("HeroID{0}", i), filePath))
-					++count;
-			}
-			data.writeByte(count);
-			for(int i = 0; i < count; ++i)
-			{
-				data.writeInt(ES3.Load<int>(string.Format("HeroID{0}", i), filePath));
-				data.writeInt(ES3.Load<int>(string.Format("HeroLevel{0}", i), filePath));
-			}	
-
+			ByteBuffer data = new ByteBuffer();
+			data.writeByte(2);
+			data.writeByte(PlayerService.PLAYER_LOGIN_END);
 			ServiceManager.PostMessageShortEx(data);
 		}
 
@@ -90,12 +48,13 @@ namespace MS
 			ES3.Save<int>("GuideStep", 0, filePath);
 
 			AddHero(sPlayerId, 1006);
-			AddHero(sPlayerId, 1007);
-			AddHero(sPlayerId, 1008);
+			AddHero(sPlayerId, 1020);
 
-			NormalBattleSaveCoin(sPlayerId, 0);
-			NormalBattleSaveBigLevel(sPlayerId, 0);
-			NormalBattleSaveSmallLevel(sPlayerId, 0);
+			filePath = string.Format("{0}/NormalBattle.es", sPlayerId);
+			ES3.Save<int>("Coin", 0, filePath);
+			ES3.Save<int>("CurSpawn", 0, filePath);
+			ES3.Save<int>("CurWave", 0, filePath);
+			ES3.Save<int>("HighestSpawn", 0, filePath);
 
 			return sPlayerId;
 		}
@@ -118,7 +77,78 @@ namespace MS
 			ES3.Save<float>("Polity",			float.Parse(row.GetValue("Polity")), filePath);
 			ES3.Save<float>("Charm",			float.Parse(row.GetValue("Charm")), filePath);
 		}
+		#region --Get--------------------------------------------------------------------
+		private void SyncPlayerInfo(string playerId)
+		{
+			ByteBuffer data = new ByteBuffer();
+			data.writeByte(2);
+			data.writeByte(PlayerService.PLAYER_INFO);
+			data.writeBoolean(true);
+			data.writeUTF(playerId);
+			string filePath = string.Format("{0}/PlayerInfo.es", playerId);
+			data.writeUTF(ES3.Load<string>("PlayerName", filePath));
+			data.writeByte(ES3.Load<int>("GuideStep", filePath));
+			ServiceManager.PostMessageShortEx(data);
+		}
 
+		private void SyncHero(string playerId, string heroId)
+		{
+			ByteBuffer data = new ByteBuffer();
+			data.writeByte(2);
+			data.writeByte(PlayerService.PLAYER_HERO);
+			string filePath = string.Format("{0}/HeroInfo/{1}", playerId, heroId);
+			data.writeInt(ES3.Load<int>("ID", filePath));
+			data.writeInt(ES3.Load<int>("Star", filePath));
+			data.writeInt(ES3.Load<int>("MaxPower", filePath));
+			data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Attack", filePath) * 100));
+			data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Defence", filePath) * 100));
+			data.writeInt(Mathf.FloorToInt(ES3.Load<float>("HP", filePath) * 100));
+			data.writeInt(Mathf.FloorToInt(ES3.Load<float>("CriticalRatio", filePath) * 100));
+			data.writeInt(Mathf.FloorToInt(ES3.Load<float>("BlockRatio", filePath) * 100));
+			data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Force", filePath) * 100));
+			data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Strategy", filePath) * 100));
+			data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Rule", filePath) * 100));
+			data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Polity", filePath) * 100));
+			data.writeInt(Mathf.FloorToInt(ES3.Load<float>("Charm", filePath) * 100));
+			ServiceManager.PostMessageShortEx(data);
+		}
+
+		public void SyncBattleInfo(string playerId)
+		{
+			string filePath = string.Format("{0}/NormalBattle.es", playerId);
+			SyncCoin(ES3.Load<int>("Coin", filePath));
+			SyncCurSpawn(ES3.Load<int>("CurSpawn", filePath));
+			SyncCurWave(ES3.Load<int>("CurWave", filePath));
+			SyncHighestSpawn(ES3.Load<int>("HighestSpawn", filePath));
+
+			int count = 0;
+			for(int i = 0; i < 5; ++i)
+			{
+				if(ES3.KeyExists(string.Format("HeroID{0}", i), filePath))
+					++count;
+			}
+			for(int i = 0; i < count; ++i)
+				SyncBattleHero(playerId, i);
+
+			ByteBuffer data = new ByteBuffer();
+			data.writeByte(102);
+			data.writeByte(BattleService.BATTLE_START);
+			ServiceManager.PostMessageShortEx(data);
+		}
+
+		public void SyncBattleHero(string playerId, int index)
+		{
+			ByteBuffer data = new ByteBuffer();
+			data.writeByte(102);
+			data.writeByte(BattleService.BATTLE_HERO);
+			string filePath = string.Format("{0}/NormalBattle.es", playerId);
+			data.writeInt(ES3.Load<int>(string.Format("HeroID{0}", index), filePath));
+			data.writeInt(ES3.Load<int>(string.Format("HeroLevel{0}", index), filePath));
+			ServiceManager.PostMessageShortEx(data);
+		}
+		#endregion
+
+		#region --Set--------------------------------------------------------------------
 		#region --Guide------
 		public void SetGuideStep(string playerId, int guideStep)
 		{
@@ -128,22 +158,91 @@ namespace MS
 		#endregion
 
 		#region --Normal Battle------
-		public void NormalBattleSaveCoin(string playerId, int coin)
+		public void NormalBattleChangeCoin(string playerId, int v)
 		{
 			string filePath = string.Format("{0}/NormalBattle.es", playerId);
+			int coin = ES3.Load<int>("Coin", filePath) + v;
 			ES3.Save<int>("Coin", coin, filePath);
+			SyncCoin(coin);
 		}
 
-		public void NormalBattleSaveBigLevel(string playerId, int bigLevel)
+		private void SyncCoin(int coin)
 		{
-			string filePath = string.Format("{0}/NormalBattle.es", playerId);
-			ES3.Save<int>("BigLevel", bigLevel, filePath);
+			ByteBuffer data = new ByteBuffer();
+			data.writeByte(102);
+			data.writeByte(BattleService.BATTLE_COIN);
+			data.writeInt(coin);
+			ServiceManager.PostMessageShortEx(data);
 		}
 
-		public void NormalBattleSaveSmallLevel(string playerId, int smallLevel)
+		public void NormalBattleSaveCurSpawn(string playerId, int curSpawn)
 		{
 			string filePath = string.Format("{0}/NormalBattle.es", playerId);
-			ES3.Save<int>("SmallLevel", smallLevel, filePath);
+			ES3.Save<int>("CurSpawn", curSpawn, filePath);
+
+			filePath = string.Format("{0}/NormalBattle.es", playerId);
+			if(curSpawn > ES3.Load<int>("HighestSpawn", filePath))
+			{
+				ES3.Save<int>("HighestSpawn", curSpawn, filePath);
+				ConfigTable tbl = ConfigData.GetValue("NormalTask_Client");
+				if(tbl.m_Data.ContainsKey(curSpawn.ToString()))
+				{
+					ConfigRow row = tbl.GetRow(curSpawn.ToString());
+					switch(row.GetValue("Type"))
+					{
+						case "1":
+							AddHero(playerId, int.Parse(row.GetValue("Value")));
+							break;
+					}
+				}
+			}
+			SyncCurSpawn(curSpawn);
+		}
+
+		private void SyncCurSpawn(int curSpawn)
+		{
+			ByteBuffer data = new ByteBuffer();
+			data.writeByte(102);
+			data.writeByte(BattleService.BATTLE_CUR_SPAWN);
+			data.writeInt(curSpawn);
+			ServiceManager.PostMessageShortEx(data);
+		}
+
+		public void NormalBattleSaveCurWave(string playerId, int curWave)
+		{
+			string filePath = string.Format("{0}/NormalBattle.es", playerId);
+			ES3.Save<int>("CurWave", curWave, filePath);
+			SyncCurWave(curWave);
+
+			ByteBuffer data = new ByteBuffer();
+			data.writeByte(102);
+			data.writeByte(BattleService.BATTLE_RELEASE_CHAR);
+			ServiceManager.PostMessageShortEx(data);
+		}
+
+		private void SyncCurWave(int curWave)
+		{
+			ByteBuffer data = new ByteBuffer();
+			data.writeByte(102);
+			data.writeByte(BattleService.BATTLE_CUR_WAVE);
+			data.writeInt(curWave);
+			ServiceManager.PostMessageShortEx(data);
+		}
+
+		public void NormalBattleSaveHighestSpawn(string playerId, int highestSpawn)
+		{
+			string filePath = string.Format("{0}/NormalBattle.es", playerId);
+			ES3.Save<int>("HighestSpawn", highestSpawn, filePath);
+			SyncHighestSpawn(highestSpawn);
+		}
+
+		private void SyncHighestSpawn(int highestSpawn)
+		{
+			ByteBuffer data = new ByteBuffer();
+			data.writeByte(102);
+			data.writeByte(BattleService.BATTLE_HIGHEST_SPAWN);
+			data.writeInt(highestSpawn);		
+			ServiceManager.PostMessageShortEx(data);
 		}
 
 		public void NormalBattleAddHero(string playerId, int heroIndex, int heroId)
@@ -152,12 +251,7 @@ namespace MS
 			ES3.Save<int>(string.Format("HeroID{0}", heroIndex), heroId, filePath);
 			ES3.Save<int>(string.Format("HeroLevel{0}", heroIndex), 1, filePath);
 		}
-
-		public void NormalBattleSaveHeroLevel(string playerId, int heroIndex, int level)
-		{
-			string filePath = string.Format("{0}/NormalBattle.es", playerId);
-			ES3.Save<int>(string.Format("HeroLevel{0}", heroIndex), level, filePath);
-		}
+		#endregion
 		#endregion
 	}
 }

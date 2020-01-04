@@ -204,7 +204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e66d485681536d34ba7417d036e890a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeroBtn: {fileID: 0}
   CurBigLevelText: {fileID: 114296339846693572}
   CurSmallLevelText: {fileID: 114052360395069104}
   CoinText: {fileID: 114233028377744660}
