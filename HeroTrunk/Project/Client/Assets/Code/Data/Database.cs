@@ -118,7 +118,6 @@ namespace MS
 			string filePath = string.Format("{0}/NormalBattle.es", playerId);
 			SyncCoin(ES3.Load<int>("Coin", filePath));
 			SyncCurSpawn(ES3.Load<int>("CurSpawn", filePath));
-			SyncCurWave(ES3.Load<int>("CurWave", filePath));
 			SyncHighestSpawn(ES3.Load<int>("HighestSpawn", filePath));
 
 			int count = 0;
@@ -134,6 +133,8 @@ namespace MS
 			data.writeByte(102);
 			data.writeByte(BattleService.BATTLE_START);
 			ServiceManager.PostMessageShortEx(data);
+
+			SyncCurWave(ES3.Load<int>("CurWave", filePath));
 		}
 
 		public void SyncBattleHero(string playerId, int index)
@@ -179,6 +180,8 @@ namespace MS
 		{
 			string filePath = string.Format("{0}/NormalBattle.es", playerId);
 			ES3.Save<int>("CurSpawn", curSpawn, filePath);
+			SyncCurSpawn(curSpawn);
+			NormalBattleSaveCurWave(playerId, 0);
 
 			filePath = string.Format("{0}/NormalBattle.es", playerId);
 			if(curSpawn > ES3.Load<int>("HighestSpawn", filePath))
@@ -196,7 +199,6 @@ namespace MS
 					}
 				}
 			}
-			SyncCurSpawn(curSpawn);
 		}
 
 		private void SyncCurSpawn(int curSpawn)
@@ -213,11 +215,6 @@ namespace MS
 			string filePath = string.Format("{0}/NormalBattle.es", playerId);
 			ES3.Save<int>("CurWave", curWave, filePath);
 			SyncCurWave(curWave);
-
-			ByteBuffer data = new ByteBuffer();
-			data.writeByte(102);
-			data.writeByte(BattleService.BATTLE_RELEASE_CHAR);
-			ServiceManager.PostMessageShortEx(data);
 		}
 
 		private void SyncCurWave(int curWave)

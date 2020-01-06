@@ -11,14 +11,14 @@ namespace MS
 		public int CurSpawnIndex
 		{
 			get { return _iCurSpawnIndex; }
-			set { _iCurSpawnIndex = value; BattleMainPanel.GetInst().CurBigLevelText.text = value.ToString(); }
+			set { _iCurSpawnIndex = value; BattleMainPanel.GetInst().CurBigLevelText.text = (value + 1).ToString() ; }
 		}
 
 		private int _iCurWave;
 		public int CurWave
 		{
 			get { return _iCurWave; }
-			set { _iCurWave = value; BattleMainPanel.GetInst().CurSmallLevelText.text = value.ToString(); }
+			set { _iCurWave = value; BattleMainPanel.GetInst().CurSmallLevelText.text = (value + 1).ToString(); }
 		}
 
 		public int CurSpawnId { get; set; }

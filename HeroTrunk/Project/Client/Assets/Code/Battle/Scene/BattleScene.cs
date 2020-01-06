@@ -37,7 +37,6 @@ namespace MS
 		{
 			BattleManager.GetInst().BattleCam.enabled = true;
 			BattleSceneTimer.GetInst().BeginTimer();
-			SpawnHandler.GetInst().ReleaseNextWave();	
 		}
 	}
 }

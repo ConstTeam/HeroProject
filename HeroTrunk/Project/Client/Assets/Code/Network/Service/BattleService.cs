@@ -8,7 +8,6 @@ namespace MS
 		public const int BATTLE_CUR_WAVE		= 4;
 		public const int BATTLE_HIGHEST_SPAWN	= 5;
 		public const int BATTLE_HERO			= 6;
-		public const int BATTLE_RELEASE_CHAR	= 7;
 
 		public override void ProcessMessage(ConnectBase conn, ByteBuffer data)
 		{
@@ -33,6 +32,7 @@ namespace MS
 				case BATTLE_CUR_WAVE:
 				{
 					SpawnHandler.GetInst().CurWave = data.readInt();
+					SpawnHandler.GetInst().ReleaseCurWave();
 					break;
 				}
 				case BATTLE_HIGHEST_SPAWN:
@@ -46,11 +46,6 @@ namespace MS
 					int size = data.readByte();
 					for(int i = 0; i < size; ++i)
 						BattleManager.GetInst().m_BattleScene.SetBattleHeroInfo(data.readInt(), data.readInt(), i);
-					break;
-				}
-				case BATTLE_RELEASE_CHAR:
-				{
-					SpawnHandler.GetInst().ReleaseCurWave();
 					break;
 				}
 			}
