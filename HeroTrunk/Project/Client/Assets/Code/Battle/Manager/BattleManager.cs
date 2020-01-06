@@ -82,7 +82,7 @@ namespace MS
 		{
 			CharHandler h = SpawnHandler.GetInst().CreateHeroM(heroId, heroIndex);
 			h.EnableChar();
-			BattleHeroListPanel.GetInst().Refresh();
+			BattleHeroListPanel.GetInst().InsertBattleHero(heroId, heroLv, heroIndex);
 			return h;
 		}
 

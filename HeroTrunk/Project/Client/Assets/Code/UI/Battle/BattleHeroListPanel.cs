@@ -59,26 +59,11 @@ namespace MS
 			_bShow = !_bShow;
 		}
 
-		public void Refresh()
+		public void InsertBattleHero(int heroId, int heroLv, int heroIndex)
 		{
-			List<CharHandler> lst1 = BattleManager.GetInst().m_CharInScene.GetGeneral(BattleEnum.Enum_CharSide.Mine);
-			List<CharHandler> lst2 = BattleManager.GetInst().m_CharInScene.GetOfficial(BattleEnum.Enum_CharSide.Mine);
-			int heroCount = lst1.Count + lst2.Count;
-
-			int i = 0; int heroId;
-			for(; i < lst1.Count; ++i)
-			{
-				heroId = lst1[i].m_CharData.m_iCharID;
-				_lstHeroItem[i].ShowHero(heroId);
-				_dicHeroInfoItem[heroId].DisableToggle();
-			}	
-			for(; i < heroCount; ++i)
-			{
-				heroId = lst2[i].m_CharData.m_iCharID;
-				_lstHeroItem[i].ShowHero(heroId);
-				_dicHeroInfoItem[heroId].DisableToggle();
-			}
-			_addHeroItem.SetState(i);
+			_lstHeroItem[heroIndex].ShowHero(heroId);
+			_dicHeroInfoItem[heroId].DisableToggle();
+			_addHeroItem.SetState(heroIndex);
 		}
 
 		public void SyncCoin()

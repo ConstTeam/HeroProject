@@ -5,7 +5,6 @@ namespace MS
 {
 	public class CharMove : MonoBehaviour
 	{
-
 		private CharHandler _charHandler;
 		private CharData _charData;
 		private Transform _transform;
@@ -39,7 +38,7 @@ namespace MS
 			_agent.radius = radius;
 		}
 
-		public void SetObstacleAvoidanceType(UnityEngine.AI.ObstacleAvoidanceType type)
+		public void SetObstacleAvoidanceType(ObstacleAvoidanceType type)
 		{
 			_agent.obstacleAvoidanceType = type;
 		}
