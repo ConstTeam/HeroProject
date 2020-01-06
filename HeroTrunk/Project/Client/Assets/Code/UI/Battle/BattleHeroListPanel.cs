@@ -17,15 +17,20 @@ namespace MS
 		private GameObject _gameObject;
 		private bool _bShow = false;
 
-		private static BattleHeroListPanel _inst;
+		public static BattleHeroListPanel m_Inst;
 		public static BattleHeroListPanel GetInst()
 		{
-			return _inst;
+			return m_Inst;
+		}
+
+		private void OnDestroy()
+		{
+			m_Inst = null;
 		}
 
 		private void Awake()
 		{
-			_inst = this;
+			m_Inst = this;
 			_gameObject = gameObject;
 			_anim = GetComponent<Animation>();
 			BattleHeroListItem item;
@@ -76,11 +81,6 @@ namespace MS
 			_addHeroItem.SetState(i);
 		}
 
-		private void OnDestroy()
-		{
-			_inst = null;
-		}
-
 		public void SyncCoin()
 		{
 			for(int i = 0; i < _lstHeroItem.Count; ++i)
@@ -101,28 +101,28 @@ namespace MS
 
 		private Dictionary<int, BattleHeroListInfoItem> _dicHeroInfoItem = new Dictionary<int, BattleHeroListInfoItem>();
 		private int _iCurAddIndex;
-		private int _iAddNeedCoin;
 
 		private void InitAddPanel()
 		{
 			List<int> lst = HeroAll.GetHeroList();
-			BattleHeroListInfoItem item;
 			for(int i = 0; i < lst.Count; ++i)
-			{
-				item = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/HeroList/BattleHeroListInfoItem", AddContentTrans).GetComponent<BattleHeroListInfoItem>();
-				item.Init(lst[i], Group);
-				_dicHeroInfoItem.Add(lst[i], item);
-			}
+				InsertHeroItem(lst[i]);
 
 			AddCloseBtn.onClick.AddListener(CloseAddPanel);
 			AddOkBtn.onClick.AddListener(AddOk);
 		}
 
+		public void InsertHeroItem(int heroId)
+		{
+			BattleHeroListInfoItem item = ResourceLoader.LoadAssetAndInstantiate("PrefabUI/Battle/HeroList/BattleHeroListInfoItem", AddContentTrans).GetComponent<BattleHeroListInfoItem>();
+			item.Init(heroId, Group);
+			_dicHeroInfoItem.Add(heroId, item);
+		}
+
 		public void ShowAddPanel(bool bShow, int index, int coin)
 		{
 			_iCurAddIndex = index;
-			_iAddNeedCoin = coin;
-			AddNeedCoinText.text = _iAddNeedCoin.ToString();
+			AddNeedCoinText.text = coin.ToString();
 			_anim["BattleHeroListChange"].speed = 1;
 			_anim["BattleHeroListChange"].time = 0;
 			_anim.Play("BattleHeroListChange");
@@ -141,8 +141,7 @@ namespace MS
 			{
 				if(v.IsToggleOn())
 				{
-					Database.GetInst().NormalBattleChangeCoin(PlayerInfo.PlayerId, -_iAddNeedCoin);
-					BattleManager.GetInst().AddHero(v.HeroId, _iCurAddIndex);
+					Database.GetInst().NormalBattleAddHero(PlayerInfo.PlayerId, v.HeroId, _iCurAddIndex);
 					break;
 				}
 			}

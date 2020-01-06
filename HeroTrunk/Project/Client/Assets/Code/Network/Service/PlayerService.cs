@@ -27,14 +27,16 @@ namespace MS
 				}
 				case PLAYER_HERO:
 				{
-					int id = data.readInt();
+					int heroId = data.readInt();
 					int star = data.readInt();
 					int maxPower = data.readInt();
 					float[] mainProperty = new float[10];
 					for(int j = 0; j < 10; ++j)
 						mainProperty[j] = data.readInt() / 100f;
 
-					HeroAll.SetHeroInfo(id, new HeroInfo(id, star, maxPower, mainProperty));
+					HeroAll.SetHeroInfo(heroId, new HeroInfo(heroId, star, maxPower, mainProperty));
+					if(BattleHeroListPanel.m_Inst != null)
+						BattleHeroListPanel.GetInst().InsertHeroItem(heroId);
 					break;
 				}
 			}

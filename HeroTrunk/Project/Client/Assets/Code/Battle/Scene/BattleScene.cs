@@ -23,11 +23,6 @@ namespace MS
 			Database.GetInst().SyncBattleInfo(PlayerInfo.PlayerId);
 		}
 
-		public void SetBattleHeroInfo(int heroId, int heroLv, int heroIndex)
-		{
-			BattleManager.GetInst().AddHero(heroId, heroIndex);
-		}
-
 		public virtual void OnBattleStart()
 		{
 			Invoke("_OnBattleStart", 1);

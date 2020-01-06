@@ -43,9 +43,7 @@ namespace MS
 				}
 				case BATTLE_HERO:
 				{
-					int size = data.readByte();
-					for(int i = 0; i < size; ++i)
-						BattleManager.GetInst().m_BattleScene.SetBattleHeroInfo(data.readInt(), data.readInt(), i);
+					BattleManager.GetInst().AddHero(data.readInt(), data.readInt(), data.readByte());
 					break;
 				}
 			}

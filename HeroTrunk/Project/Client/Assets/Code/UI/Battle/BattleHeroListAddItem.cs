@@ -24,7 +24,7 @@ namespace MS
 			if(index < 5)
 			{
 				_curIndex = index;
-				_iNeedCoin = NeedCoin();
+				_iNeedCoin = ConfigMgr.BattleHeroLevelUpCoin(_curIndex, 0);
 				NeedCoinText.text = _iNeedCoin.ToString();
 				SetBtnState();
 			}
@@ -39,13 +39,7 @@ namespace MS
 
 		private void OpenAddPanel()
 		{
-			BattleHeroListPanel.GetInst().ShowAddPanel(true, _curIndex, NeedCoin());
-		}
-
-		private int NeedCoin()
-		{
-			string f = ConfigData.GetValue("HeroLevelUp_Client", _curIndex.ToString(), "CoinFormula").Replace("Lv", "0");
-			return Mathf.FloorToInt(FormulaManager.Arithmetic(f));
+			BattleHeroListPanel.GetInst().ShowAddPanel(true, _curIndex, _iNeedCoin);
 		}
 	}
 }

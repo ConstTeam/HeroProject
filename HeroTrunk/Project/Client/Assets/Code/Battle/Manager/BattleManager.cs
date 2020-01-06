@@ -78,13 +78,11 @@ namespace MS
 			return m_MPData;
 		}
 
-		public CharHandler AddHero(int heroId, int heroIndex)
+		public CharHandler AddHero(int heroId, int heroLv, int heroIndex)
 		{
 			CharHandler h = SpawnHandler.GetInst().CreateHeroM(heroId, heroIndex);
 			h.EnableChar();
 			BattleHeroListPanel.GetInst().Refresh();
-
-			Database.GetInst().NormalBattleAddHero(PlayerInfo.PlayerId, heroIndex, heroId);
 			return h;
 		}
 
