@@ -7,8 +7,10 @@ namespace MS
 		public const int BATTLE_CUR_SPAWN		= 3;
 		public const int BATTLE_CUR_WAVE		= 4;
 		public const int BATTLE_HIGHEST_SPAWN	= 5;
-		public const int BATTLE_HERO			= 6;
-		public const int BATTLE_TASK			= 7;
+		public const int BATTLE_TASK			= 6;
+		public const int BATTLE_HERO			= 7;
+		public const int BATTLE_HERO_LEVEL		= 8;
+
 
 		public override void ProcessMessage(ConnectBase conn, ByteBuffer data)
 		{
@@ -42,15 +44,19 @@ namespace MS
 					//
 					break;
 				}
+				case BATTLE_TASK:
+				{
+					int taskId = data.readInt();
+					BattleTaskFinishPanel.GetInst().Show(taskId);
+					break;
+				}
 				case BATTLE_HERO:
 				{
 					BattleManager.GetInst().AddHero(data.readInt(), data.readInt(), data.readByte());
 					break;
 				}
-				case BATTLE_TASK:
+				case BATTLE_HERO_LEVEL:
 				{
-					int taskId = data.readInt();
-					BattleTaskFinishPanel.GetInst().Show(taskId);
 					break;
 				}
 			}

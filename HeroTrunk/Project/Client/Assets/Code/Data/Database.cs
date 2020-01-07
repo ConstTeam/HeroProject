@@ -237,7 +237,7 @@ namespace MS
 
 		public void NormalBattleAddHero(string playerId, int heroId, int heroIndex)
 		{
-			NormalBattleChangeCoin(playerId, -ConfigMgr.BattleHeroLevelUpCoin(heroIndex, 0));
+			NormalBattleChangeCoin(playerId, -ConfigMgr.BattleHeroLevelUpCoin(heroIndex, 1));
 
 			string filePath = string.Format("{0}/NormalBattle", playerId);
 			ES3.Save<int>(string.Format("HeroID{0}", heroIndex), heroId, filePath);
@@ -255,6 +255,21 @@ namespace MS
 			data.writeInt(ES3.Load<int>(string.Format("HeroID{0}", index), filePath));
 			data.writeInt(ES3.Load<int>(string.Format("HeroLevel{0}", index), filePath));
 			data.writeByte(index);
+			ServiceManager.PostMessageShortEx(data);
+		}
+
+		public void NormalBattleHeroLevelUp(string playerId, int heroIndex)
+		{
+			string filePath = string.Format("{0}/NormalBattle", playerId);
+			int newLv = ES3.Load<int>(string.Format("HeroLevel{0}", heroIndex), filePath) + 1;
+			NormalBattleChangeCoin(playerId, -ConfigMgr.BattleHeroLevelUpCoin(heroIndex, newLv));
+			ES3.Save<int>(string.Format("HeroLevel{0}", heroIndex), newLv, filePath);
+
+			ByteBuffer data = new ByteBuffer();
+			data.writeByte(102);
+			data.writeByte(BattleService.BATTLE_HERO_LEVEL);
+			data.writeInt(heroIndex);
+			data.writeInt(newLv);
 			ServiceManager.PostMessageShortEx(data);
 		}
 

@@ -182,9 +182,12 @@ namespace MS
 
 		public void BornEnd()
 		{
-			m_CharState.enabled = true;
-			m_CharMove.SetAgentEnable(true);
-			ToIdle();
+			if(m_CharData.m_eState == BattleEnum.Enum_CharState.Born)
+			{
+				m_CharState.enabled = true;
+				m_CharMove.SetAgentEnable(true);
+				ToIdle();
+			}
 		}
 
 		public void ReleaseSkill(int skillId)

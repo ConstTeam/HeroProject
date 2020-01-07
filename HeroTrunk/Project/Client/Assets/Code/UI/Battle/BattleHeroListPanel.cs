@@ -73,6 +73,11 @@ namespace MS
 			_addHeroItem.SetBtnState();
 		}
 
+		public void SetHeroLevel(int heroIndex, int heroLv)
+		{
+			_lstHeroItem[heroIndex].SetLevel(heroLv);
+		}
+
 		public Vector3 GetShowBtnPos()
 		{
 			return ShowBtn.transform.position;

@@ -86,6 +86,11 @@ namespace MS
 			return h;
 		}
 
+		public void HeroLevelUp(int heroIndex, int heroLv)
+		{
+			BattleHeroListPanel.GetInst().SetHeroLevel(heroIndex, heroLv);
+		}
+
 		public HeroInfo GetHeroInfoMine(int heroId)
 		{
 			return HeroAll.GetHeroInfo(heroId);

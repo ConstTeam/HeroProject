@@ -34,7 +34,7 @@ namespace MS
 		private void Awake()
 		{
 			_gameObject = gameObject;
-			UpgradBtn.onClick.AddListener(Upgrade);
+			UpgradBtn.onClick.AddListener(OnLevelUp);
 			_gameObject.SetActive(false);
 		}
 
@@ -55,13 +55,12 @@ namespace MS
 			UpgradBtn.interactable = BattleManager.GetInst().m_BattleScene.Coin >= NeedCoin;
 		}
 
-		private void Upgrade()
+		private void OnLevelUp()
 		{
-			Database.GetInst().NormalBattleChangeCoin(PlayerInfo.PlayerId, -NeedCoin);
-			SetLevel(HeroLevel + 1);
+			Database.GetInst().NormalBattleHeroLevelUp(PlayerInfo.PlayerId, HeroIndex);
 		}
 
-		private void SetLevel(int level)
+		public void SetLevel(int level)
 		{
 			HeroLevel = level;
 			_charHandler.m_CharData.CurAttack = _charHandler.m_CharData.OriAtk * HeroLevel;
