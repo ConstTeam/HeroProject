@@ -61,9 +61,9 @@ namespace MS
 
 		public void InsertBattleHero(int heroId, int heroLv, int heroIndex)
 		{
-			_lstHeroItem[heroIndex].ShowHero(heroId);
+			_lstHeroItem[heroIndex].ShowHero(heroId, heroLv);
 			_dicHeroInfoItem[heroId].DisableToggle();
-			_addHeroItem.SetState(heroIndex);
+			_addHeroItem.SetState(heroIndex + 1);
 		}
 
 		public void SyncCoin()

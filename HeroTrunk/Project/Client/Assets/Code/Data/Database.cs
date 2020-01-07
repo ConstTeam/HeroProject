@@ -185,9 +185,11 @@ namespace MS
 							int heroId = int.Parse(row.GetValue("Value"));
 							AddHero(playerId, heroId);
 							SyncHero(playerId, heroId);
+							
 							break;
 						}
 					}
+					SyncBattleTask(curSpawn);
 				}
 			}
 		}
@@ -253,6 +255,15 @@ namespace MS
 			data.writeInt(ES3.Load<int>(string.Format("HeroID{0}", index), filePath));
 			data.writeInt(ES3.Load<int>(string.Format("HeroLevel{0}", index), filePath));
 			data.writeByte(index);
+			ServiceManager.PostMessageShortEx(data);
+		}
+
+		private void SyncBattleTask(int taskId)
+		{
+			ByteBuffer data = new ByteBuffer();
+			data.writeByte(102);
+			data.writeByte(BattleService.BATTLE_TASK);
+			data.writeInt(taskId);
 			ServiceManager.PostMessageShortEx(data);
 		}
 		#endregion

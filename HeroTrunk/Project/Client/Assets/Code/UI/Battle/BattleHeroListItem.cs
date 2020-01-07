@@ -38,7 +38,7 @@ namespace MS
 			_gameObject.SetActive(false);
 		}
 
-		public void ShowHero(int heroId)
+		public void ShowHero(int heroId, int heroLv)
 		{
 			if(_gameObject.activeSelf)
 				return;
@@ -47,7 +47,7 @@ namespace MS
 			HeroId = heroId;
 			Icon.texture = ResourceLoader.LoadAsset<Texture>(string.Format("Texture/HeroIcon/Hero{0}", heroId));
 			_charHandler = BattleManager.GetInst().m_CharInScene.GetHeroByIndexM(HeroIndex);
-			SetLevel(1);
+			SetLevel(heroLv);
 		}
 
 		public void SetBtnState()

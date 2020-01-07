@@ -167,7 +167,7 @@ namespace MS
 			{
 				BattleManager.GetInst().IsWaveEnd();
 				if(BattleEnum.Enum_CharType.Monster == m_CharData.m_eType)
-					Database.GetInst().NormalBattleChangeCoin(PlayerInfo.PlayerId, 15);
+					Database.GetInst().NormalBattleChangeCoin(PlayerInfo.PlayerId, 100);
 			}
 			else
 				Invoke("_ToDead", 5f);

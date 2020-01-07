@@ -17,11 +17,12 @@ namespace MS
 		{
 			AddHeroBtn.onClick.AddListener(OpenAddPanel);
 			Description.text = ConfigData.GetStaticText("20001");
+			SetState(0);
 		}
 
 		public void SetState(int index)
 		{
-			if(index < 5)
+			if(index < 4)
 			{
 				_curIndex = index;
 				_iNeedCoin = ConfigMgr.BattleHeroLevelUpCoin(_curIndex, 0);
